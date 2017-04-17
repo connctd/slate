@@ -288,7 +288,97 @@ depending upon the Unit type.</p>
           <h1 id="things">Things</h1>
 
 <p>Things in our API are abstract representations of specific IoT related devices. They can be created, deleted
-and managed with our API.</p>
+and managed with our API. Depending on the requested action the supplied token must have certain scopes.</p>
+
+<p>Available scopes for Things:</p>
+
+<ul>
+<li>connctd.connector</li>
+<li>connctd.things.read</li>
+</ul>
+
+<h2 id="add-a-thing">Add a Thing</h2>
+
+<p>Required scope: <code class="prettyprint">connctd.connector</code></p>
+
+<p>To add a Thing you need to acquire a token with the scope <code class="prettyprint">connctd.connector</code> through the OAuth2
+process. After this you are able to create Things with the following request</p>
+
+<p><code class="prettyprint">POST https://api.connctd.io/api/v1/things</code></p>
+
+<aside class="notice">The Thing-ID needs to be unique across all Things in our API. Therefore it is
+possible that the Thing-ID is changed by our backend. The actual Thing-ID is returned in case of 
+success.</aside>
+
+<blockquote>
+<p>Request body</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;unique-thing-id&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;human readable name&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"manufacturer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;human readbale manufacturer name&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"displaytype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;hint for display purposes&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"maincomponentid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;id of the main component&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"components"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;thing unique id of component&gt;"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;human readable name of component&gt;"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"componenttype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;type of the component&gt;"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"capabilities"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;one ore more capabaliies&gt;"</span><span class="p">],</span><span class="w">
+      </span><span class="s2">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;component unique name of property&gt;"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;string representation of the value&gt;"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;short name of unit of measurement&gt;"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;data type of value (NUMBER,STRING,BOOLEAN)&gt;"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"actions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;component unique name of action&gt;"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;parameter name&gt;"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;type of parameter(NUMBER,STRING or BOOLEAN&gt;"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">   
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Response body</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"Id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"actual-thing-id"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="delete-a-thing">Delete a Thing</h2>
+
+<p>Required scope: <code class="prettyprint">connctd.connector</code></p>
+
+<p><code class="prettyprint">DELETE https://api.connctd.io/api/v1/things/&lt;thing-id&gt;</code></p>
+
+<p>If the supplied bearer token has the scope <code class="prettyprint">connctd.connector</code> and the Thing with the specified
+id was created by the application belongig to the bearer token, this request will delete the 
+specified Thing.</p>
+
+<h2 id="update-a-thing-property">Update a Thing property</h2>
+
+<p>Required scope: <code class="prettyprint">connctd.connector</code></p>
+
+<p>This endpoint lets you update a property of a Thing you created.</p>
+
+<p><code class="prettyprint">PUT https://api.connctd.io/api/v1/things/&lt;thing-id&gt;/component/&lt;component-id&gt;/property/&lt;property-name&gt;</code></p>
+
+<blockquote>
+<p>Request body</p>
+</blockquote>
+<pre class="highlight plaintext"><code>value
+</code></pre>
+<p>The supplied value must be a valid representation of the property type of this property.</p>
 
           <h1 id="errors">Errors</h1>
 
