@@ -1,14 +1,13 @@
 ---
 title: API Reference
 
-#language_tabs:
-#  - shell
-
 toc_footers:
   - <a href='https://api.connctd.io/register'>Sign Up for a Developer Key</a>
   - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
+  - units
+  - things
   - errors
 
 search: true
@@ -64,22 +63,3 @@ returned in the body.
 
 In most cases you will interact with our API in the role of an OAuth2 authenticated application.
 `TODO add OAuth2 documentation`.
-
-# Units
-
-Our API allows you to create Units to logically group Things and Users. Units are simple containers
-which have a type and which can contain children. Units also have properties. Some of which are required
-depending upon the Unit type.
-
-Unit types:
-
-* CONTAINER
-
-`TODO add documentation about Unit API`
-
-# Things
-
-Things in our API are abstract representations of specific IoT related devices. They can be created, deleted
-and managed with our API.
-
-
