@@ -8,7 +8,7 @@ test:
   - git config --global user.email "till.klocke@connctd.com"
   - git config --global user.name "Till Klocke"
   override:
-  - exit 0
+  - echo "No tests necessary" && exit 0
 
 deployment:
   production:
