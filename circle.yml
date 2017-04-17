@@ -1,0 +1,17 @@
+general:
+  branches:
+    ignore:
+      - gh-pages
+
+test:
+  pre:
+    - git config --global user.email "till.klocke@connctd.com"
+    - git config --global user.name "Till Klocke"
+  override:
+    - echo "No tests necessary" && exit 0
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - ./deploy.sh
