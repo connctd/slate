@@ -58,7 +58,6 @@ success.</aside>
     }
   ]
 }
-
 ```
 
 > Response body
@@ -90,7 +89,7 @@ This endpoint lets you update a property of a Thing you created.
 
 > Request body
 
-```
+```text
 value
 ```
 
