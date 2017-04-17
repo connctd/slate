@@ -5,8 +5,8 @@ general:
 
 test:
   pre:
-  - git config --global user.email "info@connctd.com"
-  - git config --global user.name "CircleCI"
+  - git config --global user.email "till.klocke@connctd.com"
+  - git config --global user.name "Till Klocke"
   override:
   - exit 0
 
