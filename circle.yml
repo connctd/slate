@@ -1,14 +1,17 @@
 general:
   branches:
     ignore:
-      - gh-pages
+    - gh-pages
 
 test:
+  pre:
+  - git config --global user.email "info@connctd.com"
+  - git config --global user.name "CircleCI"
   override:
-    - exit 0
+  - exit 0
 
 deployment:
   production:
     branch: master
     commands:
-      - ./deploy.sh
+    - ./deploy.sh
