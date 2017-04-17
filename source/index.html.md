@@ -1,8 +1,8 @@
 ---
 title: API Reference
 
-language_tabs:
-  - shell
+#language_tabs:
+#  - shell
 
 toc_footers:
   - <a href='https://api.connctd.io/register'>Sign Up for a Developer Key</a>
@@ -24,153 +24,62 @@ other resources in the world of IoT.
 To authenticate against our API you need verify your credentials. In return you receive a token identifying you as
 the resource owner (user), granting you a certain amount of permissions.
 
+## Login
+
+### HTTP Requests
+
 
 `POST https://api.connctd.io/api/v1/auth/login`
+
+> Request body
+
 ```json
 {
   "Email": "test@example.com",
   "Password": "pikaboo"
 }
 ```
-The response contains a bearer token allowing you access for up to an hour, to most parts of the API.
+
+### HTTP Response
+
+The response with either have the status code 200 in case of success or 401 in case the 
+supplied credentials can't be verified. In error cases a default error object is
+returned in the body.
+
+> Response body
+
 ```json
 {
  "Token": "xyz"
 }
 ```
 
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
+## Logout
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`GET https://api.connctd.io/api/v1/auth/logout`
 
-### Query Parameters
+## OAuth 2
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+In most cases you will interact with our API in the role of an OAuth2 authenticated application.
+`TODO add OAuth2 documentation`.
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
+# Units
 
-## Get a Specific Kitten
+Our API allows you to create Units to logically group Things and Users. Units are simple containers
+which have a type and which can contain children. Units also have properties. Some of which are required
+depending upon the Unit type.
 
-```ruby
-require 'kittn'
+Unit types:
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
+* CONTAINER
 
-```python
-import kittn
+`TODO add documentation about Unit API`
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+# Things
 
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
+Things in our API are abstract representations of specific IoT related devices. They can be created, deleted
+and managed with our API.
 
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
 
