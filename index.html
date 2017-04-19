@@ -273,17 +273,384 @@ returned in the body.</p>
 
           <h1 id="units">Units</h1>
 
-<p>Our API allows you to create Units to logically group Things and Users. Units are simple containers
-which have a type and which can contain children. Units also have properties. Some of which are required
-depending upon the Unit type.</p>
+<p>A unit is a primitive container that gives developers the possibility to group things and to put them into a context. Since a unit can reference other units (children and parents) even complex structures of the real world can be modeled like for example a city with it&rsquo;s streets and buildings. The type property of a unit not just gives a clue about its meaning, it also defines which properties a unit needs to have in order to be valid. By enforcing these properties even generic applications know how to handle unknown units.</p>
 
-<p>Unit types:</p>
+<h2 id="model">Model</h2>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Generated id&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Name of unit&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Type of unit&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"things"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;Reference as plain string&gt;"</span><span class="p">],</span><span class="w">
+  </span><span class="s2">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tuple(name,value)"</span><span class="p">],</span><span class="w">
+  </span><span class="s2">"children"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;Reference as plain string&gt;"</span><span class="p">],</span><span class="w">
+  </span><span class="s2">"parents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;Reference as plain string&gt;"</span><span class="p">],</span><span class="w">
+  </span><span class="s2">"subjects"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;Reference as plain string&gt;"</span><span class="p">],</span><span class="w">
+  </span><span class="s2">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Id of the owner&gt;"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<ul>
-<li>CONTAINER</li>
-</ul>
+</span></code></pre>
+<p>On the right hand side you can see an exemplary unit. We also offer a <a href="https://github.com/connctd/future-platform/blob/master/domain/unit-schema.json">unit json schema</a> which allows json object validation.</p>
 
-<p><code class="prettyprint">TODO add documentation about Unit API</code></p>
+<p>The unit <strong>type</strong> helps to interprete the meaning of a unit. Additionally it defines which properties need to be defined when creating the unit. The following table lists all available types and their corresponding, mandatory properties. Keep in mind that a unit is not restricted to those properties. As long as the mandatory properties are defined any further properties can be attached to it.</p>
+
+<p>The values of the properties <strong>parents</strong>, <strong>children</strong>, <strong>subjects</strong> and <strong>things</strong> are lists that hold references to other resource.</p>
+
+<table><thead>
+<tr>
+<th>Type</th>
+<th>Properties</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>CONTAINER</td>
+<td>-</td>
+</tr>
+<tr>
+<td>HOUSE</td>
+<td>number</td>
+</tr>
+<tr>
+<td>FLOOR</td>
+<td>number</td>
+</tr>
+<tr>
+<td>APARTMENT</td>
+<td>number</td>
+</tr>
+<tr>
+<td>ROOM</td>
+<td>originX, originY, originZ, spanX, spanY, spanZ</td>
+</tr>
+</tbody></table>
+
+<h2 id="create-unit">Create unit</h2>
+
+<p>Creates an empty unit. Additional information like parents, children or subjects can be added by subsequent calls.</p>
+
+<aside class="notice">
+Please note that for every single unit request a valid access token is required
+</aside>
+
+<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/units <em>Content-Type:</em> application/json <em>Body:</em> see below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My House"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOUSE"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"number"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"value"</span><span class="p">:</span><span class="s2">"25"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 201 <em>Body:</em> Id of newly created unit. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e1de3bcf-7699-4838-97ec-635618fb3caa"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="retrieve-units">Retrieve units</h2>
+
+<p>Retrieves a list of all accessible units</p>
+
+<p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/units</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Array of units. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e1de3bcf-7699-4838-97ec-635618fb3caa"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My House"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOUSE"</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w"> 
+  </span><span class="p">},</span><span class="w"> </span><span class="err">...</span><span class="w">
+</span><span class="p">]</span><span class="w">
+
+</span></code></pre>
+<h2 id="retrieve-unit">Retrieve unit</h2>
+
+<p>Retrieves a unit by id</p>
+
+<p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> A single unit. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e1de3bcf-7699-4838-97ec-635618fb3caa"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My House"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOUSE"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"things"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="s2">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"number"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"children"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="s2">"parents"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="s2">"subjects"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="s2">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+</span><span class="p">}</span><span class="w">   
+</span></code></pre>
+<h2 id="delete-unit">Delete unit</h2>
+
+<p>Removes a unit by its id.</p>
+
+<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200</p>
+</blockquote>
+
+<h2 id="get-unit-references">Get unit references</h2>
+
+<p>Retrives a list of unit references.</p>
+
+<p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/-parents|children-</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> List of unit references. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v1/units/1376f734-dbfc-486d-b264-f62d3ff88579"</span><span class="w">
+  </span><span class="p">},</span><span class="w"> </span><span class="err">...</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<h2 id="add-unit-reference">Add unit reference</h2>
+
+<p>Adds a reference to another unit. The reference also appears within the referenced unit either as parent or child reference.</p>
+
+<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/-parents|children- <em>Content-Type:</em> application/json <em>Body:</em> Id of parent/child unit. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1376f734-dbfc-486d-b264-f62d3ff88579"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 201</p>
+</blockquote>
+
+<h2 id="remove-unit-reference">Remove unit reference</h2>
+
+<p>Removes a reference to another unit. The reference also disappears from within the referenced unit.</p>
+
+<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/-parents|children- <em>Content-Type:</em> application/json <em>Body:</em> Id of parent/child unit. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1376f734-dbfc-486d-b264-f62d3ff88579"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200</p>
+</blockquote>
+
+<h2 id="get-subject-references">Get subject references</h2>
+
+<p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/subjects</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> List of subject references. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v1/subjects/2"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<aside class="note">
+Subject references can be used for identification and organizational puproses. They are are currently NOT callable. 
+</aside>
+
+<h2 id="add-subject-reference">Add subject reference</h2>
+
+<p>Adds a reference to a subject.</p>
+
+<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/subjects <em>Content-Type:</em> application/json <em>Body:</em> Id of subject. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 201</p>
+</blockquote>
+
+<h2 id="remove-subject-reference">Remove subject reference</h2>
+
+<p>Removes a reference to a subject.</p>
+
+<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/subjects <em>Content-Type:</em> application/json <em>Body:</em> Id of subject. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200</p>
+</blockquote>
+
+<h2 id="get-properties">Get properties</h2>
+
+<p>Retrieves a list of all properties</p>
+
+<p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/properties</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> List of properties. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"number"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<h2 id="get-property">Get property</h2>
+
+<p>Read a specific property</p>
+
+<p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> A single property. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"number"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="add-property">Add property</h2>
+
+<p>Adds a new property.</p>
+
+<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/properties <em>Content-Type:</em> application/json <em>Body:</em> New property. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MyNewProperty"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 201</p>
+</blockquote>
+
+<h2 id="delete-property">Delete property</h2>
+
+<p>Removes a property from property set</p>
+
+<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<h2 id="get-thing-references">Get thing references</h2>
+
+<p>Retrieves a list of all thing references</p>
+
+<p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/things</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> List of thing references. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v1/things/591327fe-5c1a-4dbb-a96b-9bef4de0a273"</span><span class="w">
+  </span><span class="p">},</span><span class="w"> </span><span class="err">...</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<h2 id="add-thing-reference">Add thing reference</h2>
+
+<p>Adds a reference to a things.</p>
+
+<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/things <em>Content-Type:</em> application/json <em>Body:</em> Id of thing. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"591327fe-5c1a-4dbb-a96b-9bef4de0a273"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 201</p>
+</blockquote>
+
+<h2 id="remove-thing-reference">Remove thing reference</h2>
+
+<p>Removes a reference to a thing.</p>
+
+<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/things <em>Content-Type:</em> application/json <em>Body:</em> Id of thing. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"591327fe-5c1a-4dbb-a96b-9bef4de0a273"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200</p>
+</blockquote>
 
           <h1 id="things">Things</h1>
 
@@ -405,6 +772,10 @@ specified Thing.</p>
 <tr>
 <td>404</td>
 <td>Not Found &ndash; The specified Unit or Thing could not be found</td>
+</tr>
+<tr>
+<td>409</td>
+<td>Conflict &ndash; Resource already exists or conflicts with another resource</td>
 </tr>
 <tr>
 <td>500</td>
