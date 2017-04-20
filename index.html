@@ -266,11 +266,130 @@ returned in the body.</p>
 
 <p><code class="prettyprint">GET https://api.connctd.io/api/v1/auth/logout</code></p>
 
-<h2 id="oauth-2">OAuth 2</h2>
+          <h1 id="oauth-2-0">OAuth 2.0</h1>
 
-<p>In most cases you will interact with our API in the role of an OAuth2 authenticated application.
-<code class="prettyprint">TODO add OAuth2 documentation</code>.</p>
+<p>connctd implements the OAuth 2.0 specification. By doing so developers can write and host their own apps that can obtain limited access to resources on behalf of the user. 
+Such an app (in OAuth terms it is called client) could for example list the units and things of an user or it could be used to administrate access permissions for resources. These apps do not just consume
+ resources they might also deliver new resources like for example things. A common use case for connctd apps are apps that mediate between our platform and another, foreign technology. We often name those apps &ldquo;connector&rdquo; as they are translating from a remote domain model into our thing concept.
+If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading the <a href="https://tools.ietf.org/html/rfc6749">specification</a>. In case you are uncertain regarding some parameters we also recommend reading the documentation of <a href="http://docs.hydra13.apiary.io/#reference/oauth2">hydra</a> - the framework we are using under the hood for OAuth 2.0 support.</p>
 
+<h2 id="register-an-app">Register an app</h2>
+
+<p>Registers a new application</p>
+
+<aside class="notice">
+Please note that for every request a valid access token is required and needs to be passed within the headers (Authorization:Bearer -your token-)
+</aside>
+
+<p><strong>redirect_uris:</strong> Array of redirect uris that are later on used in various flows</p>
+
+<p><strong>scope:</strong> Space separated list of scopes. The offline scope is necessary if a refresh token should be later on generated</p>
+
+<p><strong>public:</strong> If set to true the client_credentials flow can not be used</p>
+
+<p>As a response you will get back a client_id (id) and a client_secret. The client_secret needs to be stored as it can&rsquo;t be retrieved again. </p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/apps <em>Content-Type:</em> application/json <em>Body:</em> see below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"client_name"</span><span class="p">:</span><span class="s2">"My client application"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"redirect_uris"</span><span class="p">:[</span><span class="s2">"http://abc.com/auth/callback"</span><span class="p">],</span><span class="w">
+    </span><span class="s2">"policy_uri"</span><span class="p">:</span><span class="s2">"https://abc.com/policy"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"tos_uri"</span><span class="p">:</span><span class="s2">"https://abc.com/tos"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"client_uri"</span><span class="p">:</span><span class="s2">"https://abc.com/"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"logo_uri"</span><span class="p">:</span><span class="s2">"https://abc.com/static/imgs/logo.png"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"contacts"</span><span class="p">:[</span><span class="s2">"abc@connctd.com"</span><span class="p">],</span><span class="w">
+    </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"connctd.units.read connctd.units.admin connctd.connector connctd.things.read offline"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"public"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"response_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"token"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id_token"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"grant_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"authorization_code"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"implicit"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"refresh_token"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"password"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"client_credentials"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 201 <em>Body:</em> Newly created application. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1bd2f1a3-e72d-4606-b82b-86d1054f3bd4"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"client_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My client application"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"client_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"309*&lt;qEU&amp;c;B"</span><span class="p">,</span><span class="w">
+  </span><span class="err">...</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="retrieve-apps">Retrieve apps</h2>
+
+<p>Retrieves a list of all apps </p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/apps</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> List of apps. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"1bd2f1a3-e72d-4606-b82b-86d1054f3bd4"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1bd2f1a3-e72d-4606-b82b-86d1054f3bd4"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"client_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My client application"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"redirect_uris"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">],</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="delete-an-app">Delete an app</h2>
+
+<p>Removes an app by client_id</p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/apps/1bd2f1a3-e72d-4606-b82b-86d1054f3bd4</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 204</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<h2 id="requesting-authorization">Requesting Authorization</h2>
+
+<p>This request will redirect the user to the consent screen. You have to replace the example parameter values with the corresponding values of your app. A detailed parameter description can be found <a href="https://tools.ietf.org/html/rfc6749#section-4.1.1">here</a>.
+The parameters may also vary depending on the used flow.</p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/oauth2/auth?state=abcdefghiklmnop&amp;client_id=1bd2f1a3-e72d-4606-b82b-86d1054f3bd4&amp;redirect_uri=https%3A%2F%2Fabc%2Fauth%2Fcallback&amp;response_type=code&amp;scope=connctd.units.read+connctd.things.read+connctd.connector+offline</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 301</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<h2 id="requesting-a-token">Requesting a token</h2>
+
+<p>This request requires the authentication of the app by specifying an Authorization header with value <code class="prettyprint">Basic base64_encode(client_id:client_secret)</code>
+The body will contain a url encoded form with the fields <em>grant_type</em>, <em>code</em>, <em>redirect_uri</em> and <em>client_id</em>  </p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/oauth2/token <em>Content-Type:</em> application/x-www-form-urlencoded</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="n">grant_type</span><span class="o">=</span><span class="n">authorization_code</span><span class="o">&amp;</span><span class="n">code</span><span class="o">=-</span><span class="n">auth</span> <span class="n">code</span> <span class="n">from</span> <span class="n">reply</span> <span class="n">of</span> <span class="n">prev</span> <span class="n">request</span><span class="o">-&amp;</span>
+<span class="n">redirect_uri</span><span class="o">=</span><span class="n">http</span><span class="o">%</span><span class="mi">3</span><span class="n">A</span><span class="o">%</span><span class="mi">2</span><span class="n">F</span><span class="o">%</span><span class="mi">2</span><span class="n">Fabc</span><span class="o">.</span><span class="na">com</span><span class="o">%%</span><span class="mi">2</span><span class="n">Fauth</span><span class="o">%</span><span class="mi">2</span><span class="n">Fcallback</span><span class="o">&amp;</span><span class="n">client_id</span><span class="o">=</span><span class="mi">1</span><span class="n">bd2f1a3</span><span class="o">-</span><span class="n">e72d</span><span class="o">-</span><span class="mi">4606</span><span class="o">-</span><span class="n">b82b</span><span class="o">-</span><span class="mi">86</span><span class="n">d1054f3bd4</span>
+</code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"access_token"</span><span class="p">:</span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"refresh_token"</span><span class="p">:</span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"scope"</span><span class="p">:</span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
           <h1 id="units">Units</h1>
 
 <p>A unit is a primitive container that gives developers the possibility to group things and to put them into a context. Since a unit can reference other units (children and parents) even complex structures of the real world can be modeled like for example a city with it&rsquo;s streets and buildings. The type property of a unit not just gives a clue about its meaning, it also defines which properties a unit needs to have in order to be valid. By enforcing these properties even generic applications know how to handle unknown units.</p>
@@ -328,7 +447,7 @@ returned in the body.</p>
 <p>Creates an empty unit. Additional information like parents, children or subjects can be added by subsequent calls.</p>
 
 <aside class="notice">
-Please note that for every single unit request a valid access token is required
+Please note that for every request a valid access token is required and needs to be passed within the headers (Authorization:Bearer -your token-)
 </aside>
 
 <p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
