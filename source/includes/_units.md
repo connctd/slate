@@ -38,7 +38,7 @@ The values of the properties **parents**, **children**, **subjects** and **thing
 Creates an empty unit. Additional information like parents, children or subjects can be added by subsequent calls.
 
 <aside class="notice">
-Please note that for every single unit request a valid access token is required
+Please note that for every request a valid access token is required and needs to be passed within the headers (Authorization:Bearer -your token-)
 </aside>
 
 Required scope: `connctd.units.admin`

@@ -6,6 +6,7 @@ toc_footers:
   - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
+  - oauth2
   - units
   - things
   - errors
@@ -58,8 +59,3 @@ returned in the body.
 ### HTTP Request
 
 `GET https://api.connctd.io/api/v1/auth/logout`
-
-## OAuth 2
-
-In most cases you will interact with our API in the role of an OAuth2 authenticated application.
-`TODO add OAuth2 documentation`.
