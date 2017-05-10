@@ -94,3 +94,72 @@ value
 ```
 
 The supplied value must be a valid representation of the property type of this property.
+
+## Register a callback for ActionRequests
+
+Required scope: `connctd.connector`
+
+This endpoint lets application register an endpoint to receive action requests. 
+<aside class="notice">The token used to call this endpoint should be a client (application)
+specific token. The token needs to be acquired via the Client credentials grant, specified
+on Section 4.4 of RFC6749</aside>
+<aside class="notice">The callback URL needs to a HTTPS url and needs to have path in its URL.
+HTTP urls or root paths are not permitted</aside>
+
+`POST https://api.connctd.io/api/v1/actions/callback/register`
+
+> Request body
+
+```json
+{
+  "callbackUrl": "https://example.com/callbacks/actions"
+}
+
+```
+
+A succesful response will have an empty body and a status code `200`.
+
+## Create ActionRequests
+
+Required scope: `connctd.things.action`
+
+This endpoint lets users create ActionRequests which are send via the specified callbacks
+to the applications implementing the necessary logic to handle these requests.
+
+The request body contains a string map representing the parameters to call this action.
+
+The response contains a JSON representation of the created ActionRequest. The `error` field
+is optional and is only set of the status is `FAILED`. Valid values for status are
+
+* `PENDING`
+* `COMPLETED`
+* `CANCELED`
+* `FAILED`
+
+If the remote backend responds fast enough and is able to compeplete the ActionRequest the
+status may already be `COMPLETED`.
+
+<aside class="notice">ActionRequests are deleted after roughly 24 hours after their deadline.</aside>
+
+`POST http://api.connctd.io/api/v1/things/{thingId}/component/{componentId}/action/{actionName}`
+
+> Request body
+
+```json 
+{
+  "param1": "value1",
+  "param2": "value2"
+}
+```
+
+> Response body
+
+```json
+{
+  "id": "foobar",
+  "status": "PENDING",
+  "deadline": "2017-05-08T15:46:06.801064-02:00",
+  "error": "Description of error in case status is FAILED"
+}
+```
+
