@@ -128,7 +128,7 @@ Adds a new tag to the tag list of an app
 }
 ```
 
-> **Response:** *Code:* 200
+> **Response:** *Code:* 201
 
 ## Delete a tag
 
