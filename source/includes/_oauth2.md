@@ -1,4 +1,4 @@
-# OAuth2
+# OAuth 2.0
 
 The connctd platform acts as a oauth2 provider implementing all flows described in https://tools.ietf.org/html/rfc6749#section-4 except the "Resource Owner Password Credentials Grant". The following two sections only give examples based on the Authorization Code Grant Flow as there already exist hundreds of good oauth2 tutorials which can be read in case you need another flow.
 

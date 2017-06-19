@@ -134,7 +134,7 @@ Adds a new tag to the tag list of an app
 
 Removes a tag
 
-> **Request:** *Method:* DELETE *Url:* https://api.connctd.io/api/v1/apps/1bd2f1a3-e72d-4606-b82b-86d1054f3bd4/tags/<TagName>
+> **Request:** *Method:* DELETE *Url:* https://api.connctd.io/api/v1/apps/1bd2f1a3-e72d-4606-b82b-86d1054f3bd4/tags/TAGNAME
 
 ```json
 ```
