@@ -139,7 +139,7 @@ Removes a tag
 ```json
 ```
 
-> **Response:** *Code:* 200
+> **Response:** *Code:* 204
 
 ```json
 ```
