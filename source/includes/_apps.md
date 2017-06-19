@@ -34,7 +34,7 @@ As a response you will get back a client_id, id and a client_secret. The client_
   "policyuri":"https://abc.com/policy",
   "tosuri":"https://abc.com/tos",
   "logouri":"https://abc.com/logo.png",
-  "scopes": ["connctd.units.read","connctd.connector","connctd.things.read","offline openid"],
+  "scopes": ["connctd.units.read","connctd.connector","connctd.things.read","offline","openid"],
   "public":true,
   "tags":[{"name":"Smart Home"}],
   "contacts":["your.mail@mail.com"],
