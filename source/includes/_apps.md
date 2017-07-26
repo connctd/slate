@@ -17,7 +17,9 @@ Please note that for every request a valid access token is required and needs to
 
 **scope:** Space separated list of scopes. The offline scope is necessary if a refresh token should be later on generated
 
-**public:** If set to true any user can see your app (e.g. in an app store). If set to false only you can see the app.
+**public:** You have to set this to true if there exists the possibility of client secret disclosure (e.g. Android app might be decompiled). Apps with setting public=true will not be able to register action callback urls since the client_credentials grant type flow is required for that but which is deactivated due to security concerns with public apps.
+
+**visible:** If set to true any user can see your app (e.g. in an app store). If set to false only you can see the app.
 
 **tags:** Used to search for apps with specific meanings (e.g. Smart Home, Netatmo, Assisted living)
 
@@ -36,6 +38,7 @@ As a response you will get back a client_id, id and a client_secret. The client_
   "logouri":"https://abc.com/logo.png",
   "scopes": ["connctd.units.read","connctd.connector","connctd.things.read","offline","openid"],
   "public":true,
+  "visible":true,
   "tags":[{"name":"Smart Home"}],
   "contacts":["your.mail@mail.com"],
   "responsetypes": [
@@ -157,5 +160,24 @@ Removes an app by client_id
 
 ```json
 ```
+
+## Register a callback url
+
+> **Request:** *Method:* POST *Url:* https://api.connctd.io/api/v1/actions/callback/register *Authorization:* Bearer app-token 
+
+This request stores a system wide callback url for all action requests that are related to this app. This is important whenever an app creates things that contain actions. As soon a user triggers any of these actions by performing an action request the request is forwarded to the given callback url. 
+The header requires a valid app token. See section oauth2 -> Register an app token for more information about gaining app tokens
+
+```json
+{
+  "CallbackUrl":"https://remote-service-url"
+}
+```
+
+> **Response:** *Code:* 200
+
+```json
+```
+
 
 

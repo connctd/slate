@@ -1,6 +1,6 @@
 # Units
 
-A unit is a primitive container that gives developers the possibility to group things and to put them into a context. Since a unit can reference other units (children and parents) even complex structures of the real world can be modeled like for example a city with it's streets and buildings. The type property of a unit not just gives a clue about its meaning, it also defines which properties a unit needs to have in order to be valid. By enforcing these properties even generic applications know how to handle unknown units.
+A unit is a primitive container that gives developers the possibility to group things and to put them into a context. Since a unit can reference other units (children and parents) even complex structures of the real world can be modeled like for example a city with it's streets and buildings. The type property of a unit not just gives a clue about its meaning, it also defines which properties a unit needs to have in order to be valid. By enforcing these properties even generic applications know how to handle unknown units. This only counts as long as unit types are used that are predefined within our specification. If no predefined unit type fits the use case or context, the developer or unit creating app can choose its own unit type.
 
 ## Model 
 
@@ -9,21 +9,21 @@ A unit is a primitive container that gives developers the possibility to group t
   "id": "<Generated id>",
   "name": "<Name of unit>",
   "type": "<Type of unit>",
-  "things": ["<Reference as plain string>"],
+  "things": [{"href":"https://api.connctd.io/api/v1/things/ab..."}],
   "properties": ["tuple(name,value)"],
-  "children": ["<Reference as plain string>"],
-  "parents": ["<Reference as plain string>"],
-  "subjects": ["<Reference as plain string>"],
-  "owner": "<Id of the owner>"
+  "children": [{"href":"https://api.connctd.io/api/v1/units/xy..."}],
+  "parents": [{"href":"https://api.connctd.io/api/v1/units/qw..."}],
+  "subjects": [{"href":"https://api.connctd.io/api/v1/subjects/98..."}],
+  "owner": "65...."
 }
 
 ```
 
 On the right hand side you can see an exemplary unit. We also offer a [unit json schema](https://github.com/connctd/future-platform/blob/master/domain/unit-schema.json) which allows json object validation.
 
-The unit **type** helps to interprete the meaning of a unit. Additionally it defines which properties need to be defined when creating the unit. The following table lists all available types and their corresponding, mandatory properties. Keep in mind that a unit is not restricted to those properties. As long as the mandatory properties are defined any further properties can be attached to it.
+The unit **type** helps to interprete the meaning of a unit. Additionally it defines which properties need to be defined when creating the unit (only if it is predefined by specification). The following table lists all predefined types and their corresponding, mandatory properties. Keep in mind that a unit is not restricted to those properties. As long as the mandatory properties are defined any further properties can be attached to it. Using a type which is not listed below will disable the mandatory properties - check.
 
-The values of the properties **parents**, **children**, **subjects** and **things** are lists that hold references to other resource.
+The values of the properties **parents**, **children**, **subjects** and **things** are lists holding references to other resources.
 
 | Type  | Properties |
 | ------------- | ------------- |
@@ -68,7 +68,7 @@ Required scope: `connctd.units.admin`
 
 ## Retrieve units
 
-Retrieves a list of all accessible units
+Retrieves a list of resource links to units the user belongs to
 
 Required scope: `connctd.units.read`
 
@@ -82,10 +82,7 @@ Required scope: `connctd.units.read`
 ```json
 [
   {
-    "id": "e1de3bcf-7699-4838-97ec-635618fb3caa",
-    "name": "My House",
-    "type": "HOUSE",
-    ... 
+    "href": "https://api.connctd.io/api/v1/units/37cbbcfb-9a5c-4931-aa55-f73ff0af0e80"
   }, ...
 ]
     
@@ -203,13 +200,13 @@ Required scope: `connctd.units.read`
 ```json
 [
   {
-    "href": "/api/v1/subjects/2"
+    "href": "https://api.connctd.io/api/v1/subjects/2"
   }
 ]
 ```
 
 <aside class="note">
-Subject references can be used for identification and organizational puproses. They are are currently NOT callable. 
+Subject references can be used for identification and organizational puproses. They are are currently NOT callable. Another reason why it makes sense to add a subject to this list is that the unit will appear within the list of unit resource links (GET /api/v1/units) of the added subject. But as long as there exists no policy (see section Policies) that regulates the access of that subject to the unit the addressed subject will be not able to resolve the unit
 </aside>
 
 ## Add subject reference
@@ -336,7 +333,7 @@ Required scope: `connctd.units.read`
 ```json
 [
   {
-    "href": "/api/v1/things/591327fe-5c1a-4dbb-a96b-9bef4de0a273"
+    "href": "https://api.connctd.io/api/v1/things/591327fe-5c1a-4dbb-a96b-9bef4de0a273"
   }, ...
 ]
 ```

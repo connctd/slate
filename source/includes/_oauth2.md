@@ -1,6 +1,6 @@
 # OAuth 2.0
 
-The connctd platform acts as a oauth2 provider implementing all flows described in https://tools.ietf.org/html/rfc6749#section-4 except the "Resource Owner Password Credentials Grant". The following two sections only give examples based on the Authorization Code Grant Flow as there already exist hundreds of good oauth2 tutorials which can be read in case you need another flow.
+The connctd platform acts as a oauth2 provider implementing all flows described in https://tools.ietf.org/html/rfc6749#section-4 except the "Resource Owner Password Credentials Grant". The following two sections mainly focus on the Authorization Code Grant Flow as there already exist hundreds of good oauth2 tutorials which can be read in case you need another flow.
 
 ## Requesting Authorization
 
@@ -35,5 +35,25 @@ redirect_uri=http%3A%2F%2Fabc.com%%2Fauth%2Fcallback&client_id=1bd2f1a3-e72d-460
     "access_token":"...",
     "refresh_token":"...",
     "scope":"...",
+}
+```
+
+## Requesting an app token
+
+This is the so called client credentials grant flow and allows an app to fetch an acccess token that is NOT user related. This is required for e.g. registering an app callback (see apps)
+
+> **Request:** *Method:* POST *Url:* https://api.connctd.io/oauth2/token *Content-Type:* application/x-www-form-urlencoded *Authorization:* Basic ------
+
+```java
+grant_type=client_credentials&scope=connctd.connector
+```
+
+Authorization header value needs to be of format: base64_encode(client_id:client_secret)
+
+> **Response:** *Code:* 200
+
+```json
+{
+    "access_token":"..."
 }
 ```
