@@ -268,7 +268,7 @@ returned in the body.</p>
 
           <h1 id="oauth-2-0">OAuth 2.0</h1>
 
-<p>The connctd platform acts as a oauth2 provider implementing all flows described in https://tools.ietf.org/html/rfc6749#section-4 except the &ldquo;Resource Owner Password Credentials Grant&rdquo;. The following two sections only give examples based on the Authorization Code Grant Flow as there already exist hundreds of good oauth2 tutorials which can be read in case you need another flow.</p>
+<p>The connctd platform acts as a oauth2 provider implementing all flows described in https://tools.ietf.org/html/rfc6749#section-4 except the &ldquo;Resource Owner Password Credentials Grant&rdquo;. The following two sections mainly focus on the Authorization Code Grant Flow as there already exist hundreds of good oauth2 tutorials which can be read in case you need another flow.</p>
 
 <h2 id="requesting-authorization">Requesting Authorization</h2>
 
@@ -302,6 +302,24 @@ The body will contain a url encoded form with the fields <em>grant_type</em>, <e
     </span><span class="s2">"scope"</span><span class="p">:</span><span class="s2">"..."</span><span class="p">,</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+<h2 id="requesting-an-app-token">Requesting an app token</h2>
+
+<p>This is the so called client credentials grant flow and allows an app to fetch an acccess token that is NOT user related. This is required for e.g. registering an app callback (see apps)</p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/oauth2/token <em>Content-Type:</em> application/x-www-form-urlencoded <em>Authorization:</em> Basic &mdash;&mdash;</p>
+</blockquote>
+<pre class="highlight java tab-java"><code><span class="n">grant_type</span><span class="o">=</span><span class="n">client_credentials</span><span class="o">&amp;</span><span class="n">scope</span><span class="o">=</span><span class="n">connctd</span><span class="o">.</span><span class="na">connector</span>
+</code></pre>
+<p>Authorization header value needs to be of format: base64_encode(client_id:client_secret)</p>
+
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"access_token"</span><span class="p">:</span><span class="s2">"..."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
           <h1 id="apps">Apps</h1>
 
 <p>connctd implements the OAuth 2.0 specification. By doing so developers can write and host their own apps that can obtain limited access to resources on behalf of the user. 
@@ -321,7 +339,9 @@ Please note that for every request a valid access token is required and needs to
 
 <p><strong>scope:</strong> Space separated list of scopes. The offline scope is necessary if a refresh token should be later on generated</p>
 
-<p><strong>public:</strong> If set to true any user can see your app (e.g. in an app store). If set to false only you can see the app.</p>
+<p><strong>public:</strong> You have to set this to true if there exists the possibility of client secret disclosure (e.g. Android app might be decompiled). Apps with setting public=true will not be able to register action callback urls since the client_credentials grant type flow is required for that but which is deactivated due to security concerns with public apps.</p>
+
+<p><strong>visible:</strong> If set to true any user can see your app (e.g. in an app store). If set to false only you can see the app.</p>
 
 <p><strong>tags:</strong> Used to search for apps with specific meanings (e.g. Smart Home, Netatmo, Assisted living)</p>
 
@@ -340,6 +360,7 @@ Please note that for every request a valid access token is required and needs to
   </span><span class="s2">"logouri"</span><span class="p">:</span><span class="s2">"https://abc.com/logo.png"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"scopes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"connctd.units.read"</span><span class="p">,</span><span class="s2">"connctd.connector"</span><span class="p">,</span><span class="s2">"connctd.things.read"</span><span class="p">,</span><span class="s2">"offline"</span><span class="p">,</span><span class="s2">"openid"</span><span class="p">],</span><span class="w">
   </span><span class="s2">"public"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"visible"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="s2">"tags"</span><span class="p">:[{</span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"Smart Home"</span><span class="p">}],</span><span class="w">
   </span><span class="s2">"contacts"</span><span class="p">:[</span><span class="s2">"your.mail@mail.com"</span><span class="p">],</span><span class="w">
   </span><span class="s2">"responsetypes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -453,29 +474,45 @@ Please note that for every request a valid access token is required and needs to
 <p><strong>Response:</strong> <em>Code:</em> 204</p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
+<h2 id="register-a-callback-url">Register a callback url</h2>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/actions/callback/register <em>Authorization:</em> Bearer app-token </p>
+</blockquote>
+
+<p>This request stores a system wide callback url for all action requests that are related to this app. This is important whenever an app creates things that contain actions. As soon a user triggers any of these actions by performing an action request the request is forwarded to the given callback url. 
+The header requires a valid app token. See section oauth2 -&gt; Register an app token for more information about gaining app tokens</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"CallbackUrl"</span><span class="p">:</span><span class="s2">"https://remote-service-url"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
           <h1 id="units">Units</h1>
 
-<p>A unit is a primitive container that gives developers the possibility to group things and to put them into a context. Since a unit can reference other units (children and parents) even complex structures of the real world can be modeled like for example a city with it&rsquo;s streets and buildings. The type property of a unit not just gives a clue about its meaning, it also defines which properties a unit needs to have in order to be valid. By enforcing these properties even generic applications know how to handle unknown units.</p>
+<p>A unit is a primitive container that gives developers the possibility to group things and to put them into a context. Since a unit can reference other units (children and parents) even complex structures of the real world can be modeled like for example a city with it&rsquo;s streets and buildings. The type property of a unit not just gives a clue about its meaning, it also defines which properties a unit needs to have in order to be valid. By enforcing these properties even generic applications know how to handle unknown units. This only counts as long as unit types are used that are predefined within our specification. If no predefined unit type fits the use case or context, the developer or unit creating app can choose its own unit type.</p>
 
 <h2 id="model">Model</h2>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Generated id&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Name of unit&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Type of unit&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"things"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;Reference as plain string&gt;"</span><span class="p">],</span><span class="w">
+  </span><span class="s2">"things"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"https://api.connctd.io/api/v1/things/ab..."</span><span class="p">}],</span><span class="w">
   </span><span class="s2">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tuple(name,value)"</span><span class="p">],</span><span class="w">
-  </span><span class="s2">"children"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;Reference as plain string&gt;"</span><span class="p">],</span><span class="w">
-  </span><span class="s2">"parents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;Reference as plain string&gt;"</span><span class="p">],</span><span class="w">
-  </span><span class="s2">"subjects"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;Reference as plain string&gt;"</span><span class="p">],</span><span class="w">
-  </span><span class="s2">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Id of the owner&gt;"</span><span class="w">
+  </span><span class="s2">"children"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"https://api.connctd.io/api/v1/units/xy..."</span><span class="p">}],</span><span class="w">
+  </span><span class="s2">"parents"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"https://api.connctd.io/api/v1/units/qw..."</span><span class="p">}],</span><span class="w">
+  </span><span class="s2">"subjects"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"https://api.connctd.io/api/v1/subjects/98..."</span><span class="p">}],</span><span class="w">
+  </span><span class="s2">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"65...."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre>
 <p>On the right hand side you can see an exemplary unit. We also offer a <a href="https://github.com/connctd/future-platform/blob/master/domain/unit-schema.json">unit json schema</a> which allows json object validation.</p>
 
-<p>The unit <strong>type</strong> helps to interprete the meaning of a unit. Additionally it defines which properties need to be defined when creating the unit. The following table lists all available types and their corresponding, mandatory properties. Keep in mind that a unit is not restricted to those properties. As long as the mandatory properties are defined any further properties can be attached to it.</p>
+<p>The unit <strong>type</strong> helps to interprete the meaning of a unit. Additionally it defines which properties need to be defined when creating the unit (only if it is predefined by specification). The following table lists all predefined types and their corresponding, mandatory properties. Keep in mind that a unit is not restricted to those properties. As long as the mandatory properties are defined any further properties can be attached to it. Using a type which is not listed below will disable the mandatory properties - check.</p>
 
-<p>The values of the properties <strong>parents</strong>, <strong>children</strong>, <strong>subjects</strong> and <strong>things</strong> are lists that hold references to other resource.</p>
+<p>The values of the properties <strong>parents</strong>, <strong>children</strong>, <strong>subjects</strong> and <strong>things</strong> are lists holding references to other resources.</p>
 
 <table><thead>
 <tr>
@@ -538,7 +575,7 @@ Please note that for every request a valid access token is required and needs to
 </span></code></pre>
 <h2 id="retrieve-units">Retrieve units</h2>
 
-<p>Retrieves a list of all accessible units</p>
+<p>Retrieves a list of resource links to units the user belongs to</p>
 
 <p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
 
@@ -551,10 +588,7 @@ Please note that for every request a valid access token is required and needs to
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e1de3bcf-7699-4838-97ec-635618fb3caa"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My House"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOUSE"</span><span class="p">,</span><span class="w">
-    </span><span class="err">...</span><span class="w"> 
+    </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.connctd.io/api/v1/units/37cbbcfb-9a5c-4931-aa55-f73ff0af0e80"</span><span class="w">
   </span><span class="p">},</span><span class="w"> </span><span class="err">...</span><span class="w">
 </span><span class="p">]</span><span class="w">
 
@@ -669,12 +703,12 @@ Please note that for every request a valid access token is required and needs to
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v1/subjects/2"</span><span class="w">
+    </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.connctd.io/api/v1/subjects/2"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 <aside class="note">
-Subject references can be used for identification and organizational puproses. They are are currently NOT callable. 
+Subject references can be used for identification and organizational puproses. They are are currently NOT callable. Another reason why it makes sense to add a subject to this list is that the unit will appear within the list of unit resource links (GET /api/v1/units) of the added subject. But as long as there exists no policy (see section Policies) that regulates the access of that subject to the unit the addressed subject will be not able to resolve the unit
 </aside>
 
 <h2 id="add-subject-reference">Add subject reference</h2>
@@ -796,7 +830,7 @@ Subject references can be used for identification and organizational puproses. T
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v1/things/591327fe-5c1a-4dbb-a96b-9bef4de0a273"</span><span class="w">
+    </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.connctd.io/api/v1/things/591327fe-5c1a-4dbb-a96b-9bef4de0a273"</span><span class="w">
   </span><span class="p">},</span><span class="w"> </span><span class="err">...</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
