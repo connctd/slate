@@ -331,13 +331,9 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
 
 <p>Registers a new application</p>
 
-<aside class="notice">
-Please note that for every request a valid access token is required and needs to be passed within the headers (Authorization:Bearer -your token-)
-</aside>
-
 <p><strong>redirect_uris:</strong> Array of redirect uris that are later on used in various flows</p>
 
-<p><strong>scope:</strong> Space separated list of scopes. The offline scope is necessary if a refresh token should be later on generated</p>
+<p><strong>scope:</strong> Space separated list of scopes. The offline scope is necessary if a refresh token should be later on generated. You can see in a list of all available scopes within the <em>scopes</em> section</p>
 
 <p><strong>public:</strong> You have to set this to true if there exists the possibility of client secret disclosure (e.g. Android app might be decompiled). Apps with setting public=true will not be able to register action callback urls since the client_credentials grant type flow is required for that but which is deactivated due to security concerns with public apps.</p>
 
@@ -387,6 +383,8 @@ Please note that for every request a valid access token is required and needs to
   </span><span class="s2">"client_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NWx.W-B&gt;G/!u"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+<p>Required scope: <code class="prettyprint">connctd.core</code></p>
+
 <h2 id="retrieve-apps">Retrieve apps</h2>
 
 <p>Retrieves a list of all apps </p>
@@ -415,8 +413,9 @@ Please note that for every request a valid access token is required and needs to
   </span><span class="p">},</span><span class="w">
   </span><span class="err">...</span><span class="w">
 </span><span class="p">]</span><span class="w">
-
 </span></code></pre>
+<p>Required scope: <code class="prettyprint">connctd.core</code></p>
+
 <h2 id="retrieve-an-app">Retrieve an app</h2>
 
 <p>Retrieves a specific app</p>
@@ -435,6 +434,8 @@ Please note that for every request a valid access token is required and needs to
   </span><span class="err">...</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+<p>Required scope: <code class="prettyprint">connctd.core</code></p>
+
 <h2 id="add-tag">Add tag</h2>
 
 <p>Adds a new tag to the tag list of an app</p>
@@ -449,6 +450,8 @@ Please note that for every request a valid access token is required and needs to
 <blockquote>
 <p><strong>Response:</strong> <em>Code:</em> 201</p>
 </blockquote>
+
+<p>Required scope: <code class="prettyprint">connctd.core</code></p>
 
 <h2 id="delete-a-tag">Delete a tag</h2>
 
@@ -474,6 +477,8 @@ Please note that for every request a valid access token is required and needs to
 <p><strong>Response:</strong> <em>Code:</em> 204</p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
+<p>Required scope: <code class="prettyprint">connctd.core</code></p>
+
 <h2 id="register-a-callback-url">Register a callback url</h2>
 
 <blockquote>
@@ -546,11 +551,7 @@ The header requires a valid app token. See section oauth2 -&gt; Register an app 
 
 <p>Creates an empty unit. Additional information like parents, children or subjects can be added by subsequent calls.</p>
 
-<aside class="notice">
-Please note that for every request a valid access token is required and needs to be passed within the headers (Authorization:Bearer -your token-)
-</aside>
-
-<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/units <em>Content-Type:</em> application/json <em>Body:</em> see below</p>
@@ -577,7 +578,7 @@ Please note that for every request a valid access token is required and needs to
 
 <p>Retrieves a list of resource links to units the user belongs to</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.read or connctd.core</code></p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/units</p>
@@ -597,7 +598,7 @@ Please note that for every request a valid access token is required and needs to
 
 <p>Retrieves a unit by id</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.read or connctd.core</code></p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-</p>
@@ -627,7 +628,7 @@ Please note that for every request a valid access token is required and needs to
 
 <p>Removes a unit by its id.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-</p>
@@ -641,7 +642,7 @@ Please note that for every request a valid access token is required and needs to
 
 <p>Retrives a list of unit references.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.read or connctd.core</code></p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/-parents|children-</p>
@@ -660,7 +661,7 @@ Please note that for every request a valid access token is required and needs to
 
 <p>Adds a reference to another unit. The reference also appears within the referenced unit either as parent or child reference.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/-parents|children- <em>Content-Type:</em> application/json <em>Body:</em> Id of parent/child unit. See example below</p>
@@ -677,7 +678,7 @@ Please note that for every request a valid access token is required and needs to
 
 <p>Removes a reference to another unit. The reference also disappears from within the referenced unit.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/-parents|children- <em>Content-Type:</em> application/json <em>Body:</em> Id of parent/child unit. See example below</p>
@@ -692,7 +693,7 @@ Please note that for every request a valid access token is required and needs to
 
 <h2 id="get-subject-references">Get subject references</h2>
 
-<p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.read or connctd.core</code></p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/subjects</p>
@@ -715,7 +716,7 @@ Subject references can be used for identification and organizational puproses. T
 
 <p>Adds a reference to a subject.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/subjects <em>Content-Type:</em> application/json <em>Body:</em> Id of subject. See example below</p>
@@ -732,7 +733,7 @@ Subject references can be used for identification and organizational puproses. T
 
 <p>Removes a reference to a subject.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/subjects <em>Content-Type:</em> application/json <em>Body:</em> Id of subject. See example below</p>
@@ -749,7 +750,7 @@ Subject references can be used for identification and organizational puproses. T
 
 <p>Retrieves a list of all properties</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.read or connctd.core</code></p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/properties</p>
@@ -769,7 +770,7 @@ Subject references can be used for identification and organizational puproses. T
 
 <p>Read a specific property</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.read or connctd.core</code></p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-</p>
@@ -787,7 +788,7 @@ Subject references can be used for identification and organizational puproses. T
 
 <p>Adds a new property.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/properties <em>Content-Type:</em> application/json <em>Body:</em> New property. See example below</p>
@@ -805,7 +806,7 @@ Subject references can be used for identification and organizational puproses. T
 
 <p>Removes a property from property set</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-</p>
@@ -819,7 +820,7 @@ Subject references can be used for identification and organizational puproses. T
 
 <p>Retrieves a list of all thing references</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.read or connctd.core</code></p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/things</p>
@@ -838,7 +839,7 @@ Subject references can be used for identification and organizational puproses. T
 
 <p>Adds a reference to a things.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/things <em>Content-Type:</em> application/json <em>Body:</em> Id of thing. See example below</p>
@@ -855,7 +856,7 @@ Subject references can be used for identification and organizational puproses. T
 
 <p>Removes a reference to a thing.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/things <em>Content-Type:</em> application/json <em>Body:</em> Id of thing. See example below</p>
@@ -880,21 +881,13 @@ and managed with our API. Depending on the requested action the supplied token m
 <li>connctd.things.read</li>
 </ul>
 
-<h2 id="add-a-thing">Add a Thing</h2>
-
-<p>Required scope: <code class="prettyprint">connctd.connector</code></p>
+<h2 id="create-thing">Create Thing</h2>
 
 <p>To add a Thing you need to acquire a token with the scope <code class="prettyprint">connctd.connector</code> through the OAuth2
 process. After this you are able to create Things with the following request</p>
 
-<p><code class="prettyprint">POST https://api.connctd.io/api/v1/things</code></p>
-
-<aside class="notice">The Thing-ID needs to be unique across all Things in our API. Therefore it is
-possible that the Thing-ID is changed by our backend. The actual Thing-ID is returned in case of 
-success.</aside>
-
 <blockquote>
-<p>Request body</p>
+<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/things <em>Content-Type:</em> application/json <em>Body:</em> see below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;unique-thing-id&gt;"</span><span class="p">,</span><span class="w">
@@ -932,36 +925,369 @@ success.</aside>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p>Response body</p>
+<p><strong>Response:</strong> <em>Code:</em> 201 <em>Body:</em> Id of newly created thing. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"Id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"actual-thing-id"</span><span class="w">
+  </span><span class="s2">"Id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6088362-a864-4834-89eb-d9e4dafbaefe"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<h2 id="delete-a-thing">Delete a Thing</h2>
+<p>Required scope: <code class="prettyprint">connctd.connector</code></p>
+
+<aside class="notice">The Thing-ID needs to be unique across all Things in our API. Therefore it is
+possible that the Thing-ID is changed by our backend. The actual Thing-ID is returned in case of 
+success.</aside>
+
+<h2 id="retrieve-things">Retrieve things</h2>
+
+<p>Retrieves a list of all things the subject is owner of. Be aware that this list does NOT contain things that are shared via policies with the subject.</p>
+
+<p>Required scope: <code class="prettyprint">connctd.things.read or connctd.core</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/things</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> List of thing references. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.connctd.io/api/v1/things/1376f734-dbfc-486d-b264-f62d3ff88579"</span><span class="w">
+  </span><span class="p">},</span><span class="w"> </span><span class="err">...</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<h2 id="retrieve-thing">Retrieve thing</h2>
+
+<p>Retrieves a single thing.</p>
+
+<p>Required scope: <code class="prettyprint">connctd.things.read or connctd.core</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Thing. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"177e3f1a-ef98-4898-b277-b6b392720be9"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TutorialDummyThing"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"manufacturer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tutorial app"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"displayType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LAMP"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"mainComponentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lamp"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"componentLinks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.connctd.io/api/v1/things/177e3f1a-ef98-4898-b277-b6b392720be9/components/lamp"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="retrieve-thing-component">Retrieve thing component</h2>
+
+<p>Retrieves the component of a thing.</p>
+
+<p>Required scope: <code class="prettyprint">connctd.things.read or connctd.core</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Thing component. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lamp"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lamp"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"componentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LAMP"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"capabilities"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"SWITCHABLE"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"propertyLinks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.connctd.io/api/v1/things/177e3f1a-ef98-4898-b277-b6b392720be9/components/lamp/properties/on"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"actions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"setOn"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BOOLEAN"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="retrieve-component-property">Retrieve component property</h2>
+
+<p>Retrieves the property of a component.</p>
+
+<p>Required scope: <code class="prettyprint">connctd.things.read or connctd.core</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-/properties/-propertyName-</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Component property. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ONOFF"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BOOLEAN"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lastUpdate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-08-23T14:10:53Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="trigger-action-request">Trigger action request</h2>
+
+<p>Used to trigger actions offered by a component. The content of the body depends on the action parameters which can be found in the action description of the corresponding thing component. Action requests will be sent to the callback urls corresponding to the connector/app that has created the app (<em>see Apps-&gt;Register a callback url</em>).</p>
+
+<p>Required scope: <code class="prettyprint">connctd.things.action</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-/actions/-actionName-</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"on"</span><span class="p">:</span><span class="s2">"true"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 201 <em>Body:</em> Thing component. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ebfc9fa6-5eb6-4217-bde5-3439797c4577"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COMPLETED"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"deadline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-08-30T15:00:08.941380198Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="update-thing-property">Update thing property</h2>
+
+<p>This endpoint lets you update a property of a Thing you created. The supplied value must be a valid representation of the property type of this property.</p>
 
 <p>Required scope: <code class="prettyprint">connctd.connector</code></p>
 
-<p><code class="prettyprint">DELETE https://api.connctd.io/api/v1/things/&lt;thing-id&gt;</code></p>
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> PUT <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-/properties/-propertyname-</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xyz"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Empty body</p>
+</blockquote>
+
+<h2 id="delete-thing">Delete thing</h2>
 
 <p>If the supplied bearer token has the scope <code class="prettyprint">connctd.connector</code> and the Thing with the specified
 id was created by the application belongig to the bearer token, this request will delete the 
 specified Thing.</p>
 
-<h2 id="update-a-thing-property">Update a Thing property</h2>
-
 <p>Required scope: <code class="prettyprint">connctd.connector</code></p>
 
-<p>This endpoint lets you update a property of a Thing you created.</p>
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Empty body</p>
+</blockquote>
 
-<p><code class="prettyprint">PUT https://api.connctd.io/api/v1/things/&lt;thing-id&gt;/component/&lt;component-id&gt;/property/&lt;property-name&gt;</code></p>
+          <h1 id="policies">Policies</h1>
+
+<p>Whenever a unit or thing is created it belongs to a specific subject and thus can only be seen by that subject. Policies allow a subject to share resources with other subjects. Depending on the policy settings a policy can give e.g. access to a complete thing or only parts and specific actions of a thing like a single sensor reading.</p>
+
+<h2 id="model">Model</h2>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;generated id&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;description of policy&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"subjects"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;subject id&gt;"</span><span class="p">],</span><span class="w">
+  </span><span class="s2">"resources"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;resource id&gt;"</span><span class="p">],</span><span class="w">
+  </span><span class="s2">"actions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"GET"</span><span class="p">,</span><span class="w"> </span><span class="s2">"UPDATE"</span><span class="p">,</span><span class="w"> </span><span class="s2">"CREATE"</span><span class="p">,</span><span class="w"> </span><span class="s2">"DELETE"</span><span class="p">],</span><span class="w">
+  </span><span class="s2">"effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;allow|deny&gt;"</span><span class="w">
+  </span><span class="s2">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;who created the policy&gt;"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p>On the right hand side you can see the model of a policy on how it is stored within our database.</p>
+
+<p>The <strong>subjects</strong> parameter holds a list of subject ids (represented as plain strings) indicating to which subjects the policy will take effect to. <strong>resources</strong> is a list of resource names and defines to which resources the policy will apply. See the section <em>Create policy</em> for a detailed description on to specify resources. The parameter <strong>actions</strong> controls the actions that will be allowed by the subjects on the defined resources. As soon as a policy fits the <strong>effect</strong> finally determines whether the access will be allowed or denied. The effect value <em>allow</em> will be used in most cases. Usage of <em>deny</em> makes sense if you have defined overlapping policies. In those cases a <em>deny</em> policy will always win over an <em>allow</em> policy.</p>
+
+<h2 id="create-policy">Create policy</h2>
+
+<p>Creates a policy that is applied to given subjects as soon as request fits one of given resources.</p>
 
 <blockquote>
-<p>Request body</p>
+<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/policies <em>Content-Type:</em> application/json <em>Body:</em> see below</p>
 </blockquote>
-<pre class="highlight plaintext"><code>value
-</code></pre>
-<p>The supplied value must be a valid representation of the property type of this property.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="s2">"Dummy policy"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"resources"</span><span class="p">:[</span><span class="s2">"resource:things:f85eb546-e791-4642-86b1-a981678dcf31"</span><span class="p">,</span><span class="w"> </span><span class="s2">"resource:things:f85eb546-e791-4642-86b1-a981678dcf31:*"</span><span class="p">],</span><span class="w">
+  </span><span class="s2">"subjects"</span><span class="p">:[</span><span class="s2">"122f0260-2506-44b6-8d08-574ad27d7529"</span><span class="p">,</span><span class="w"> </span><span class="s2">"a21f9779-c44e-4e70-9f3c-16e31a93094b"</span><span class="p">],</span><span class="w">
+  </span><span class="s2">"effect"</span><span class="p">:</span><span class="s2">"allow"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"actions"</span><span class="p">:[</span><span class="s2">"GET"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 201 <em>Body:</em> Id of newly created policy. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6088362-a864-4834-89eb-d9e4dafbaefe"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>A <strong>Resources</strong> describes an entity within the connctd platform. Right now we support referencing things (and of course sub elements) and units. A resource can only be referenced from within a policy if the subject creating the policy is also the owner of the resource. Resources have to be declared in the following way: </p>
+
+<p><code class="prettyprint">resources:&lt;things|units&gt;:&lt;non-wildcard-id&gt;[:&lt;optional subelements including wildcards]</code></p>
+
+<p>Resource definitions not following this pattern will cause Bad Request error response.</p>
+
+<p>Please note that a resource name needs to contain the thing or unit ids - no wildcards are allowed on this level of the resource name.</p>
+
+<p>Examples:</p>
+
+<table><thead>
+<tr>
+<th>Resourcename</th>
+<th> Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>resources:things:123</td>
+<td>Subject can access the top level thing but not sub elements like components or actions</td>
+</tr>
+<tr>
+<td>resources:things:123:*</td>
+<td>Subject can access all sub elements but not top level thing</td>
+</tr>
+<tr>
+<td>resources:things:123:components:lamp:properties:*</td>
+<td>Subject can only access all the lamp properties</td>
+</tr>
+<tr>
+<td>resources:things:123:components:lamp:properties:on</td>
+<td>Subject can only access all the on property of the lamp</td>
+</tr>
+<tr>
+<td>resources:things:123:components:*:properties:on</td>
+<td>Subject can access all properties with name on</td>
+</tr>
+<tr>
+<td>resources:units:123</td>
+<td>Subject can access the unit 123</td>
+</tr>
+</tbody></table>
+
+<p>Required scope: <code class="prettyprint">connctd.policies.admin or connctd.core</code></p>
+
+<h2 id="retrieve-policies">Retrieve policies</h2>
+
+<p>Retrieves a list of all policies the subject has created or the subject is referenced by.</p>
+
+<p>Required scope: <code class="prettyprint">connctd.policies.read or connctd.core</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/policies</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> List of policy references. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.connctd.io/api/v1/policies/1376f734-dbfc-486d-b264-f62d3ff88579"</span><span class="w">
+  </span><span class="p">},</span><span class="w"> </span><span class="err">...</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<h2 id="retrieve-policy">Retrieve policy</h2>
+
+<p>Retrieves a single policy.</p>
+
+<p>Required scope: <code class="prettyprint">connctd.policies.read or connctd.core</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/policies/-policyid-</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Policy. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f314ca-208a-4fc3-a4d3-4165ce216641"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dummy Policy"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"subjects"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"342244-89ea-45f5-9447-e5c68f567d2b"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"resources"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"resources:units:f85eb546-e791-4642-86b1-a981678dcf31"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"actions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"GET"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"allow"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"342ed912-d8d1-430e-aac1-da2e68f33cb6"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="delete-policy">Delete policy</h2>
+
+<p>Removes a policy.</p>
+
+<p>Required scope: <code class="prettyprint">connctd.policies.admin or connctd.core</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/policies/-policyid-</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Empty body</p>
+</blockquote>
+
+          <h1 id="scopes">Scopes</h1>
+
+<p>Scopes are attached to access tokens and specify the actions that can be performed on resources.</p>
+
+<table><thead>
+<tr>
+<th>Scope</th>
+<th>Allows requesting entity to&hellip;</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>connctd.units.read</td>
+<td>query units</td>
+</tr>
+<tr>
+<td>connctd.units.admin</td>
+<td>create and remove units, includes connctd.units.read</td>
+</tr>
+<tr>
+<td>connctd.things.read</td>
+<td>query things</td>
+</tr>
+<tr>
+<td>connctd.things.action</td>
+<td>create actions requests</td>
+</tr>
+<tr>
+<td>connctd.connector</td>
+<td>create and remove things, update thing properties</td>
+</tr>
+<tr>
+<td>connctd.policies.read</td>
+<td>query policies</td>
+</tr>
+<tr>
+<td>connctd.policies.admin</td>
+<td>create and remove policies, includes connctd.policies.read</td>
+</tr>
+<tr>
+<td>connctd.core</td>
+<td>Can&rsquo;t be requested by oauth 2 apps. Automatically assigend to user token retrieved via /api/v1/auth/login. Combines scopes connctd.policies.admin, connctd.units.admin and connctd.things.read</td>
+</tr>
+</tbody></table>
 
           <h1 id="errors">Errors</h1>
 
