@@ -47,7 +47,7 @@ returned in the body.
 
 ```json
 {
-  "access_token": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NpZCI6IjJhYWE0ZTQwLTg5ZWEtNDVmNS05NDQ3LWU1YzY4ZjU2N2QyYiIsImV4cCI6MTUwNDEwOTkyNSwiaXNzIjoiYXBpLmNvbm5jdGQuaW8iLCJuYmYiOjE1MDQxMDYzMjUsInN1YiI6InNlYmFzdGlhbi5nYXJuQHBvc3Rlby5kZSJ9.eXyWVlwb8rG70rrxE4_sglCExZwKyT9hqUdVN-InG0CB3_XbeL7PddO79E5wsLa9WfxSZJxWbrBFiwc5lBk2pA",
+  "access_token": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NpZCI6I.....",
   "user_id": "546",
   "user_uuid": "4bbb4e40-99ea-43c6-9447-a4c67f563e1c"
 }
