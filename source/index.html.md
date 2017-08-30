@@ -29,36 +29,37 @@ the resource owner (user), granting you a certain amount of permissions.
 
 ## Login
 
-### HTTP Requests
-
-
-`POST https://api.connctd.io/api/v1/auth/login`
-
-> Request body
-
-```json
-{
-  "Email": "test@example.com",
-  "Password": "pikaboo"
-}
-```
-
-### HTTP Response
-
-The response with either have the status code 200 in case of success or 401 in case the 
+The response will either have the status code 200 in case of success or 401 in case the 
 supplied credentials can't be verified. In error cases a default error object is
 returned in the body.
 
-> Response body
+
+> **Request:** *Method:* POST *Url:* https://api.connctd.io/api/v1/auth/login *Content-Type:* application/json *Body:* see below
 
 ```json
 {
- "Token": "xyz"
+  "email":"yourmail",
+  "password":"yourpassword"
+}
+```
+
+> **Response:** *Code:* 200 *Body:* Token und further information. See example below
+
+```json
+{
+  "access_token": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NpZCI6IjJhYWE0ZTQwLTg5ZWEtNDVmNS05NDQ3LWU1YzY4ZjU2N2QyYiIsImV4cCI6MTUwNDEwOTkyNSwiaXNzIjoiYXBpLmNvbm5jdGQuaW8iLCJuYmYiOjE1MDQxMDYzMjUsInN1YiI6InNlYmFzdGlhbi5nYXJuQHBvc3Rlby5kZSJ9.eXyWVlwb8rG70rrxE4_sglCExZwKyT9hqUdVN-InG0CB3_XbeL7PddO79E5wsLa9WfxSZJxWbrBFiwc5lBk2pA",
+  "user_id": "546",
+  "user_uuid": "4bbb4e40-99ea-43c6-9447-a4c67f563e1c"
 }
 ```
 
 ## Logout
 
-### HTTP Request
+Invalidates the access token. You have to specify your access token within *Authorization* header field.
 
-`GET https://api.connctd.io/api/v1/auth/logout`
+> **Request:** *Method:* POST *Url:* https://api.connctd.io/api/v1/auth/logout *Content-Type:* application/json *Body:* empty
+
+```json
+```
+
+> **Response:** *Code:* 200 *Body:* Empty
