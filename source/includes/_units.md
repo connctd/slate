@@ -37,11 +37,7 @@ The values of the properties **parents**, **children**, **subjects** and **thing
 
 Creates an empty unit. Additional information like parents, children or subjects can be added by subsequent calls.
 
-<aside class="notice">
-Please note that for every request a valid access token is required and needs to be passed within the headers (Authorization:Bearer -your token-)
-</aside>
-
-Required scope: `connctd.units.admin`
+Required scope: `connctd.units.admin or connctd.core`
 
 > **Request:** *Method:* POST *Url:* https://api.connctd.io/api/v1/units *Content-Type:* application/json *Body:* see below
 
@@ -70,7 +66,7 @@ Required scope: `connctd.units.admin`
 
 Retrieves a list of resource links to units the user belongs to
 
-Required scope: `connctd.units.read`
+Required scope: `connctd.units.read or connctd.core`
 
 > **Request:** *Method:* GET *Url:* https://api.connctd.io/api/v1/units
 
@@ -92,7 +88,7 @@ Required scope: `connctd.units.read`
 
 Retrieves a unit by id
 
-Required scope: `connctd.units.read`
+Required scope: `connctd.units.read or connctd.core`
 
 > **Request:** *Method:* GET *Url:* https://api.connctd.io/api/v1/units/-unitId-
 
@@ -124,7 +120,7 @@ Required scope: `connctd.units.read`
 
 Removes a unit by its id.
 
-Required scope: `connctd.units.admin`
+Required scope: `connctd.units.admin or connctd.core`
 
 > **Request:** *Method:* DELETE *Url:* https://api.connctd.io/api/v1/units/-unitId-
 
@@ -137,7 +133,7 @@ Required scope: `connctd.units.admin`
 
 Retrives a list of unit references.
 
-Required scope: `connctd.units.read`
+Required scope: `connctd.units.read or connctd.core`
 
 > **Request:** *Method:* GET *Url:* https://api.connctd.io/api/v1/units/-unitId-/-parents|children-
 
@@ -158,7 +154,7 @@ Required scope: `connctd.units.read`
 
 Adds a reference to another unit. The reference also appears within the referenced unit either as parent or child reference.
 
-Required scope: `connctd.units.admin`
+Required scope: `connctd.units.admin or connctd.core`
 
 > **Request:** *Method:* POST *Url:* https://api.connctd.io/api/v1/units/-unitId-/-parents|children- *Content-Type:* application/json *Body:* Id of parent/child unit. See example below
 
@@ -174,7 +170,7 @@ Required scope: `connctd.units.admin`
 
 Removes a reference to another unit. The reference also disappears from within the referenced unit.
 
-Required scope: `connctd.units.admin`
+Required scope: `connctd.units.admin or connctd.core`
 
 > **Request:** *Method:* DELETE *Url:* https://api.connctd.io/api/v1/units/-unitId-/-parents|children- *Content-Type:* application/json *Body:* Id of parent/child unit. See example below
 
@@ -188,7 +184,7 @@ Required scope: `connctd.units.admin`
 
 ## Get subject references
 
-Required scope: `connctd.units.read`
+Required scope: `connctd.units.read or connctd.core`
 
 > **Request:** *Method:* GET *Url:* https://api.connctd.io/api/v1/units/-unitId-/subjects
 
@@ -213,7 +209,7 @@ Subject references can be used for identification and organizational puproses. T
 
 Adds a reference to a subject.
 
-Required scope: `connctd.units.admin`
+Required scope: `connctd.units.admin or connctd.core`
 
 > **Request:** *Method:* POST *Url:* https://api.connctd.io/api/v1/units/-unitId-/subjects *Content-Type:* application/json *Body:* Id of subject. See example below
 
@@ -229,7 +225,7 @@ Required scope: `connctd.units.admin`
 
 Removes a reference to a subject.
 
-Required scope: `connctd.units.admin`
+Required scope: `connctd.units.admin or connctd.core`
 
 > **Request:** *Method:* DELETE *Url:* https://api.connctd.io/api/v1/units/-unitId-/subjects *Content-Type:* application/json *Body:* Id of subject. See example below
 
@@ -245,7 +241,7 @@ Required scope: `connctd.units.admin`
 
 Retrieves a list of all properties
 
-Required scope: `connctd.units.read`
+Required scope: `connctd.units.read or connctd.core`
 
 > **Request:** *Method:* GET *Url:* https://api.connctd.io/api/v1/units/-unitId-/properties
 
@@ -268,7 +264,7 @@ Required scope: `connctd.units.read`
 
 Read a specific property
 
-Required scope: `connctd.units.read`
+Required scope: `connctd.units.read or connctd.core`
 
 > **Request:** *Method:* GET *Url:* https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-
 
@@ -288,7 +284,7 @@ Required scope: `connctd.units.read`
 
 Adds a new property.
 
-Required scope: `connctd.units.admin`
+Required scope: `connctd.units.admin or connctd.core`
 
 > **Request:** *Method:* POST *Url:* https://api.connctd.io/api/v1/units/-unitId-/properties *Content-Type:* application/json *Body:* New property. See example below
 
@@ -305,7 +301,7 @@ Required scope: `connctd.units.admin`
 
 Removes a property from property set
 
-Required scope: `connctd.units.admin`
+Required scope: `connctd.units.admin or connctd.core`
 
 > **Request:** *Method:* DELETE *Url:* https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-
 
@@ -321,7 +317,7 @@ Required scope: `connctd.units.admin`
 
 Retrieves a list of all thing references
 
-Required scope: `connctd.units.read`
+Required scope: `connctd.units.read or connctd.core`
 
 > **Request:** *Method:* GET *Url:* https://api.connctd.io/api/v1/units/-unitId-/things
 
@@ -342,7 +338,7 @@ Required scope: `connctd.units.read`
 
 Adds a reference to a things.
 
-Required scope: `connctd.units.admin`
+Required scope: `connctd.units.admin or connctd.core`
 
 > **Request:** *Method:* POST *Url:* https://api.connctd.io/api/v1/units/-unitId-/things *Content-Type:* application/json *Body:* Id of thing. See example below
 
@@ -358,7 +354,7 @@ Required scope: `connctd.units.admin`
 
 Removes a reference to a thing.
 
-Required scope: `connctd.units.admin`
+Required scope: `connctd.units.admin or connctd.core`
 
 > **Request:** *Method:* DELETE *Url:* https://api.connctd.io/api/v1/units/-unitId-/things *Content-Type:* application/json *Body:* Id of thing. See example below
 

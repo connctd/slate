@@ -9,13 +9,9 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
 
 Registers a new application
 
-<aside class="notice">
-Please note that for every request a valid access token is required and needs to be passed within the headers (Authorization:Bearer -your token-)
-</aside>
-
 **redirect_uris:** Array of redirect uris that are later on used in various flows
 
-**scope:** Space separated list of scopes. The offline scope is necessary if a refresh token should be later on generated
+**scope:** Space separated list of scopes. The offline scope is necessary if a refresh token should be later on generated. You can see in a list of all available scopes within the *scopes* section
 
 **public:** You have to set this to true if there exists the possibility of client secret disclosure (e.g. Android app might be decompiled). Apps with setting public=true will not be able to register action callback urls since the client_credentials grant type flow is required for that but which is deactivated due to security concerns with public apps.
 
@@ -67,6 +63,8 @@ As a response you will get back a client_id, id and a client_secret. The client_
 }
 ```
 
+Required scope: `connctd.core`
+
 ## Retrieve apps
 
 Retrieves a list of all apps 
@@ -96,8 +94,9 @@ Retrieves a list of all apps
   },
   ...
 ]
-
 ```
+
+Required scope: `connctd.core`
 
 ## Retrieve an app
 
@@ -119,6 +118,8 @@ Retrieves a specific app
 }
 ```
 
+Required scope: `connctd.core`
+
 ## Add tag
 
 Adds a new tag to the tag list of an app
@@ -132,6 +133,8 @@ Adds a new tag to the tag list of an app
 ```
 
 > **Response:** *Code:* 201
+
+Required scope: `connctd.core`
 
 ## Delete a tag
 
@@ -161,6 +164,8 @@ Removes an app by client_id
 ```json
 ```
 
+Required scope: `connctd.core`
+
 ## Register a callback url
 
 > **Request:** *Method:* POST *Url:* https://api.connctd.io/api/v1/actions/callback/register *Authorization:* Bearer app-token 
@@ -178,6 +183,5 @@ The header requires a valid app token. See section oauth2 -> Register an app tok
 
 ```json
 ```
-
 
 

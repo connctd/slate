@@ -10,6 +10,8 @@ includes:
   - apps
   - units
   - things
+  - policies
+  - scopes
   - errors
 
 search: true
