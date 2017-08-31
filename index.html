@@ -1263,7 +1263,7 @@ specified Thing.</p>
 </tr>
 <tr>
 <td>connctd.units.admin</td>
-<td>create and remove units, includes connctd.units.read</td>
+<td>create, modify and remove units</td>
 </tr>
 <tr>
 <td>connctd.things.read</td>
@@ -1275,7 +1275,7 @@ specified Thing.</p>
 </tr>
 <tr>
 <td>connctd.connector</td>
-<td>create and remove things, update thing properties</td>
+<td>create, read, modify and remove things</td>
 </tr>
 <tr>
 <td>connctd.policies.read</td>
@@ -1283,11 +1283,11 @@ specified Thing.</p>
 </tr>
 <tr>
 <td>connctd.policies.admin</td>
-<td>create and remove policies, includes connctd.policies.read</td>
+<td>create, modify and remove policies</td>
 </tr>
 <tr>
 <td>connctd.core</td>
-<td>Can&rsquo;t be requested by oauth 2 apps. Automatically assigend to user token retrieved via /api/v1/auth/login. Combines scopes connctd.policies.admin, connctd.units.admin and connctd.things.read</td>
+<td>Can&rsquo;t be requested by oauth 2 apps. Automatically assigend to user token retrieved via /api/v1/auth/login. Combines scopes connctd.policies.read, connctd.policies.admin, connctd.units.admin, connctd.units.read and connctd.things.read</td>
 </tr>
 </tbody></table>
 
