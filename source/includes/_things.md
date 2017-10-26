@@ -33,7 +33,8 @@ process. After this you are able to create Things with the following request
           "name": "<component unique name of property>",
           "value": "<string representation of the value>",
           "unit": "<short name of unit of measurement>",
-          "type": "<data type of value (NUMBER,STRING,BOOLEAN)>"
+          "type": "<data type of value (NUMBER,STRING,BOOLEAN)>",
+          "propertyType": "<string defining meaning of property like e.g. HUMIDITY>"
         }
       ],
       "actions": [
@@ -106,6 +107,7 @@ Required scope: `connctd.things.read or connctd.core`
     "id": "177e3f1a-ef98-4898-b277-b6b392720be9",
     "name": "TutorialDummyThing",
     "manufacturer": "Tutorial app",
+    "status": "AVAILABLE",
     "displayType": "LAMP",
     "mainComponentId": "lamp",
     "componentLinks": [
@@ -176,7 +178,8 @@ Required scope: `connctd.things.read or connctd.core`
     "value": "false",
     "unit": "ONOFF",
     "type": "BOOLEAN",
-    "lastUpdate": "2017-08-23T14:10:53Z"
+    "lastUpdate": "2017-08-23T14:10:53Z",
+    "propertyType": "STATE"
 }
 ```
 
@@ -203,6 +206,24 @@ Required scope: `connctd.things.action`
     "deadline": "2017-08-30T15:00:08.941380198Z"
 }
 ```
+
+## Update thing status
+
+Allows you to update the state of a thing. Allowed values are "AVAILABLE", "UNAVAILABLE" and "UNKNOWN"
+
+Required scope: `connctd.connector`
+
+
+> **Request:** *Method:* PATCH *Url:* https://api.connctd.io/api/v1/things/-thingid-
+
+```json
+{
+    "status": "AVAILABLE"
+}
+```
+
+> **Response:** *Code:* 204 *Body:* Empty body
+
 
 ## Update thing property
 
