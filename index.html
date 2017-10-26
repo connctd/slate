@@ -918,7 +918,8 @@ process. After this you are able to create Things with the following request</p>
           </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;component unique name of property&gt;"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;string representation of the value&gt;"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;short name of unit of measurement&gt;"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;data type of value (NUMBER,STRING,BOOLEAN)&gt;"</span><span class="w">
+          </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;data type of value (NUMBER,STRING,BOOLEAN)&gt;"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"propertyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;string defining meaning of property like e.g. HUMIDITY&gt;"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">],</span><span class="w">
       </span><span class="s2">"actions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -985,6 +986,7 @@ success.</aside>
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"177e3f1a-ef98-4898-b277-b6b392720be9"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TutorialDummyThing"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"manufacturer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tutorial app"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AVAILABLE"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"displayType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LAMP"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"mainComponentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lamp"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"componentLinks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -1051,7 +1053,8 @@ success.</aside>
     </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ONOFF"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BOOLEAN"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"lastUpdate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-08-23T14:10:53Z"</span><span class="w">
+    </span><span class="s2">"lastUpdate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-08-23T14:10:53Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"propertyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STATE"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <h2 id="trigger-action-request">Trigger action request</h2>
@@ -1076,6 +1079,23 @@ success.</aside>
     </span><span class="s2">"deadline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-08-30T15:00:08.941380198Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+<h2 id="update-thing-status">Update thing status</h2>
+
+<p>Allows you to update the state of a thing. Allowed values are &ldquo;AVAILABLE&rdquo;, &ldquo;UNAVAILABLE&rdquo; and &ldquo;UNKNOWN&rdquo;</p>
+
+<p>Required scope: <code class="prettyprint">connctd.connector</code></p>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> PATCH <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AVAILABLE"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p><strong>Response:</strong> <em>Code:</em> 204 <em>Body:</em> Empty body</p>
+</blockquote>
+
 <h2 id="update-thing-property">Update thing property</h2>
 
 <p>This endpoint lets you update a property of a Thing you created. The supplied value must be a valid representation of the property type of this property.</p>
