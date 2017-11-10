@@ -507,7 +507,7 @@ The header requires a valid app token. See section oauth2 -&gt; Register an app 
   </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Name of unit&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;Type of unit&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"things"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"https://api.connctd.io/api/v1/things/ab..."</span><span class="p">}],</span><span class="w">
-  </span><span class="s2">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tuple(name,value)"</span><span class="p">],</span><span class="w">
+  </span><span class="s2">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tuple(name,json object)"</span><span class="p">],</span><span class="w">
   </span><span class="s2">"children"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"https://api.connctd.io/api/v1/units/xy..."</span><span class="p">}],</span><span class="w">
   </span><span class="s2">"parents"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"https://api.connctd.io/api/v1/units/qw..."</span><span class="p">}],</span><span class="w">
   </span><span class="s2">"subjects"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"https://api.connctd.io/api/v1/subjects/98..."</span><span class="p">}],</span><span class="w">
@@ -517,7 +517,7 @@ The header requires a valid app token. See section oauth2 -&gt; Register an app 
 </span></code></pre>
 <p>On the right hand side you can see an exemplary unit. We also offer a <a href="https://github.com/connctd/future-platform/blob/master/domain/unit-schema.json">unit json schema</a> which allows json object validation.</p>
 
-<p>The unit <strong>type</strong> helps to interprete the meaning of a unit. </p>
+<p>The unit <strong>type</strong> helps to interprete the meaning of a unit. The <strong>properties</strong> can hold arbitrary information since json objects can be passed. Even json ld is allowed to semantically enrich the properties. A json ld processor takes care of object validation.</p>
 
 <p>The values of the properties <strong>parents</strong>, <strong>children</strong>, <strong>subjects</strong> and <strong>things</strong> are lists holding references to other resources.</p>
 
@@ -527,8 +527,11 @@ The header requires a valid app token. See section oauth2 -&gt; Register an app 
   </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOUSE"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"number"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"value"</span><span class="p">:</span><span class="s2">"25"</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"address"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"value"</span><span class="p">:{</span><span class="w">
+        </span><span class="s2">"number"</span><span class="p">:</span><span class="s2">"25"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"street"</span><span class="p">:</span><span class="s2">"..."</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -595,24 +598,6 @@ The header requires a valid app token. See section oauth2 -&gt; Register an app 
 </span><span class="p">}</span><span class="w">   
 </span></code></pre>
 <p>Retrieves a unit by id</p>
-
-<p>Required scope: <code class="prettyprint">connctd.units.read or connctd.core</code></p>
-
-<h2 id="update-unit">Update unit</h2>
-
-<blockquote>
-<p><strong>Request:</strong> <em>Method:</em> PATCH <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"newname"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"type"</span><span class="p">:</span><span class="s2">"newtype"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 204 <em>Body:</em> empty. See example below</p>
-</blockquote>
-<pre class="highlight json tab-json"><code></code></pre>
-<p>Updates type and name properties</p>
 
 <p>Required scope: <code class="prettyprint">connctd.units.read or connctd.core</code></p>
 
@@ -751,8 +736,8 @@ Subject references can be used for identification and organizational puproses. T
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"number"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25"</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"address"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">...</span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
@@ -771,7 +756,7 @@ Subject references can be used for identification and organizational puproses. T
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"number"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25"</span><span class="w">
+    </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">...</span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Read a specific property</p>
@@ -785,7 +770,7 @@ Subject references can be used for identification and organizational puproses. T
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MyNewProperty"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="w">
+    </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="err">-any</span><span class="w"> </span><span class="err">json(-ld)-</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
@@ -799,11 +784,11 @@ Subject references can be used for identification and organizational puproses. T
 <h2 id="update-property">Update property</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> PUT <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName- <em>Content-Type:</em> application/json <em>Body:</em> New property value. See example below</p>
+<p><strong>Request:</strong> <em>Method:</em> PUT <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/properties <em>Content-Type:</em> application/json <em>Body:</em> New property value. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MyNewProperty"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123"</span><span class="w">
+    </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">...</span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
