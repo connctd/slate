@@ -10,7 +10,7 @@ A unit is a primitive container that gives developers the possibility to group t
   "name": "<Name of unit>",
   "type": "<Type of unit>",
   "things": [{"href":"https://api.connctd.io/api/v1/things/ab..."}],
-  "properties": ["tuple(name,value)"],
+  "properties": ["tuple(name,json object)"],
   "children": [{"href":"https://api.connctd.io/api/v1/units/xy..."}],
   "parents": [{"href":"https://api.connctd.io/api/v1/units/qw..."}],
   "subjects": [{"href":"https://api.connctd.io/api/v1/subjects/98..."}],
@@ -21,7 +21,7 @@ A unit is a primitive container that gives developers the possibility to group t
 
 On the right hand side you can see an exemplary unit. We also offer a [unit json schema](https://github.com/connctd/future-platform/blob/master/domain/unit-schema.json) which allows json object validation.
 
-The unit **type** helps to interprete the meaning of a unit. 
+The unit **type** helps to interprete the meaning of a unit. The **properties** can hold arbitrary information since json objects can be passed. Even json ld is allowed to semantically enrich the properties. A json ld processor takes care of object validation.
 
 The values of the properties **parents**, **children**, **subjects** and **things** are lists holding references to other resources.
 
@@ -33,8 +33,11 @@ The values of the properties **parents**, **children**, **subjects** and **thing
   "type": "HOUSE",
   "properties": [
     {
-      "name":"number",
-      "value":"25"
+      "name":"address",
+      "value":{
+      	"number":"25",
+      	"street":"..."
+      }
     }
   ]
 }
@@ -105,27 +108,6 @@ Required scope: `connctd.units.read or connctd.core`
 ```
 
 Retrieves a unit by id
-
-Required scope: `connctd.units.read or connctd.core`
-
-
-## Update unit
-
-> **Request:** *Method:* PATCH *Url:* https://api.connctd.io/api/v1/units/-unitId-
-
-```json
-{
-  "name":"newname",
-  "type":"newtype"
-}
-```
-
-> **Response:** *Code:* 204 *Body:* empty. See example below
-
-```json
-```
-
-Updates type and name properties
 
 Required scope: `connctd.units.read or connctd.core`
 
@@ -264,8 +246,8 @@ Required scope: `connctd.units.admin or connctd.core`
 ```json
 [
   {
-    "name": "number",
-    "value": "25"
+    "name": "address",
+    "value": {...}
   }
 ]
 ```
@@ -286,7 +268,7 @@ Required scope: `connctd.units.read or connctd.core`
 ```json
 {
     "name": "number",
-    "value": "25"
+    "value": {...}
 }
 ```
 
@@ -301,7 +283,7 @@ Required scope: `connctd.units.read or connctd.core`
 ```json
 {
     "name": "MyNewProperty",
-    "value": "123"
+    "value": -any json(-ld)-
 }
 ```
 
@@ -313,12 +295,12 @@ Required scope: `connctd.units.admin or connctd.core`
 
 ## Update property
 
-> **Request:** *Method:* PUT *Url:* https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName- *Content-Type:* application/json *Body:* New property value. See example below
+> **Request:** *Method:* PUT *Url:* https://api.connctd.io/api/v1/units/-unitId-/properties *Content-Type:* application/json *Body:* New property value. See example below
 
 ```json
 {
     "name": "MyNewProperty",
-    "value": "123"
+    "value": {...}
 }
 ```
 
