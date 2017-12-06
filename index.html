@@ -235,10 +235,6 @@ the resource owner (user), granting you a certain amount of permissions.</p>
 
 <h2 id="login">Login</h2>
 
-<p>The response will either have the status code 200 in case of success or 401 in case the 
-supplied credentials can&rsquo;t be verified. In error cases a default error object is
-returned in the body.</p>
-
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/auth/login <em>Content-Type:</em> application/json <em>Body:</em> see below</p>
 </blockquote>
@@ -256,9 +252,11 @@ returned in the body.</p>
   </span><span class="s2">"user_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4bbb4e40-99ea-43c6-9447-a4c67f563e1c"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<h2 id="logout">Logout</h2>
+<p>The response will either have the status code 200 in case of success or 401 in case the 
+supplied credentials can&rsquo;t be verified. In error cases a default error object is
+returned in the body.</p>
 
-<p>Invalidates the access token. You have to specify your access token within <em>Authorization</em> header field.</p>
+<h2 id="logout">Logout</h2>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/auth/logout <em>Content-Type:</em> application/json <em>Body:</em> empty</p>
@@ -268,13 +266,13 @@ returned in the body.</p>
 <p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Empty</p>
 </blockquote>
 
+<p>Invalidates the access token. You have to specify your access token within <em>Authorization</em> header field.</p>
+
           <h1 id="oauth-2-0">OAuth 2.0</h1>
 
 <p>The connctd platform acts as a oauth2 provider implementing all flows described in https://tools.ietf.org/html/rfc6749#section-4 except the &ldquo;Resource Owner Password Credentials Grant&rdquo;. The following two sections mainly focus on the Authorization Code Grant Flow as there already exist hundreds of good oauth2 tutorials which can be read in case you need another flow.</p>
 
 <h2 id="requesting-authorization">Requesting Authorization</h2>
-
-<p>This request will redirect the user to the consent screen. You have to replace the example parameter values with the corresponding values of your app. A detailed parameter description can be found <a href="https://tools.ietf.org/html/rfc6749#section-4.1.1">here</a>.</p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/oauth2/auth?state=abcdefghiklmnop&amp;client_id=1bd2f1a3-e72d-4606-b82b-86d1054f3bd4&amp;redirect_uri=https%3A%2F%2Fabc%2Fauth%2Fcallback&amp;response_type=code&amp;scope=connctd.units.read+connctd.things.read+connctd.connector+offline</p>
@@ -284,10 +282,9 @@ returned in the body.</p>
 <p><strong>Response:</strong> <em>Code:</em> 301</p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
-<h2 id="requesting-a-token">Requesting a token</h2>
+<p>This request will redirect the user to the consent screen. You have to replace the example parameter values with the corresponding values of your app. A detailed parameter description can be found <a href="https://tools.ietf.org/html/rfc6749#section-4.1.1">here</a>.</p>
 
-<p>This request requires the authentication of the app by specifying an Authorization header with value <code class="prettyprint">Basic base64_encode(client_id:client_secret)</code>
-The body will contain a url encoded form with the fields <em>grant_type</em>, <em>code</em>, <em>redirect_uri</em> and <em>client_id</em>  </p>
+<h2 id="requesting-a-token">Requesting a token</h2>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/oauth2/token <em>Content-Type:</em> application/x-www-form-urlencoded</p>
@@ -304,17 +301,16 @@ The body will contain a url encoded form with the fields <em>grant_type</em>, <e
     </span><span class="s2">"scope"</span><span class="p">:</span><span class="s2">"..."</span><span class="p">,</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<h2 id="requesting-an-app-token">Requesting an app token</h2>
+<p>This request requires the authentication of the app by specifying an Authorization header with value <code class="prettyprint">Basic base64_encode(client_id:client_secret)</code>
+The body will contain a url encoded form with the fields <em>grant_type</em>, <em>code</em>, <em>redirect_uri</em> and <em>client_id</em>  </p>
 
-<p>This is the so called client credentials grant flow and allows an app to fetch an acccess token that is NOT user related. This is required for e.g. registering an app callback (see apps)</p>
+<h2 id="requesting-an-app-token">Requesting an app token</h2>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/oauth2/token <em>Content-Type:</em> application/x-www-form-urlencoded <em>Authorization:</em> Basic &mdash;&mdash;</p>
 </blockquote>
 <pre class="highlight java tab-java"><code><span class="n">grant_type</span><span class="o">=</span><span class="n">client_credentials</span><span class="o">&amp;</span><span class="n">scope</span><span class="o">=</span><span class="n">connctd</span><span class="o">.</span><span class="na">connector</span>
 </code></pre>
-<p>Authorization header value needs to be of format: base64_encode(client_id:client_secret)</p>
-
 <blockquote>
 <p><strong>Response:</strong> <em>Code:</em> 200</p>
 </blockquote>
@@ -322,28 +318,17 @@ The body will contain a url encoded form with the fields <em>grant_type</em>, <e
     </span><span class="s2">"access_token"</span><span class="p">:</span><span class="s2">"..."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+<p>This is the so called client credentials grant flow and allows an app to fetch an acccess token that is NOT user related. This is required for e.g. registering an app callback (see apps)</p>
+
+<p>Authorization header value needs to be of format: base64_encode(client_id:client_secret)</p>
+
           <h1 id="apps">Apps</h1>
 
 <p>connctd implements the OAuth 2.0 specification. By doing so developers can write and host their own apps that can obtain limited access to resources on behalf of the user. 
-Such an app (in OAuth terms it is called client) could for example list the units and things of an user or it could be used to administrate access permissions for resources. These apps do not just consume
- resources they might also deliver new resources like for example things. A common use case for connctd apps are apps that mediate between our platform and another, foreign technology. We often name those apps &ldquo;connector&rdquo; as they are translating from a remote domain model into our thing concept.
+Such an app (in OAuth terms it is called client) could for example list the units or things of an user. These apps do not just consume resources they might also deliver new resources like things. A common use case for connctd apps are apps that mediate between our platform and another, foreign technology. We often name those apps &ldquo;connector&rdquo; as they are translating from a remote domain model into our thing concept.
 If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading the <a href="https://tools.ietf.org/html/rfc6749">specification</a>. In case you are uncertain regarding some parameters we also recommend reading the documentation of <a href="http://docs.hydra13.apiary.io/#reference/oauth2">hydra</a> - the framework we are using under the hood for OAuth 2.0 support.</p>
 
 <h2 id="register-an-app">Register an app</h2>
-
-<p>Registers a new application</p>
-
-<p><strong>redirect_uris:</strong> Array of redirect uris that are later on used in various flows</p>
-
-<p><strong>scope:</strong> Space separated list of scopes. The offline scope is necessary if a refresh token should be later on generated. You can see in a list of all available scopes within the <em>scopes</em> section</p>
-
-<p><strong>public:</strong> You have to set this to true if there exists the possibility of client secret disclosure (e.g. Android app might be decompiled). Apps with setting public=true will not be able to register action callback urls since the client_credentials grant type flow is required for that but which is deactivated due to security concerns with public apps.</p>
-
-<p><strong>visible:</strong> If set to true any user can see your app (e.g. in an app store). If set to false only you can see the app.</p>
-
-<p><strong>tags:</strong> Used to search for apps with specific meanings (e.g. Smart Home, Netatmo, Assisted living)</p>
-
-<p>As a response you will get back a client_id, id and a client_secret. The client_secret needs to be stored as it can&rsquo;t be retrieved again. Right now the id of the created client (used for managing clients) is equal to the oauth2 client_id (required for OAuth2 flow).</p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/apps <em>Content-Type:</em> application/json <em>Body:</em> see below</p>
@@ -356,7 +341,7 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
   </span><span class="s2">"policyuri"</span><span class="p">:</span><span class="s2">"https://abc.com/policy"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"tosuri"</span><span class="p">:</span><span class="s2">"https://abc.com/tos"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"logouri"</span><span class="p">:</span><span class="s2">"https://abc.com/logo.png"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"scopes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"connctd.units.read"</span><span class="p">,</span><span class="s2">"connctd.connector"</span><span class="p">,</span><span class="s2">"connctd.things.read"</span><span class="p">,</span><span class="s2">"offline"</span><span class="p">,</span><span class="s2">"openid"</span><span class="p">],</span><span class="w">
+  </span><span class="s2">"scopes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"connctd.units.read"</span><span class="p">,</span><span class="s2">"connctd.units.admin"</span><span class="p">,</span><span class="s2">"connctd.connector"</span><span class="p">,</span><span class="s2">"connctd.things.read"</span><span class="p">,</span><span class="s2">"offline"</span><span class="p">],</span><span class="w">
   </span><span class="s2">"public"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="s2">"visible"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="s2">"tags"</span><span class="p">:[{</span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"Smart Home"</span><span class="p">}],</span><span class="w">
@@ -385,11 +370,23 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
   </span><span class="s2">"client_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NWx.W-B&gt;G/!u"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+<p>Registers a new application</p>
+
+<p><strong>redirect_uris:</strong> Array of redirect uris that are later on used in various flows</p>
+
+<p><strong>scope:</strong> Space separated list of scopes. The offline scope is necessary if a refresh token should be later on generated. You can see in a list of all available scopes within the <em>scopes</em> section</p>
+
+<p><strong>public:</strong> You have to set this to true if there exists the possibility of client secret disclosure (e.g. Android app might be decompiled). Apps with setting public=true will not be able to register action callback urls since the client_credentials grant type flow is required for that but which is deactivated due to security concerns with public apps.</p>
+
+<p><strong>visible:</strong> If set to true any user can see your app (e.g. in an app store). If set to false only you can see the app.</p>
+
+<p><strong>tags:</strong> Used to search for apps with specific meanings (e.g. Smart Home, Netatmo, Assisted living)</p>
+
+<p>As a response you will get back a client_id, id and a client_secret. The client_secret needs to be stored as it can&rsquo;t be retrieved again. Right now the id of the created client (used for managing clients) is equal to the oauth2 client_id (required for OAuth2 flow).</p>
+
 <p>Required scope: <code class="prettyprint">connctd.core</code></p>
 
 <h2 id="retrieve-apps">Retrieve apps</h2>
-
-<p>Retrieves a list of all apps </p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/apps</p>
@@ -416,11 +413,11 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
   </span><span class="err">...</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
+<p>Retrieves a list of all apps </p>
+
 <p>Required scope: <code class="prettyprint">connctd.core</code></p>
 
 <h2 id="retrieve-an-app">Retrieve an app</h2>
-
-<p>Retrieves a specific app</p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/apps/f62794f6-659d-439a-b19b-45e6cf705cef</p>
@@ -436,11 +433,11 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
   </span><span class="err">...</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+<p>Retrieves a specific app</p>
+
 <p>Required scope: <code class="prettyprint">connctd.core</code></p>
 
 <h2 id="add-tag">Add tag</h2>
-
-<p>Adds a new tag to the tag list of an app</p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/apps/f62794f6-659d-439a-b19b-45e6cf705cef/tags <em>Body:</em> see below</p>
@@ -453,11 +450,11 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
 <p><strong>Response:</strong> <em>Code:</em> 201</p>
 </blockquote>
 
+<p>Adds a new tag to the tag list of an app</p>
+
 <p>Required scope: <code class="prettyprint">connctd.core</code></p>
 
 <h2 id="delete-a-tag">Delete a tag</h2>
-
-<p>Removes a tag</p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/apps/1bd2f1a3-e72d-4606-b82b-86d1054f3bd4/tags/TAGNAME</p>
@@ -467,9 +464,9 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
 <p><strong>Response:</strong> <em>Code:</em> 204</p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
-<h2 id="delete-an-app">Delete an app</h2>
+<p>Removes a tag</p>
 
-<p>Removes an app by client_id</p>
+<h2 id="delete-an-app">Delete an app</h2>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/apps/1bd2f1a3-e72d-4606-b82b-86d1054f3bd4</p>
@@ -479,6 +476,8 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
 <p><strong>Response:</strong> <em>Code:</em> 204</p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
+<p>Removes an app by client_id</p>
+
 <p>Required scope: <code class="prettyprint">connctd.core</code></p>
 
 <h2 id="register-a-callback-url">Register a callback url</h2>
@@ -486,9 +485,6 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/actions/callback/register <em>Authorization:</em> Bearer app-token </p>
 </blockquote>
-
-<p>This request stores a system wide callback url for all action requests that are related to this app. This is important whenever an app creates things that contain actions. As soon a user triggers any of these actions by performing an action request the request is forwarded to the given callback url. 
-The header requires a valid app token. See section oauth2 -&gt; Register an app token for more information about gaining app tokens</p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"CallbackUrl"</span><span class="p">:</span><span class="s2">"https://remote-service-url"</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -497,9 +493,18 @@ The header requires a valid app token. See section oauth2 -&gt; Register an app 
 <p><strong>Response:</strong> <em>Code:</em> 200</p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
+<p>This request stores a system wide callback url for all action requests that are related to this app. This is important whenever an app creates things that contain actions. As soon a user triggers any of these actions by performing an action request the request is forwarded to the given callback url. 
+The header requires a valid app token. See section oauth2 -&gt; Register an app token for more information about gaining app tokens</p>
+
           <h1 id="units">Units</h1>
 
 <p>A unit is a primitive container that gives developers the possibility to group things and to put them into a context. Since a unit can reference other units (children and parents) even complex structures of the real world can be modeled like for example a city with it&rsquo;s streets and buildings.</p>
+
+<aside class="notice">
+    When doing requests against our units endpoint you have to pass two headers for a successful request handling:
+        - Authorization:Bearer -your token-
+        - X-External-Subject-Id:-any id (e.g. customer id) generated by your app-
+</aside>
 
 <h2 id="model">Model</h2>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
@@ -517,11 +522,15 @@ The header requires a valid app token. See section oauth2 -&gt; Register an app 
 </span></code></pre>
 <p>On the right hand side you can see an exemplary unit. We also offer a <a href="https://github.com/connctd/future-platform/blob/master/domain/unit-schema.json">unit json schema</a> which allows json object validation.</p>
 
-<p>The unit <strong>type</strong> helps to interprete the meaning of a unit. The <strong>properties</strong> can hold arbitrary information since json objects can be passed. Even json ld is allowed to semantically enrich the properties. A json ld processor takes care of object validation.</p>
+<p>The unit <strong>type</strong> helps to interprete the meaning of a unit. It is meant to be kept very generic like &ldquo;ROOM&rdquo; OR &ldquo;BUILDING&rdquo; instead of using too meaningful types like &ldquo;BATHROOM&rdquo;. If your app requires more information about a unit it is a good way to describe them within the <strong>properties</strong>. Those properties can hold arbitrary information since json objects can be passed. Even json ld is allowed to semantically enrich them. A json ld processor takes care of object validation.</p>
 
 <p>The values of the properties <strong>parents</strong>, <strong>children</strong>, <strong>subjects</strong> and <strong>things</strong> are lists holding references to other resources.</p>
 
 <h2 id="create-unit">Create unit</h2>
+
+<blockquote>
+<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/units <em>Content-Type:</em> application/json <em>Body:</em> see below</p>
+</blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My House"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HOUSE"</span><span class="p">,</span><span class="w">
@@ -546,10 +555,6 @@ The header requires a valid app token. See section oauth2 -&gt; Register an app 
 <p>Creates an empty unit. Additional information like parents, children or subjects can be added by subsequent calls.</p>
 
 <p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
-
-<blockquote>
-<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/units <em>Content-Type:</em> application/json <em>Body:</em> see below</p>
-</blockquote>
 
 <h2 id="retrieve-units">Retrieve units</h2>
 
@@ -587,8 +592,11 @@ The header requires a valid app token. See section oauth2 -&gt; Register an app 
   </span><span class="s2">"things"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
   </span><span class="s2">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"number"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25"</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"details"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"number"</span><span class="p">:</span><span class="mi">25</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"street"</span><span class="p">:</span><span class="s2">"..."</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="s2">"children"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
@@ -688,7 +696,7 @@ The header requires a valid app token. See section oauth2 -&gt; Register an app 
 <p>Required scope: <code class="prettyprint">connctd.units.read or connctd.core</code></p>
 
 <aside class="note">
-Subject references can be used for identification and organizational puproses. They are are currently NOT callable. Another reason why it makes sense to add a subject to this list is that the unit will appear within the list of unit resource links (GET /api/v1/units) of the added subject. But as long as there exists no policy (see section Policies) that regulates the access of that subject to the unit the addressed subject will be not able to resolve the unit
+Subject references can be used to assign (external) subject ids to a specific unit. As soon a one external subject (lets say for example S1) is assigned to the unit of another subject (lets say S2), the result list when retrieving the units of S1 will contain the unit of S2.   
 </aside>
 
 <h2 id="add-subject-reference">Add subject reference</h2>
@@ -697,7 +705,7 @@ Subject references can be used for identification and organizational puproses. T
 <p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/subjects <em>Content-Type:</em> application/json <em>Body:</em> Id of subject. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123-55664-aab-2456"</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"any id your application is working with - e.g. customer id"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
@@ -878,10 +886,13 @@ and managed with our API. Depending on the requested action the supplied token m
 <li>connctd.things.read</li>
 </ul>
 
-<h2 id="create-thing">Create Thing</h2>
+<aside class="notice">
+    When doing requests against our things endpoint you have to pass two headers for a successful request handling:
+        - Authorization:Bearer -your token-
+        - X-External-Subject-Id:-any id (e.g. customer id) generated by your app-
+</aside>
 
-<p>To add a Thing you need to acquire a token with the scope <code class="prettyprint">connctd.connector</code> through the OAuth2
-process. After this you are able to create Things with the following request</p>
+<h2 id="create-thing">Create Thing</h2>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/things <em>Content-Type:</em> application/json <em>Body:</em> see below</p>
@@ -929,6 +940,9 @@ process. After this you are able to create Things with the following request</p>
   </span><span class="s2">"Id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6088362-a864-4834-89eb-d9e4dafbaefe"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+<p>To add a Thing you need to acquire a token with the scope <code class="prettyprint">connctd.connector</code> through the OAuth2
+process. After this you are able to create Things with the following request</p>
+
 <p>Required scope: <code class="prettyprint">connctd.connector</code></p>
 
 <aside class="notice">The Thing-ID needs to be unique across all Things in our API. Therefore it is
@@ -936,10 +950,6 @@ possible that the Thing-ID is changed by our backend. The actual Thing-ID is ret
 success.</aside>
 
 <h2 id="retrieve-things">Retrieve things</h2>
-
-<p>Retrieves a list of all things the subject is owner of. Be aware that this list does NOT contain things that are shared via policies with the subject.</p>
-
-<p>Required scope: <code class="prettyprint">connctd.things.read or connctd.core</code></p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/things</p>
@@ -954,11 +964,11 @@ success.</aside>
   </span><span class="p">},</span><span class="w"> </span><span class="err">...</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
-<h2 id="retrieve-thing">Retrieve thing</h2>
-
-<p>Retrieves a single thing.</p>
+<p>Retrieves a list of all things the subject is owner of. Be aware that this list does NOT contain things that are shared via policies with the subject.</p>
 
 <p>Required scope: <code class="prettyprint">connctd.things.read or connctd.core</code></p>
+
+<h2 id="retrieve-thing">Retrieve thing</h2>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-</p>
@@ -982,11 +992,11 @@ success.</aside>
     </span><span class="s2">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<h2 id="retrieve-thing-component">Retrieve thing component</h2>
-
-<p>Retrieves the component of a thing.</p>
+<p>Retrieves a single thing.</p>
 
 <p>Required scope: <code class="prettyprint">connctd.things.read or connctd.core</code></p>
+
+<h2 id="retrieve-thing-component">Retrieve thing component</h2>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-</p>
@@ -1020,11 +1030,11 @@ success.</aside>
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<h2 id="retrieve-component-property">Retrieve component property</h2>
-
-<p>Retrieves the property of a component.</p>
+<p>Retrieves the component of a thing.</p>
 
 <p>Required scope: <code class="prettyprint">connctd.things.read or connctd.core</code></p>
+
+<h2 id="retrieve-component-property">Retrieve component property</h2>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-/properties/-propertyName-</p>
@@ -1042,11 +1052,11 @@ success.</aside>
     </span><span class="s2">"propertyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STATE"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+<p>Retrieves the property of a component.</p>
+
+<p>Required scope: <code class="prettyprint">connctd.things.read or connctd.core</code></p>
+
 <h2 id="trigger-action-request">Trigger action request</h2>
-
-<p>Used to trigger actions offered by a component. The content of the body depends on the action parameters which can be found in the action description of the corresponding thing component. Action requests will be sent to the callback urls corresponding to the connector/app that has created the app (<em>see Apps-&gt;Register a callback url</em>).</p>
-
-<p>Required scope: <code class="prettyprint">connctd.things.action</code></p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-/actions/-actionName-</p>
@@ -1064,11 +1074,11 @@ success.</aside>
     </span><span class="s2">"deadline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-08-30T15:00:08.941380198Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+<p>Used to trigger actions offered by a component. The content of the body depends on the action parameters which can be found in the action description of the corresponding thing component. Action requests will be sent to the callback urls corresponding to the connector/app that has created the app (<em>see Apps-&gt;Register a callback url</em>).</p>
+
+<p>Required scope: <code class="prettyprint">connctd.things.action</code></p>
+
 <h2 id="update-thing-status">Update thing status</h2>
-
-<p>Allows you to update the state of a thing. Allowed values are &ldquo;AVAILABLE&rdquo;, &ldquo;UNAVAILABLE&rdquo; and &ldquo;UNKNOWN&rdquo;</p>
-
-<p>Required scope: <code class="prettyprint">connctd.connector</code></p>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> PATCH <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-</p>
@@ -1081,11 +1091,11 @@ success.</aside>
 <p><strong>Response:</strong> <em>Code:</em> 204 <em>Body:</em> Empty body</p>
 </blockquote>
 
-<h2 id="update-thing-property">Update thing property</h2>
-
-<p>This endpoint lets you update a property of a Thing you created. The supplied value must be a valid representation of the property type of this property.</p>
+<p>Allows you to update the state of a thing. Allowed values are &ldquo;AVAILABLE&rdquo;, &ldquo;UNAVAILABLE&rdquo; and &ldquo;UNKNOWN&rdquo;</p>
 
 <p>Required scope: <code class="prettyprint">connctd.connector</code></p>
+
+<h2 id="update-thing-property">Update thing property</h2>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> PUT <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-/properties/-propertyname-</p>
@@ -1098,13 +1108,11 @@ success.</aside>
 <p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Empty body</p>
 </blockquote>
 
-<h2 id="delete-thing">Delete thing</h2>
-
-<p>If the supplied bearer token has the scope <code class="prettyprint">connctd.connector</code> and the Thing with the specified
-id was created by the application belongig to the bearer token, this request will delete the 
-specified Thing.</p>
+<p>This endpoint lets you update a property of a Thing you created. The supplied value must be a valid representation of the property type of this property.</p>
 
 <p>Required scope: <code class="prettyprint">connctd.connector</code></p>
+
+<h2 id="delete-thing">Delete thing</h2>
 
 <blockquote>
 <p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-</p>
@@ -1114,153 +1122,11 @@ specified Thing.</p>
 <p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Empty body</p>
 </blockquote>
 
-          <h1 id="policies">Policies</h1>
+<p>If the supplied bearer token has the scope <code class="prettyprint">connctd.connector</code> and the Thing with the specified
+id was created by the application belongig to the bearer token, this request will delete the 
+specified Thing.</p>
 
-<p>Whenever a unit or thing is created it belongs to a specific subject and thus can only be seen by that subject. Policies allow a subject to share resources with other subjects. Depending on the policy settings a policy can give e.g. access to a complete thing or only parts and specific actions of a thing like a single sensor reading.</p>
-
-<h2 id="model">Model</h2>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;generated id&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;description of policy&gt;"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"subjects"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;subject id&gt;"</span><span class="p">],</span><span class="w">
-  </span><span class="s2">"resources"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;resource id&gt;"</span><span class="p">],</span><span class="w">
-  </span><span class="s2">"actions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"GET"</span><span class="p">,</span><span class="w"> </span><span class="s2">"UPDATE"</span><span class="p">,</span><span class="w"> </span><span class="s2">"CREATE"</span><span class="p">,</span><span class="w"> </span><span class="s2">"DELETE"</span><span class="p">],</span><span class="w">
-  </span><span class="s2">"effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;allow|deny&gt;"</span><span class="w">
-  </span><span class="s2">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;who created the policy&gt;"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre>
-<p>On the right hand side you can see the model of a policy on how it is stored within our database.</p>
-
-<p>The <strong>subjects</strong> parameter holds a list of subject ids (represented as plain strings) indicating to which subjects the policy will take effect to. <strong>resources</strong> is a list of resource names and defines to which resources the policy will apply. See the section <em>Create policy</em> for a detailed description on to specify resources. The parameter <strong>actions</strong> controls the actions that will be allowed by the subjects on the defined resources. As soon as a policy fits the <strong>effect</strong> finally determines whether the access will be allowed or denied. The effect value <em>allow</em> will be used in most cases. Usage of <em>deny</em> makes sense if you have defined overlapping policies. In those cases a <em>deny</em> policy will always win over an <em>allow</em> policy.</p>
-
-<h2 id="create-policy">Create policy</h2>
-
-<p>Creates a policy that is applied to given subjects as soon as request fits one of given resources.</p>
-
-<blockquote>
-<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/policies <em>Content-Type:</em> application/json <em>Body:</em> see below</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"description"</span><span class="p">:</span><span class="s2">"Dummy policy"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"resources"</span><span class="p">:[</span><span class="s2">"resource:things:f85eb546-e791-4642-86b1-a981678dcf31"</span><span class="p">,</span><span class="w"> </span><span class="s2">"resource:things:f85eb546-e791-4642-86b1-a981678dcf31:*"</span><span class="p">],</span><span class="w">
-  </span><span class="s2">"subjects"</span><span class="p">:[</span><span class="s2">"122f0260-2506-44b6-8d08-574ad27d7529"</span><span class="p">,</span><span class="w"> </span><span class="s2">"a21f9779-c44e-4e70-9f3c-16e31a93094b"</span><span class="p">],</span><span class="w">
-  </span><span class="s2">"effect"</span><span class="p">:</span><span class="s2">"allow"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"actions"</span><span class="p">:[</span><span class="s2">"GET"</span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 201 <em>Body:</em> Id of newly created policy. See example below</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6088362-a864-4834-89eb-d9e4dafbaefe"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>A <strong>Resources</strong> describes an entity within the connctd platform. Right now we support referencing things (and of course sub elements) and units. A resource can only be referenced from within a policy if the subject creating the policy is also the owner of the resource. Resources have to be declared in the following way: </p>
-
-<p><code class="prettyprint">resources:&lt;things|units&gt;:&lt;non-wildcard-id&gt;[:&lt;optional subelements including wildcards]</code></p>
-
-<p>Resource definitions not following this pattern will cause Bad Request error response.</p>
-
-<p>Please note that a resource name needs to contain the thing or unit ids - no wildcards are allowed on this level of the resource name.</p>
-
-<p>Examples:</p>
-
-<table><thead>
-<tr>
-<th>Resourcename</th>
-<th> Meaning</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>resources:things:123</td>
-<td>Subject can access the top level thing but not sub elements like components or actions</td>
-</tr>
-<tr>
-<td>resources:things:123:*</td>
-<td>Subject can access all sub elements but not top level thing</td>
-</tr>
-<tr>
-<td>resources:things:123:components:lamp:properties:*</td>
-<td>Subject can only access all the lamp properties</td>
-</tr>
-<tr>
-<td>resources:things:123:components:lamp:properties:on</td>
-<td>Subject can only access all the on property of the lamp</td>
-</tr>
-<tr>
-<td>resources:things:123:components:*:properties:on</td>
-<td>Subject can access all properties with name on</td>
-</tr>
-<tr>
-<td>resources:units:123</td>
-<td>Subject can access the unit 123</td>
-</tr>
-</tbody></table>
-
-<p>Required scope: <code class="prettyprint">connctd.policies.admin or connctd.core</code></p>
-
-<h2 id="retrieve-policies">Retrieve policies</h2>
-
-<p>Retrieves a list of all policies the subject has created or the subject is referenced by.</p>
-
-<p>Required scope: <code class="prettyprint">connctd.policies.read or connctd.core</code></p>
-
-<blockquote>
-<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/policies</p>
-</blockquote>
-<pre class="highlight json tab-json"><code></code></pre>
-<blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> List of policy references. See example below</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.connctd.io/api/v1/policies/1376f734-dbfc-486d-b264-f62d3ff88579"</span><span class="w">
-  </span><span class="p">},</span><span class="w"> </span><span class="err">...</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-<h2 id="retrieve-policy">Retrieve policy</h2>
-
-<p>Retrieves a single policy.</p>
-
-<p>Required scope: <code class="prettyprint">connctd.policies.read or connctd.core</code></p>
-
-<blockquote>
-<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/policies/-policyid-</p>
-</blockquote>
-<pre class="highlight json tab-json"><code></code></pre>
-<blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Policy. See example below</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f314ca-208a-4fc3-a4d3-4165ce216641"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dummy Policy"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"subjects"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">"342244-89ea-45f5-9447-e5c68f567d2b"</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="s2">"resources"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">"resources:units:f85eb546-e791-4642-86b1-a981678dcf31"</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="s2">"actions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="s2">"GET"</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="s2">"effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"allow"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"342ed912-d8d1-430e-aac1-da2e68f33cb6"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<h2 id="delete-policy">Delete policy</h2>
-
-<p>Removes a policy.</p>
-
-<p>Required scope: <code class="prettyprint">connctd.policies.admin or connctd.core</code></p>
-
-<blockquote>
-<p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/policies/-policyid-</p>
-</blockquote>
-<pre class="highlight json tab-json"><code></code></pre>
-<blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Empty body</p>
-</blockquote>
+<p>Required scope: <code class="prettyprint">connctd.connector</code></p>
 
           <h1 id="scopes">Scopes</h1>
 
