@@ -10,7 +10,6 @@ includes:
   - apps
   - units
   - things
-  - policies
   - scopes
   - errors
 
@@ -28,11 +27,6 @@ To authenticate against our API you need verify your credentials. In return you 
 the resource owner (user), granting you a certain amount of permissions.
 
 ## Login
-
-The response will either have the status code 200 in case of success or 401 in case the 
-supplied credentials can't be verified. In error cases a default error object is
-returned in the body.
-
 
 > **Request:** *Method:* POST *Url:* https://api.connctd.io/api/v1/auth/login *Content-Type:* application/json *Body:* see below
 
@@ -53,9 +47,11 @@ returned in the body.
 }
 ```
 
-## Logout
+The response will either have the status code 200 in case of success or 401 in case the 
+supplied credentials can't be verified. In error cases a default error object is
+returned in the body.
 
-Invalidates the access token. You have to specify your access token within *Authorization* header field.
+## Logout
 
 > **Request:** *Method:* POST *Url:* https://api.connctd.io/api/v1/auth/logout *Content-Type:* application/json *Body:* empty
 
@@ -63,3 +59,5 @@ Invalidates the access token. You have to specify your access token within *Auth
 ```
 
 > **Response:** *Code:* 200 *Body:* Empty
+
+Invalidates the access token. You have to specify your access token within *Authorization* header field.

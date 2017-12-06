@@ -4,8 +4,6 @@ The connctd platform acts as a oauth2 provider implementing all flows described 
 
 ## Requesting Authorization
 
-This request will redirect the user to the consent screen. You have to replace the example parameter values with the corresponding values of your app. A detailed parameter description can be found [here](https://tools.ietf.org/html/rfc6749#section-4.1.1).
-
 > **Request:** *Method:* GET *Url:* https://api.connctd.io/oauth2/auth?state=abcdefghiklmnop&client_id=1bd2f1a3-e72d-4606-b82b-86d1054f3bd4&redirect_uri=https%3A%2F%2Fabc%2Fauth%2Fcallback&response_type=code&scope=connctd.units.read+connctd.things.read+connctd.connector+offline
 
 ```json
@@ -16,10 +14,9 @@ This request will redirect the user to the consent screen. You have to replace t
 ```json
 ```
 
-## Requesting a token
+This request will redirect the user to the consent screen. You have to replace the example parameter values with the corresponding values of your app. A detailed parameter description can be found [here](https://tools.ietf.org/html/rfc6749#section-4.1.1).
 
-This request requires the authentication of the app by specifying an Authorization header with value `Basic base64_encode(client_id:client_secret)`
-The body will contain a url encoded form with the fields *grant_type*, *code*, *redirect_uri* and *client_id*  
+## Requesting a token
 
 > **Request:** *Method:* POST *Url:* https://api.connctd.io/oauth2/token *Content-Type:* application/x-www-form-urlencoded
 
@@ -38,17 +35,16 @@ redirect_uri=http%3A%2F%2Fabc.com%%2Fauth%2Fcallback&client_id=1bd2f1a3-e72d-460
 }
 ```
 
-## Requesting an app token
+This request requires the authentication of the app by specifying an Authorization header with value `Basic base64_encode(client_id:client_secret)`
+The body will contain a url encoded form with the fields *grant_type*, *code*, *redirect_uri* and *client_id*  
 
-This is the so called client credentials grant flow and allows an app to fetch an acccess token that is NOT user related. This is required for e.g. registering an app callback (see apps)
+## Requesting an app token
 
 > **Request:** *Method:* POST *Url:* https://api.connctd.io/oauth2/token *Content-Type:* application/x-www-form-urlencoded *Authorization:* Basic ------
 
 ```java
 grant_type=client_credentials&scope=connctd.connector
 ```
-
-Authorization header value needs to be of format: base64_encode(client_id:client_secret)
 
 > **Response:** *Code:* 200
 
@@ -57,3 +53,7 @@ Authorization header value needs to be of format: base64_encode(client_id:client
     "access_token":"..."
 }
 ```
+
+This is the so called client credentials grant flow and allows an app to fetch an acccess token that is NOT user related. This is required for e.g. registering an app callback (see apps)
+
+Authorization header value needs to be of format: base64_encode(client_id:client_secret)
