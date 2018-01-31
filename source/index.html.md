@@ -10,6 +10,7 @@ includes:
   - apps
   - units
   - things
+  - connectors
   - scopes
   - errors
 

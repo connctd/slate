@@ -35,7 +35,13 @@ The values of the properties **parents**, **children**, **subjects** and **thing
 
 ## Create unit
 
-> **Request:** *Method:* POST *Url:* https://api.connctd.io/api/v1/units *Content-Type:* application/json *Body:* see below
+> **Request:**<br>
+> POST https://api.connctd.io/api/v1/units<br>
+> *Headers:*<br>
+> &nbsp;Content-Type:application/json<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+> *Body:* see below<br>
 
 ```json
 {
@@ -67,7 +73,12 @@ Required scope: `connctd.units.admin or connctd.core`
 
 ## Retrieve units
 
-> **Request:** *Method:* GET *Url:* https://api.connctd.io/api/v1/units
+> **Request:**<br>
+> GET https://api.connctd.io/api/v1/units<br>
+> *Headers:*<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+> *Body:* empty<br>
 
 ```json
 ```
@@ -89,7 +100,12 @@ Required scope: `connctd.units.read or connctd.core`
 
 ## Retrieve unit
 
-> **Request:** *Method:* GET *Url:* https://api.connctd.io/api/v1/units/-unitId-
+> **Request:**<br>
+> GET https://api.connctd.io/api/v1/units/-unitId-<br>
+> *Headers:*<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+> *Body:* empty<br>
 
 ```json
 ```
@@ -124,7 +140,12 @@ Required scope: `connctd.units.read or connctd.core`
 
 ## Delete unit
 
-> **Request:** *Method:* DELETE *Url:* https://api.connctd.io/api/v1/units/-unitId-
+> **Request:**<br>
+> DELETE https://api.connctd.io/api/v1/units/-unitId-<br>
+> *Headers:*<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+> *Body:* empty<br>
 
 ```json
 ```
@@ -137,7 +158,12 @@ Required scope: `connctd.units.admin or connctd.core`
 
 ## Get unit references
 
-> **Request:** *Method:* GET *Url:* https://api.connctd.io/api/v1/units/-unitId-/-parents|children-
+> **Request:**<br>
+> GET https://api.connctd.io/api/v1/units/-unitId-/-parents|children-<br>
+> *Headers:*<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+> *Body:* empty<br>
 
 ```json
 ```
@@ -158,7 +184,12 @@ Required scope: `connctd.units.read or connctd.core`
 
 ## Add unit reference
 
-> **Request:** *Method:* POST *Url:* https://api.connctd.io/api/v1/units/-unitId-/-parents|children- *Content-Type:* application/json *Body:* Id of parent/child unit. See example below
+> **Request:**<br>
+> POST https://api.connctd.io/api/v1/units/-unitId-/-parents|children-<br>
+> *Headers:*<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+> *Body:* Id of parent/child. See example below<br>
 
 ```json
 {
@@ -173,8 +204,13 @@ Adds a reference to another unit. The reference also appears within the referenc
 Required scope: `connctd.units.admin or connctd.core`
 
 ## Remove unit reference
-
-> **Request:** *Method:* DELETE *Url:* https://api.connctd.io/api/v1/units/-unitId-/-parents|children- *Content-Type:* application/json *Body:* Id of parent/child unit. See example below
+ 
+> **Request:**<br>
+> DELETE https://api.connctd.io/api/v1/units/-unitId-/-parents|children-<br>
+> *Headers:*<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+> *Body:* Id of parent/child unit. See example below<br>
 
 ```json
 {
@@ -190,7 +226,12 @@ Required scope: `connctd.units.admin or connctd.core`
 
 ## Get subject references
 
-> **Request:** *Method:* GET *Url:* https://api.connctd.io/api/v1/units/-unitId-/subjects
+> **Request:**<br>
+> GET https://api.connctd.io/api/v1/units/-unitId-/subjects<br>
+> *Headers:*<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+> *Body:* empty<br>
 
 ```json
 ```
@@ -214,8 +255,13 @@ Subject references can be used to assign (external) subject ids to a specific un
 </aside>
 
 ## Add subject reference
-
-> **Request:** *Method:* POST *Url:* https://api.connctd.io/api/v1/units/-unitId-/subjects *Content-Type:* application/json *Body:* Id of subject. See example below
+ 
+> **Request:**<br>
+> POST https://api.connctd.io/api/v1/units/-unitId-/subjects<br>
+> *Headers:*<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+> *Body:* Id of subject. See example below<br>
 
 ```json
 {
@@ -231,7 +277,13 @@ Required scope: `connctd.units.admin or connctd.core`
 
 ## Remove subject reference
 
-> **Request:** *Method:* DELETE *Url:* https://api.connctd.io/api/v1/units/-unitId-/subjects *Content-Type:* application/json *Body:* Id of subject. See example below
+> **Request:**<br>
+> DELETE https://api.connctd.io/api/v1/units/-unitId-/subjects<br>
+> *Headers:*<br>
+> &nbsp;Content-Type:application/json<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+> *Body:* Id of subject. See example below<br>
 
 ```json
 {
@@ -246,8 +298,13 @@ Removes a reference to a subject.
 Required scope: `connctd.units.admin or connctd.core`
 
 ## Get properties
-
-> **Request:** *Method:* GET *Url:* https://api.connctd.io/api/v1/units/-unitId-/properties
+ 
+> **Request:**<br>
+> GET https://api.connctd.io/api/v1/units/-unitId-/properties<br>
+> *Headers:*<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+> *Body:* empty<br>
 
 ```json
 ```
@@ -269,7 +326,12 @@ Required scope: `connctd.units.read or connctd.core`
 
 ## Get property
 
-> **Request:** *Method:* GET *Url:* https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-
+> **Request:**<br>
+> GET https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-<br>
+> *Headers:*<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+> *Body:* empty<br>
 
 ```json
 ```
@@ -289,7 +351,13 @@ Required scope: `connctd.units.read or connctd.core`
 
 ## Add property
 
-> **Request:** *Method:* POST *Url:* https://api.connctd.io/api/v1/units/-unitId-/properties *Content-Type:* application/json *Body:* New property. See example below
+> **Request:**<br>
+> POST https://api.connctd.io/api/v1/units/-unitId-/properties<br>
+> *Headers:*<br>
+> &nbsp;Content-Type:application/json<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+> *Body:* New property. See example below<br>
 
 ```json
 {
@@ -306,7 +374,13 @@ Required scope: `connctd.units.admin or connctd.core`
 
 ## Update property
 
-> **Request:** *Method:* PUT *Url:* https://api.connctd.io/api/v1/units/-unitId-/properties *Content-Type:* application/json *Body:* New property value. See example below
+> **Request:**<br>
+> PUT https://api.connctd.io/api/v1/units/-unitId-/properties<br>
+> *Headers:*<br>
+> &nbsp;Content-Type:application/json<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+> *Body:* New property value. See example below<br>
 
 ```json
 {
@@ -323,7 +397,12 @@ Required scope: `connctd.units.admin or connctd.core`
 
 ## Delete property
 
-> **Request:** *Method:* DELETE *Url:* https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-
+> **Request:**<br>
+> DELETE https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-<br>
+> *Headers:*<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+> *Body:* empty<br>
 
 ```json
 ```
@@ -338,8 +417,13 @@ Removes a property from property set
 Required scope: `connctd.units.admin or connctd.core`
 
 ## Get thing references
-
-> **Request:** *Method:* GET *Url:* https://api.connctd.io/api/v1/units/-unitId-/things
+ 
+> **Request:**<br>
+> GET https://api.connctd.io/api/v1/units/-unitId-/things<br>
+> *Headers:*<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+> *Body:* empty<br>
 
 ```json
 ```
@@ -359,8 +443,14 @@ Retrieves a list of all thing references
 Required scope: `connctd.units.read or connctd.core`
 
 ## Add thing reference
-
-> **Request:** *Method:* POST *Url:* https://api.connctd.io/api/v1/units/-unitId-/things *Content-Type:* application/json *Body:* Id of thing. See example below
+ 
+> **Request:**<br>
+> POST https://api.connctd.io/api/v1/units/-unitId-/things<br>
+> *Headers:*<br>
+> &nbsp;Content-Type:application/json<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+> *Body:* Id of thing. See example below<br>
 
 ```json
 {
@@ -376,7 +466,13 @@ Required scope: `connctd.units.admin or connctd.core`
 
 ## Remove thing reference
 
-> **Request:** *Method:* DELETE *Url:* https://api.connctd.io/api/v1/units/-unitId-/things *Content-Type:* application/json *Body:* Id of thing. See example below
+> **Request:**<br>
+> DELETE https://api.connctd.io/api/v1/units/-unitId-/things<br>
+> *Headers:*<br>
+> &nbsp;Content-Type:application/json<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+> *Body:* Id of thing. See example below<br>
 
 ```json
 {
