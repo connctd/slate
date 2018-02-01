@@ -236,7 +236,11 @@ the resource owner (user), granting you a certain amount of permissions.</p>
 <h2 id="login">Login</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/auth/login <em>Content-Type:</em> application/json <em>Body:</em> see below</p>
+<p><strong>Request</strong><br>
+POST https://api.connctd.io/api/v1/auth/login<br>
+<em>Headers:</em><br>
+&nbsp;Content-Type:application/json<br>
+<em>Body:</em> see below<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"email"</span><span class="p">:</span><span class="s2">"yourmail"</span><span class="p">,</span><span class="w">
@@ -244,7 +248,9 @@ the resource owner (user), granting you a certain amount of permissions.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Token und further information. See example below</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> Token und further information. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NpZCI6I....."</span><span class="p">,</span><span class="w">
@@ -259,11 +265,18 @@ returned in the body.</p>
 <h2 id="logout">Logout</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/auth/logout <em>Content-Type:</em> application/json <em>Body:</em> empty</p>
+<p><strong>Request</strong><br>
+POST <em>Url:</em> https://api.connctd.io/api/v1/auth/logout<br>
+<em>Headers:</em><br>
+&nbsp;Content-Type:application/json<br>
+&nbsp;Authorization:YOUR TOKEN<br>
+<em>Body:</em> empty<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Empty</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> Empty</p>
 </blockquote>
 
 <p>Invalidates the access token. You have to specify your access token within <em>Authorization</em> header field.</p>
@@ -275,11 +288,13 @@ returned in the body.</p>
 <h2 id="requesting-authorization">Requesting Authorization</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/oauth2/auth?state=abcdefghiklmnop&amp;client_id=1bd2f1a3-e72d-4606-b82b-86d1054f3bd4&amp;redirect_uri=https%3A%2F%2Fabc%2Fauth%2Fcallback&amp;response_type=code&amp;scope=connctd.units.read+connctd.things.read+connctd.connector+offline</p>
+<p><strong>Request</strong><br>
+GET https://api.connctd.io/oauth2/auth?state=abcdefghiklmnop&amp;client_id=1bd2f1a3-e72d-4606-b82b-86d1054f3bd4&amp;redirect_uri=https%3A%2F%2Fabc%2Fauth%2Fcallback&amp;response_type=code&amp;scope=connctd.units.read+connctd.things.read+connctd.connector+offline</p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 301</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 301</p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <p>This request will redirect the user to the consent screen. You have to replace the example parameter values with the corresponding values of your app. A detailed parameter description can be found <a href="https://tools.ietf.org/html/rfc6749#section-4.1.1">here</a>.</p>
@@ -287,13 +302,18 @@ returned in the body.</p>
 <h2 id="requesting-a-token">Requesting a token</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/oauth2/token <em>Content-Type:</em> application/x-www-form-urlencoded</p>
+<p><strong>Request</strong><br>
+POST https://api.connctd.io/oauth2/token<br>
+<em>Headers:</em><br>
+&nbsp;Content-Type:application/x-www-form-urlencoded<br>
+<em>Body:</em> see below<br></p>
 </blockquote>
-<pre class="highlight java tab-java"><code><span class="n">grant_type</span><span class="o">=</span><span class="n">authorization_code</span><span class="o">&amp;</span><span class="n">code</span><span class="o">=-</span><span class="n">auth</span> <span class="n">code</span> <span class="n">from</span> <span class="n">reply</span> <span class="n">of</span> <span class="n">prev</span> <span class="n">request</span><span class="o">-&amp;</span>
-<span class="n">redirect_uri</span><span class="o">=</span><span class="n">http</span><span class="o">%</span><span class="mi">3</span><span class="n">A</span><span class="o">%</span><span class="mi">2</span><span class="n">F</span><span class="o">%</span><span class="mi">2</span><span class="n">Fabc</span><span class="o">.</span><span class="na">com</span><span class="o">%%</span><span class="mi">2</span><span class="n">Fauth</span><span class="o">%</span><span class="mi">2</span><span class="n">Fcallback</span><span class="o">&amp;</span><span class="n">client_id</span><span class="o">=</span><span class="mi">1</span><span class="n">bd2f1a3</span><span class="o">-</span><span class="n">e72d</span><span class="o">-</span><span class="mi">4606</span><span class="o">-</span><span class="n">b82b</span><span class="o">-</span><span class="mi">86</span><span class="n">d1054f3bd4</span>
+<pre class="highlight shell"><code><span class="nv">grant_type</span><span class="o">=</span>authorization_code&amp;code<span class="o">=</span>-auth code from reply of prev request-&amp;
+<span class="nv">redirect_uri</span><span class="o">=</span>http%3A%2F%2Fabc.com%%2Fauth%2Fcallback&amp;client_id<span class="o">=</span>1bd2f1a3-e72d-4606-b82b-86d1054f3bd4
 </code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"access_token"</span><span class="p">:</span><span class="s2">"..."</span><span class="p">,</span><span class="w">
@@ -307,12 +327,18 @@ The body will contain a url encoded form with the fields <em>grant_type</em>, <e
 <h2 id="requesting-an-app-token">Requesting an app token</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/oauth2/token <em>Content-Type:</em> application/x-www-form-urlencoded <em>Authorization:</em> Basic &mdash;&mdash;</p>
+<p><strong>Request</strong><br>
+POST https://api.connctd.io/oauth2/token<br>
+<em>Headers:</em><br>
+&nbsp;Content-Type:application/x-www-form-urlencoded<br>
+&nbsp;Authorization:Basic &hellip;<br>
+<em>Body:</em> see below</p>
 </blockquote>
-<pre class="highlight java tab-java"><code><span class="n">grant_type</span><span class="o">=</span><span class="n">client_credentials</span><span class="o">&amp;</span><span class="n">scope</span><span class="o">=</span><span class="n">connctd</span><span class="o">.</span><span class="na">connector</span>
+<pre class="highlight shell"><code><span class="nv">grant_type</span><span class="o">=</span>client_credentials&amp;scope<span class="o">=</span>connctd.connector
 </code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"access_token"</span><span class="p">:</span><span class="s2">"..."</span><span class="w">
@@ -331,7 +357,12 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
 <h2 id="register-an-app">Register an app</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/apps <em>Content-Type:</em> application/json <em>Body:</em> see below</p>
+<p><strong>Request</strong><br>
+POST https://api.connctd.io/api/v1/apps<br>
+<em>Headers:</em><br>
+&nbsp;Content-Type:application/json<br>
+&nbsp;Authorization:YOUR TOKEN<br>
+<em>Body:</em> see below<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"Name of application"</span><span class="p">,</span><span class="w">
@@ -362,7 +393,9 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
 
 </span></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 201 <em>Body:</em> Newly created application. See example below. </p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 201<br>
+<em>Body:</em> Newly created application. See example below. </p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f62794f6-659d-439a-b19b-45e6cf705cef"</span><span class="p">,</span><span class="w">
@@ -389,11 +422,17 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
 <h2 id="retrieve-apps">Retrieve apps</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/apps</p>
+<p><strong>Request</strong><br>
+GET https://api.connctd.io/api/v1/apps<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+<em>Body:</em> empty<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> List of apps. See example below</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> List of apps. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
@@ -420,11 +459,17 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
 <h2 id="retrieve-an-app">Retrieve an app</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/apps/f62794f6-659d-439a-b19b-45e6cf705cef</p>
+<p><strong>Request</strong><br>
+GET https://api.connctd.io/api/v1/apps/f62794f6-659d-439a-b19b-45e6cf705cef<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+<em>Body:</em> empty<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Single app description. See example below</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> Single app description. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f62794f6-659d-439a-b19b-45e6cf705cef"</span><span class="p">,</span><span class="w">
@@ -440,14 +485,20 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
 <h2 id="add-tag">Add tag</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/apps/f62794f6-659d-439a-b19b-45e6cf705cef/tags <em>Body:</em> see below</p>
+<p><strong>Request</strong><br>
+POST https://api.connctd.io/api/v1/apps/f62794f6-659d-439a-b19b-45e6cf705cef/tags<br>
+<em>Headers:</em><br>
+&nbsp;Content-Type:application/json<br>
+&nbsp;Authorization:YOUR TOKEN<br>
+<em>Body:</em> see below<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"My new tag"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 201</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 201</p>
 </blockquote>
 
 <p>Adds a new tag to the tag list of an app</p>
@@ -457,11 +508,16 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
 <h2 id="delete-a-tag">Delete a tag</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/apps/1bd2f1a3-e72d-4606-b82b-86d1054f3bd4/tags/TAGNAME</p>
+<p><strong>Request</strong><br>
+DELETE https://api.connctd.io/api/v1/apps/1bd2f1a3-e72d-4606-b82b-86d1054f3bd4/tags/TAGNAME<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+<em>Body:</em> empty<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 204</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 204</p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <p>Removes a tag</p>
@@ -469,11 +525,16 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
 <h2 id="delete-an-app">Delete an app</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/apps/1bd2f1a3-e72d-4606-b82b-86d1054f3bd4</p>
+<p><strong>Request</strong><br>
+DELETE https://api.connctd.io/api/v1/apps/1bd2f1a3-e72d-4606-b82b-86d1054f3bd4<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+<em>Body:</em> empty<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 204</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 204</p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <p>Removes an app by client_id</p>
@@ -483,14 +544,20 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
 <h2 id="register-a-callback-url">Register a callback url</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/actions/callback/register <em>Authorization:</em> Bearer app-token </p>
+<p><strong>Request</strong><br>
+POST https://api.connctd.io/api/v1/actions/callback/register<br>
+<em>Headers:</em><br>
+&nbsp;Content-Type:application/json<br>
+&nbsp;Authorization:APP TOKEN<br>
+<em>Body:</em> see below<br> </p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"CallbackUrl"</span><span class="p">:</span><span class="s2">"https://remote-service-url"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200</p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <p>This request stores a system wide callback url for all action requests that are related to this app. This is important whenever an app creates things that contain actions. As soon a user triggers any of these actions by performing an action request the request is forwarded to the given callback url. 
@@ -501,11 +568,11 @@ The header requires a valid app token. See section oauth2 -&gt; Register an app 
 <p>A unit is a primitive container that gives developers the possibility to group things and to put them into a context. Since a unit can reference other units (children and parents) even complex structures of the real world can be modeled like for example a city with it&rsquo;s streets and buildings.</p>
 
 <aside class="notice">
-    When doing requests against our units endpoint you have to pass two headers for a successful request handling:
-    <ul>
-        <li>Authorization:Bearer -your token-</li>
-        <li>X-External-Subject-Id:-any id (e.g. customer id) generated by your app-</li>
-    </ul>
+  When doing requests against our units endpoint you have to pass two headers for a successful request handling:
+  <ul>
+    <li>Authorization:Bearer -your token-</li>
+    <li>X-External-Subject-Id:-any id (e.g. customer id) generated by your app-</li>
+  </ul>
 </aside>
 
 <h2 id="model">Model</h2>
@@ -531,7 +598,7 @@ The header requires a valid app token. See section oauth2 -&gt; Register an app 
 <h2 id="create-unit">Create unit</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 POST https://api.connctd.io/api/v1/units<br>
 <em>Headers:</em><br>
 &nbsp;Content-Type:application/json<br>
@@ -554,7 +621,9 @@ POST https://api.connctd.io/api/v1/units<br>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 201 <em>Body:</em> Id of newly created unit. See example below</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 201<br>
+<em>Body:</em> Id of newly created unit. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e1de3bcf-7699-4838-97ec-635618fb3caa"</span><span class="w">
@@ -567,7 +636,7 @@ POST https://api.connctd.io/api/v1/units<br>
 <h2 id="retrieve-units">Retrieve units</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 GET https://api.connctd.io/api/v1/units<br>
 <em>Headers:</em><br>
 &nbsp;Authorization:YOUR TOKEN<br>
@@ -576,7 +645,9 @@ GET https://api.connctd.io/api/v1/units<br>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Array of units. See example below</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> Array of units. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
@@ -592,7 +663,7 @@ GET https://api.connctd.io/api/v1/units<br>
 <h2 id="retrieve-unit">Retrieve unit</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 GET https://api.connctd.io/api/v1/units/-unitId-<br>
 <em>Headers:</em><br>
 &nbsp;Authorization:YOUR TOKEN<br>
@@ -601,7 +672,9 @@ GET https://api.connctd.io/api/v1/units/-unitId-<br>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> A single unit. See example below</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> A single unit. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e1de3bcf-7699-4838-97ec-635618fb3caa"</span><span class="p">,</span><span class="w">
@@ -630,7 +703,7 @@ GET https://api.connctd.io/api/v1/units/-unitId-<br>
 <h2 id="delete-unit">Delete unit</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 DELETE https://api.connctd.io/api/v1/units/-unitId-<br>
 <em>Headers:</em><br>
 &nbsp;Authorization:YOUR TOKEN<br>
@@ -639,7 +712,8 @@ DELETE https://api.connctd.io/api/v1/units/-unitId-<br>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 204</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 204</p>
 </blockquote>
 
 <p>Removes a unit by its id.</p>
@@ -649,7 +723,7 @@ DELETE https://api.connctd.io/api/v1/units/-unitId-<br>
 <h2 id="get-unit-references">Get unit references</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 GET https://api.connctd.io/api/v1/units/-unitId-/-parents|children-<br>
 <em>Headers:</em><br>
 &nbsp;Authorization:YOUR TOKEN<br>
@@ -658,7 +732,9 @@ GET https://api.connctd.io/api/v1/units/-unitId-/-parents|children-<br>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> List of unit references. See example below</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> List of unit references. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
@@ -673,7 +749,7 @@ GET https://api.connctd.io/api/v1/units/-unitId-/-parents|children-<br>
 <h2 id="add-unit-reference">Add unit reference</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 POST https://api.connctd.io/api/v1/units/-unitId-/-parents|children-<br>
 <em>Headers:</em><br>
 &nbsp;Authorization:YOUR TOKEN<br>
@@ -685,7 +761,8 @@ POST https://api.connctd.io/api/v1/units/-unitId-/-parents|children-<br>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 201</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 201</p>
 </blockquote>
 
 <p>Adds a reference to another unit. The reference also appears within the referenced unit either as parent or child reference.</p>
@@ -695,7 +772,7 @@ POST https://api.connctd.io/api/v1/units/-unitId-/-parents|children-<br>
 <h2 id="remove-unit-reference">Remove unit reference</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 DELETE https://api.connctd.io/api/v1/units/-unitId-/-parents|children-<br>
 <em>Headers:</em><br>
 &nbsp;Authorization:YOUR TOKEN<br>
@@ -707,7 +784,8 @@ DELETE https://api.connctd.io/api/v1/units/-unitId-/-parents|children-<br>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 204</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 204</p>
 </blockquote>
 
 <p>Removes a reference to another unit. The reference also disappears from within the referenced unit.</p>
@@ -717,7 +795,7 @@ DELETE https://api.connctd.io/api/v1/units/-unitId-/-parents|children-<br>
 <h2 id="get-subject-references">Get subject references</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 GET https://api.connctd.io/api/v1/units/-unitId-/subjects<br>
 <em>Headers:</em><br>
 &nbsp;Authorization:YOUR TOKEN<br>
@@ -726,7 +804,9 @@ GET https://api.connctd.io/api/v1/units/-unitId-/subjects<br>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> List of subject references. See example below</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> List of subject references. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
@@ -745,7 +825,7 @@ Subject references can be used to assign (external) subject ids to a specific un
 <h2 id="add-subject-reference">Add subject reference</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 POST https://api.connctd.io/api/v1/units/-unitId-/subjects<br>
 <em>Headers:</em><br>
 &nbsp;Authorization:YOUR TOKEN<br>
@@ -757,7 +837,8 @@ POST https://api.connctd.io/api/v1/units/-unitId-/subjects<br>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 201</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 201</p>
 </blockquote>
 
 <p>Adds a reference to a subject.</p>
@@ -767,7 +848,7 @@ POST https://api.connctd.io/api/v1/units/-unitId-/subjects<br>
 <h2 id="remove-subject-reference">Remove subject reference</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 DELETE https://api.connctd.io/api/v1/units/-unitId-/subjects<br>
 <em>Headers:</em><br>
 &nbsp;Content-Type:application/json<br>
@@ -780,7 +861,8 @@ DELETE https://api.connctd.io/api/v1/units/-unitId-/subjects<br>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 204</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 204</p>
 </blockquote>
 
 <p>Removes a reference to a subject.</p>
@@ -790,7 +872,7 @@ DELETE https://api.connctd.io/api/v1/units/-unitId-/subjects<br>
 <h2 id="get-properties">Get properties</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 GET https://api.connctd.io/api/v1/units/-unitId-/properties<br>
 <em>Headers:</em><br>
 &nbsp;Authorization:YOUR TOKEN<br>
@@ -799,7 +881,9 @@ GET https://api.connctd.io/api/v1/units/-unitId-/properties<br>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> List of properties. See example below</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> List of properties. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
@@ -815,7 +899,7 @@ GET https://api.connctd.io/api/v1/units/-unitId-/properties<br>
 <h2 id="get-property">Get property</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 GET https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-<br>
 <em>Headers:</em><br>
 &nbsp;Authorization:YOUR TOKEN<br>
@@ -824,7 +908,9 @@ GET https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-<br>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> A single property. See example below</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> A single property. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"number"</span><span class="p">,</span><span class="w">
@@ -838,7 +924,7 @@ GET https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-<br>
 <h2 id="add-property">Add property</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 POST https://api.connctd.io/api/v1/units/-unitId-/properties<br>
 <em>Headers:</em><br>
 &nbsp;Content-Type:application/json<br>
@@ -852,7 +938,8 @@ POST https://api.connctd.io/api/v1/units/-unitId-/properties<br>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 201</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 201</p>
 </blockquote>
 
 <p>Adds a new property.</p>
@@ -862,7 +949,7 @@ POST https://api.connctd.io/api/v1/units/-unitId-/properties<br>
 <h2 id="update-property">Update property</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 PUT https://api.connctd.io/api/v1/units/-unitId-/properties<br>
 <em>Headers:</em><br>
 &nbsp;Content-Type:application/json<br>
@@ -876,7 +963,8 @@ PUT https://api.connctd.io/api/v1/units/-unitId-/properties<br>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 204</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 204</p>
 </blockquote>
 
 <p>Updates a property.</p>
@@ -886,7 +974,7 @@ PUT https://api.connctd.io/api/v1/units/-unitId-/properties<br>
 <h2 id="delete-property">Delete property</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 DELETE https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-<br>
 <em>Headers:</em><br>
 &nbsp;Authorization:YOUR TOKEN<br>
@@ -895,7 +983,8 @@ DELETE https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-<br
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200</p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <p>Removes a property from property set</p>
@@ -905,7 +994,7 @@ DELETE https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-<br
 <h2 id="get-thing-references">Get thing references</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 GET https://api.connctd.io/api/v1/units/-unitId-/things<br>
 <em>Headers:</em><br>
 &nbsp;Authorization:YOUR TOKEN<br>
@@ -914,7 +1003,9 @@ GET https://api.connctd.io/api/v1/units/-unitId-/things<br>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> List of thing references. See example below</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> List of thing references. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
@@ -929,7 +1020,7 @@ GET https://api.connctd.io/api/v1/units/-unitId-/things<br>
 <h2 id="add-thing-reference">Add thing reference</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 POST https://api.connctd.io/api/v1/units/-unitId-/things<br>
 <em>Headers:</em><br>
 &nbsp;Content-Type:application/json<br>
@@ -938,11 +1029,12 @@ POST https://api.connctd.io/api/v1/units/-unitId-/things<br>
 <em>Body:</em> Id of thing. See example below<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"591327fe-5c1a-4dbb-a96b-9bef4de0a273"</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"591327fe-5c1a-4dbb-a96b-9bef4de0a273"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 201</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 201</p>
 </blockquote>
 
 <p>Adds a reference to a things.</p>
@@ -952,7 +1044,7 @@ POST https://api.connctd.io/api/v1/units/-unitId-/things<br>
 <h2 id="remove-thing-reference">Remove thing reference</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 DELETE https://api.connctd.io/api/v1/units/-unitId-/things<br>
 <em>Headers:</em><br>
 &nbsp;Content-Type:application/json<br>
@@ -961,11 +1053,12 @@ DELETE https://api.connctd.io/api/v1/units/-unitId-/things<br>
 <em>Body:</em> Id of thing. See example below<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"591327fe-5c1a-4dbb-a96b-9bef4de0a273"</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"591327fe-5c1a-4dbb-a96b-9bef4de0a273"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 204</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 204</p>
 </blockquote>
 
 <p>Removes a reference to a thing.</p>
@@ -985,17 +1078,23 @@ and managed with our API. Depending on the requested action the supplied token m
 </ul>
 
 <aside class="notice">
-    When doing requests against our things endpoint you have to pass two headers for a successful request handling:
-        <ul>
-            <li>Authorization:Bearer -your token-</li>
-            <li>X-External-Subject-Id:-any id (e.g. customer id) generated by your app-</li>
-        </ul>
+  When doing requests against our things endpoint you have to pass two headers for a successful request handling:
+    <ul>
+      <li>Authorization:Bearer -your token-</li>
+      <li>X-External-Subject-Id:-any id (e.g. customer id) generated by your app-</li>
+    </ul>
 </aside>
 
 <h2 id="create-thing">Create Thing</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/things <em>Content-Type:</em> application/json <em>Body:</em> see below</p>
+<p><strong>Request</strong><br>
+POST https://api.connctd.io/api/v1/things<br>
+<em>Headers:</em><br>
+&nbsp;Content-Type:application/json<br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> see below<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;unique-thing-id&gt;"</span><span class="p">,</span><span class="w">
@@ -1034,7 +1133,9 @@ and managed with our API. Depending on the requested action the supplied token m
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 201 <em>Body:</em> Id of newly created thing. See example below</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 201<br>
+<em>Body:</em> Id of newly created thing. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"Id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6088362-a864-4834-89eb-d9e4dafbaefe"</span><span class="w">
@@ -1052,11 +1153,18 @@ success.</aside>
 <h2 id="retrieve-things">Retrieve things</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/things</p>
+<p><strong>Request</strong><br>
+GET https://api.connctd.io/api/v1/things<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> empty<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> List of thing references. See example below</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> List of thing references. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
@@ -1071,11 +1179,18 @@ success.</aside>
 <h2 id="retrieve-thing">Retrieve thing</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-</p>
+<p><strong>Request</strong><br>
+GET https://api.connctd.io/api/v1/things/-thingid-<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> emptybr&gt;</p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Thing. See example below</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> Thing. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"177e3f1a-ef98-4898-b277-b6b392720be9"</span><span class="p">,</span><span class="w">
@@ -1099,11 +1214,18 @@ success.</aside>
 <h2 id="retrieve-thing-component">Retrieve thing component</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-</p>
+<p><strong>Request</strong><br>
+GET https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> empty<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Thing component. See example below</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> Thing component. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lamp"</span><span class="p">,</span><span class="w">
@@ -1137,11 +1259,18 @@ success.</aside>
 <h2 id="retrieve-component-property">Retrieve component property</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-/properties/-propertyName-</p>
+<p><strong>Request</strong><br>
+GET https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-/properties/-propertyName-<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> empty<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Component property. See example below</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> Component property. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on"</span><span class="p">,</span><span class="w">
@@ -1159,14 +1288,22 @@ success.</aside>
 <h2 id="trigger-action-request">Trigger action request</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-/actions/-actionName-</p>
+<p><strong>Request</strong><br>
+POST https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-/actions/-actionName-<br>
+<em>Headers:</em><br>
+&nbsp;Content-Type:application/json<br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> see below<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"on"</span><span class="p">:</span><span class="s2">"true"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 201 <em>Body:</em> Thing component. See example below</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 201<br>
+<em>Body:</em> Thing component. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ebfc9fa6-5eb6-4217-bde5-3439797c4577"</span><span class="p">,</span><span class="w">
@@ -1181,14 +1318,22 @@ success.</aside>
 <h2 id="update-thing-status">Update thing status</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> PATCH <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-</p>
+<p><strong>Request</strong><br>
+PATCH <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-<br>
+<em>Headers:</em><br>
+&nbsp;Content-Type:application/json<br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> see below<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AVAILABLE"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 204 <em>Body:</em> Empty body</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 204<br>
+<em>Body:</em> Empty body</p>
 </blockquote>
 
 <p>Allows you to update the state of a thing. Allowed values are &ldquo;AVAILABLE&rdquo;, &ldquo;UNAVAILABLE&rdquo; and &ldquo;UNKNOWN&rdquo;</p>
@@ -1198,14 +1343,22 @@ success.</aside>
 <h2 id="update-thing-property">Update thing property</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> PUT <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-/properties/-propertyname-</p>
+<p><strong>Request</strong><br>
+PUT https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-/properties/-propertyname-<br>
+<em>Headers:</em><br>
+&nbsp;Content-Type:application/json<br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> see below<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xyz"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Empty body</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> Empty body</p>
 </blockquote>
 
 <p>This endpoint lets you update a property of a Thing you created. The supplied value must be a valid representation of the property type of this property.</p>
@@ -1215,11 +1368,18 @@ success.</aside>
 <h2 id="delete-thing">Delete thing</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-</p>
+<p><strong>Request</strong><br>
+DELETE <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> empty<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
-<p><strong>Response:</strong> <em>Code:</em> 200 <em>Body:</em> Empty body</p>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> Empty body</p>
 </blockquote>
 
 <p>If the supplied bearer token has the scope <code class="prettyprint">connctd.connector</code> and the Thing with the specified
@@ -1241,12 +1401,14 @@ Basically a connector can be understood as a piece of code which connects a remo
 <h2 id="retrieve-connector-descriptions">Retrieve connector descriptions</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 GET https://api.connctd.io/api/v1/connectors/descriptions<br>
 <em>Headers:</em> none<br>
 <em>Body:</em> empty<br></p>
-
-<p><strong>Response:</strong><br>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response</strong><br>
 <em>Code:</em> 200<br>
 <em>Body:</em> List of connector descriptions. See example below</p>
 </blockquote>
@@ -1276,7 +1438,7 @@ GET https://api.connctd.io/api/v1/connectors/descriptions<br>
 <h2 id="create-connector-instance">Create connector instance</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 POST https://api.connctd.io/api/v1/connectors/instances<br>
 <em>Headers:</em><br>
 &nbsp;Content-Type:application/json<br>
@@ -1293,7 +1455,7 @@ POST https://api.connctd.io/api/v1/connectors/instances<br>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p><strong>Response:</strong><br>
+<p><strong>Response</strong><br>
 <em>Code:</em> 201<br>
 <em>Body:</em> Id of newly created instance. See example below</p>
 </blockquote>
@@ -1308,13 +1470,15 @@ POST https://api.connctd.io/api/v1/connectors/instances<br>
 <h2 id="retrieve-connector-instances">Retrieve connector instances</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 GET https://api.connctd.io/api/v1/connectors/instances<br>
 <em>Headers:</em><br>
 &nbsp;Authorization:YOUR TOKEN<br>
 <em>Body:</em> empty<br></p>
-
-<p><strong>Response:</strong><br>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response</strong><br>
 <em>Code:</em> 200<br>
 <em>Body:</em> List of instances. See example below</p>
 </blockquote>
@@ -1331,13 +1495,15 @@ GET https://api.connctd.io/api/v1/connectors/instances<br>
 <h2 id="retrieve-connector-instance">Retrieve connector instance</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 GET https://api.connctd.io/api/v1/connectors/instances/-instanceId-<br>
 <em>Headers:</em><br>
 &nbsp;Authorization:YOUR TOKEN<br>
 <em>Body:</em> empty<br></p>
-
-<p><strong>Response:</strong><br>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response</strong><br>
 <em>Code:</em> 200<br>
 <em>Body:</em> Specific instance. See example below</p>
 </blockquote>
@@ -1360,13 +1526,15 @@ GET https://api.connctd.io/api/v1/connectors/instances/-instanceId-<br>
 <h2 id="delete-connector-client">Delete connector client</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 DELETE https://api.connctd.io/api/v1/connectors/instances/-instanceId-<br>
 <em>Headers:</em><br>
 &nbsp;Authorization:YOUR TOKEN<br>
 <em>Body:</em> empty<br></p>
-
-<p><strong>Response:</strong><br>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response</strong><br>
 <em>Code:</em> 204<br>
 <em>Body:</em> empty</p>
 </blockquote>
@@ -1378,7 +1546,7 @@ DELETE https://api.connctd.io/api/v1/connectors/instances/-instanceId-<br>
 <h2 id="create-connector-client">Create connector client</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 POST https://api.connctd.io/api/v1/connectors/clients<br>
 <em>Headers:</em><br>
 &nbsp;Content-Type:application/json<br>
@@ -1394,7 +1562,7 @@ POST https://api.connctd.io/api/v1/connectors/clients<br>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <blockquote>
-<p><strong>Response:</strong><br>
+<p><strong>Response</strong><br>
 <em>Code:</em> 201 OR 303<br>
 <em>Body:</em> Id of newly created client or redirect having location header. See example below</p>
 </blockquote>
@@ -1409,14 +1577,16 @@ POST https://api.connctd.io/api/v1/connectors/clients<br>
 <h2 id="retrieve-connector-clients">Retrieve connector clients</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 GET https://api.connctd.io/api/v1/connectors/clients<br>
 <em>Headers:</em><br>
 &nbsp;Authorization:YOUR TOKEN<br>
 &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
 <em>Body:</em> empty<br></p>
-
-<p><strong>Response:</strong><br>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response</strong><br>
 <em>Code:</em> 200<br>
 <em>Body:</em> List of clients. See example below</p>
 </blockquote>
@@ -1433,14 +1603,16 @@ GET https://api.connctd.io/api/v1/connectors/clients<br>
 <h2 id="retrieve-connector-client">Retrieve connector client</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 GET https://api.connctd.io/api/v1/connectors/clients/-clientId-<br>
 <em>Headers:</em><br>
 &nbsp;Authorization:YOUR TOKEN<br>
 &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
 <em>Body:</em> empty<br></p>
-
-<p><strong>Response:</strong><br>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response</strong><br>
 <em>Code:</em> 200<br>
 <em>Body:</em> Specific client. See example below</p>
 </blockquote>
@@ -1470,14 +1642,16 @@ GET https://api.connctd.io/api/v1/connectors/clients/-clientId-<br>
 <h2 id="delete-connector-client">Delete connector client</h2>
 
 <blockquote>
-<p><strong>Request:</strong><br>
+<p><strong>Request</strong><br>
 DELETE https://api.connctd.io/api/v1/connectors/clients/-clientId-<br>
 <em>Headers:</em><br>
 &nbsp;Authorization:YOUR TOKEN<br>
 &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
 <em>Body:</em> empty<br></p>
-
-<p><strong>Response:</strong><br>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response</strong><br>
 <em>Code:</em> 204<br>
 <em>Body:</em> empty</p>
 </blockquote>
