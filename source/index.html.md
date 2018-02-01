@@ -29,7 +29,11 @@ the resource owner (user), granting you a certain amount of permissions.
 
 ## Login
 
-> **Request:** *Method:* POST *Url:* https://api.connctd.io/api/v1/auth/login *Content-Type:* application/json *Body:* see below
+> **Request**<br>
+> POST https://api.connctd.io/api/v1/auth/login<br>
+> *Headers:*<br>
+> &nbsp;Content-Type:application/json<br>
+> *Body:* see below<br>
 
 ```json
 {
@@ -38,7 +42,9 @@ the resource owner (user), granting you a certain amount of permissions.
 }
 ```
 
-> **Response:** *Code:* 200 *Body:* Token und further information. See example below
+> **Response**<br>
+> *Code:* 200<br>
+> *Body:* Token und further information. See example below
 
 ```json
 {
@@ -54,11 +60,18 @@ returned in the body.
 
 ## Logout
 
-> **Request:** *Method:* POST *Url:* https://api.connctd.io/api/v1/auth/logout *Content-Type:* application/json *Body:* empty
+> **Request**<br>
+> POST *Url:* https://api.connctd.io/api/v1/auth/logout<br>
+> *Headers:*<br>
+> &nbsp;Content-Type:application/json<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> *Body:* empty<br>
 
 ```json
 ```
 
-> **Response:** *Code:* 200 *Body:* Empty
+> **Response**<br>
+> *Code:* 200<br>
+> *Body:* Empty
 
 Invalidates the access token. You have to specify your access token within *Authorization* header field.

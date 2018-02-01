@@ -9,12 +9,15 @@ Basically a connector can be understood as a piece of code which connects a remo
 
 ## Retrieve connector descriptions
 
-> **Request:**<br>
+> **Request**<br>
 > GET https://api.connctd.io/api/v1/connectors/descriptions<br>
 > *Headers:* none<br>
 > *Body:* empty<br>
 
-> **Response:**<br>
+```json
+```
+
+> **Response**<br>
 > *Code:* 200<br>
 > *Body:* List of connector descriptions. See example below
 
@@ -45,7 +48,7 @@ Required scope: none
 
 ## Create connector instance
 
-> **Request:**<br>
+> **Request**<br>
 > POST https://api.connctd.io/api/v1/connectors/instances<br>
 > *Headers:*<br>
 > &nbsp;Content-Type:application/json<br>
@@ -63,7 +66,7 @@ Required scope: none
 }
 ```
 
-> **Response:**<br>
+> **Response**<br>
 > *Code:* 201<br>
 > *Body:* Id of newly created instance. See example below
 
@@ -79,13 +82,16 @@ Required scope: `connctd.connector`
 
 ## Retrieve connector instances
 
-> **Request:**<br>
+> **Request**<br>
 > GET https://api.connctd.io/api/v1/connectors/instances<br>
 > *Headers:*<br>
 > &nbsp;Authorization:YOUR TOKEN<br>
 > *Body:* empty<br>
 
-> **Response:**<br>
+```json
+```
+
+> **Response**<br>
 > *Code:* 200<br>
 > *Body:* List of instances. See example below
 
@@ -104,13 +110,16 @@ Required scope: `connctd.connector`
 
 ## Retrieve connector instance
 
-> **Request:**<br>
+> **Request**<br>
 > GET https://api.connctd.io/api/v1/connectors/instances/-instanceId-<br>
 > *Headers:*<br>
 > &nbsp;Authorization:YOUR TOKEN<br>
 > *Body:* empty<br>
 
-> **Response:**<br>
+```json
+```
+
+> **Response**<br>
 > *Code:* 200<br>
 > *Body:* Specific instance. See example below
 
@@ -134,13 +143,16 @@ Required scope: `connctd.connector`
 
 ## Delete connector client
 
-> **Request:**<br>
+> **Request**<br>
 > DELETE https://api.connctd.io/api/v1/connectors/instances/-instanceId-<br>
 > *Headers:*<br>
 > &nbsp;Authorization:YOUR TOKEN<br>
 > *Body:* empty<br>
 
-> **Response:**<br>
+```json
+```
+
+> **Response**<br>
 > *Code:* 204<br>
 > *Body:* empty
 
@@ -150,7 +162,7 @@ Required scope: `connctd.connector`
 
 ## Create connector client
 
-> **Request:**<br>
+> **Request**<br>
 > POST https://api.connctd.io/api/v1/connectors/clients<br>
 > *Headers:*<br>
 > &nbsp;Content-Type:application/json<br>
@@ -167,7 +179,7 @@ Required scope: `connctd.connector`
 }
 ```
 
-> **Response:**<br>
+> **Response**<br>
 > *Code:* 201 OR 303<br>
 > *Body:* Id of newly created client or redirect having location header. See example below
 
@@ -183,14 +195,17 @@ Required scope: `connctd.connector`
 
 ## Retrieve connector clients
 
-> **Request:**<br>
+> **Request**<br>
 > GET https://api.connctd.io/api/v1/connectors/clients<br>
 > *Headers:*<br>
 > &nbsp;Authorization:YOUR TOKEN<br>
 > &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
 > *Body:* empty<br>
 
-> **Response:**<br>
+```json
+```
+
+> **Response**<br>
 > *Code:* 200<br>
 > *Body:* List of clients. See example below
 
@@ -209,14 +224,17 @@ Required scope: `connctd.connector`
 
 ## Retrieve connector client
 
-> **Request:**<br>
+> **Request**<br>
 > GET https://api.connctd.io/api/v1/connectors/clients/-clientId-<br>
 > *Headers:*<br>
 > &nbsp;Authorization:YOUR TOKEN<br>
 > &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
 > *Body:* empty<br>
 
-> **Response:**<br>
+```json
+```
+
+> **Response**<br>
 > *Code:* 200<br>
 > *Body:* Specific client. See example below
 
@@ -247,14 +265,17 @@ Required scope: `connctd.connector`
 
 ## Delete connector client
 
-> **Request:**<br>
+> **Request**<br>
 > DELETE https://api.connctd.io/api/v1/connectors/clients/-clientId-<br>
 > *Headers:*<br>
 > &nbsp;Authorization:YOUR TOKEN<br>
 > &nbsp;X-External-Subject-Id:SUBJECT_ID<br>
 > *Body:* empty<br>
 
-> **Response:**<br>
+```json
+```
+
+> **Response**<br>
 > *Code:* 204<br>
 > *Body:* empty
 

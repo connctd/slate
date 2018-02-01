@@ -4,12 +4,14 @@ The connctd platform acts as a oauth2 provider implementing all flows described 
 
 ## Requesting Authorization
 
-> **Request:** *Method:* GET *Url:* https://api.connctd.io/oauth2/auth?state=abcdefghiklmnop&client_id=1bd2f1a3-e72d-4606-b82b-86d1054f3bd4&redirect_uri=https%3A%2F%2Fabc%2Fauth%2Fcallback&response_type=code&scope=connctd.units.read+connctd.things.read+connctd.connector+offline
+> **Request**<br>
+> GET https://api.connctd.io/oauth2/auth?state=abcdefghiklmnop&client_id=1bd2f1a3-e72d-4606-b82b-86d1054f3bd4&redirect_uri=https%3A%2F%2Fabc%2Fauth%2Fcallback&response_type=code&scope=connctd.units.read+connctd.things.read+connctd.connector+offline
 
 ```json
 ```
 
-> **Response:** *Code:* 301
+> **Response**<br>
+> *Code:* 301
 
 ```json
 ```
@@ -18,14 +20,19 @@ This request will redirect the user to the consent screen. You have to replace t
 
 ## Requesting a token
 
-> **Request:** *Method:* POST *Url:* https://api.connctd.io/oauth2/token *Content-Type:* application/x-www-form-urlencoded
+> **Request**<br>
+> POST https://api.connctd.io/oauth2/token<br>
+> *Headers:*<br>
+> &nbsp;Content-Type:application/x-www-form-urlencoded<br>
+> *Body:* see below<br>
 
-```java
+```bash
 grant_type=authorization_code&code=-auth code from reply of prev request-&
 redirect_uri=http%3A%2F%2Fabc.com%%2Fauth%2Fcallback&client_id=1bd2f1a3-e72d-4606-b82b-86d1054f3bd4
 ```
 
-> **Response:** *Code:* 200
+> **Response**<br>
+> *Code:* 200
 
 ```json
 {
@@ -40,13 +47,19 @@ The body will contain a url encoded form with the fields *grant_type*, *code*, *
 
 ## Requesting an app token
 
-> **Request:** *Method:* POST *Url:* https://api.connctd.io/oauth2/token *Content-Type:* application/x-www-form-urlencoded *Authorization:* Basic ------
+> **Request**<br>
+> POST https://api.connctd.io/oauth2/token<br>
+> *Headers:*<br>
+> &nbsp;Content-Type:application/x-www-form-urlencoded<br>
+> &nbsp;Authorization:Basic ...<br>
+> *Body:* see below
 
-```java
+```bash
 grant_type=client_credentials&scope=connctd.connector
 ```
 
-> **Response:** *Code:* 200
+> **Response**<br>
+> *Code:* 200
 
 ```json
 {

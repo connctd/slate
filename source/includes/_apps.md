@@ -7,7 +7,12 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
 ## Register an app
 
 
-> **Request:** *Method:* POST *Url:* https://api.connctd.io/api/v1/apps *Content-Type:* application/json *Body:* see below
+> **Request**<br>
+> POST https://api.connctd.io/api/v1/apps<br>
+> *Headers:*<br>
+> &nbsp;Content-Type:application/json<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> *Body:* see below<br>
 
 ```json
 {
@@ -39,7 +44,9 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
 
 ```
 
-> **Response:** *Code:* 201 *Body:* Newly created application. See example below. 
+> **Response**<br>
+> *Code:* 201<br>
+> *Body:* Newly created application. See example below. 
 
 ```json
 {
@@ -67,12 +74,18 @@ Required scope: `connctd.core`
 
 ## Retrieve apps
 
-> **Request:** *Method:* GET *Url:* https://api.connctd.io/api/v1/apps
+> **Request**<br>
+> GET https://api.connctd.io/api/v1/apps<br>
+> *Headers:*<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> *Body:* empty<br>
 
 ```json
 ```
 
-> **Response:** *Code:* 200 *Body:* List of apps. See example below
+> **Response**<br>
+> *Code:* 200<br>
+> *Body:* List of apps. See example below
 
 ```json
 [
@@ -100,12 +113,18 @@ Required scope: `connctd.core`
 
 ## Retrieve an app
 
-> **Request:** *Method:* GET *Url:* https://api.connctd.io/api/v1/apps/f62794f6-659d-439a-b19b-45e6cf705cef
+> **Request**<br>
+> GET https://api.connctd.io/api/v1/apps/f62794f6-659d-439a-b19b-45e6cf705cef<br>
+> *Headers:*<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> *Body:* empty<br>
 
 ```json
 ```
 
-> **Response:** *Code:* 200 *Body:* Single app description. See example below
+> **Response**<br>
+> *Code:* 200<br>
+> *Body:* Single app description. See example below
 
 ```json
 {
@@ -122,7 +141,12 @@ Required scope: `connctd.core`
 
 ## Add tag
 
-> **Request:** *Method:* POST *Url:* https://api.connctd.io/api/v1/apps/f62794f6-659d-439a-b19b-45e6cf705cef/tags *Body:* see below
+> **Request**<br>
+> POST https://api.connctd.io/api/v1/apps/f62794f6-659d-439a-b19b-45e6cf705cef/tags<br>
+> *Headers:*<br>
+> &nbsp;Content-Type:application/json<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> *Body:* see below<br>
 
 ```json
 {
@@ -130,7 +154,8 @@ Required scope: `connctd.core`
 }
 ```
 
-> **Response:** *Code:* 201
+> **Response**<br>
+> *Code:* 201
 
 Adds a new tag to the tag list of an app
 
@@ -138,12 +163,17 @@ Required scope: `connctd.core`
 
 ## Delete a tag
 
-> **Request:** *Method:* DELETE *Url:* https://api.connctd.io/api/v1/apps/1bd2f1a3-e72d-4606-b82b-86d1054f3bd4/tags/TAGNAME
+> **Request**<br>
+> DELETE https://api.connctd.io/api/v1/apps/1bd2f1a3-e72d-4606-b82b-86d1054f3bd4/tags/TAGNAME<br>
+> *Headers:*<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> *Body:* empty<br>
 
 ```json
 ```
 
-> **Response:** *Code:* 204
+> **Response**<br>
+> *Code:* 204
 
 ```json
 ```
@@ -152,12 +182,17 @@ Removes a tag
 
 ## Delete an app
 
-> **Request:** *Method:* DELETE *Url:* https://api.connctd.io/api/v1/apps/1bd2f1a3-e72d-4606-b82b-86d1054f3bd4
+> **Request**<br>
+> DELETE https://api.connctd.io/api/v1/apps/1bd2f1a3-e72d-4606-b82b-86d1054f3bd4<br>
+> *Headers:*<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> *Body:* empty<br>
 
 ```json
 ```
 
-> **Response:** *Code:* 204
+> **Response**<br>
+> *Code:* 204
 
 ```json
 ```
@@ -168,7 +203,12 @@ Required scope: `connctd.core`
 
 ## Register a callback url
 
-> **Request:** *Method:* POST *Url:* https://api.connctd.io/api/v1/actions/callback/register *Authorization:* Bearer app-token 
+> **Request**<br>
+> POST https://api.connctd.io/api/v1/actions/callback/register<br>
+> *Headers:*<br>
+> &nbsp;Content-Type:application/json<br>
+> &nbsp;Authorization:APP TOKEN<br>
+> *Body:* see below<br> 
 
 ```json
 {
@@ -176,7 +216,8 @@ Required scope: `connctd.core`
 }
 ```
 
-> **Response:** *Code:* 200
+> **Response**<br>
+> *Code:* 200
 
 ```json
 ```
