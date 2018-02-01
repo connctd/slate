@@ -531,7 +531,13 @@ The header requires a valid app token. See section oauth2 -&gt; Register an app 
 <h2 id="create-unit">Create unit</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/units <em>Content-Type:</em> application/json <em>Body:</em> see below</p>
+<p><strong>Request:</strong><br>
+POST https://api.connctd.io/api/v1/units<br>
+<em>Headers:</em><br>
+&nbsp;Content-Type:application/json<br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> see below<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My House"</span><span class="p">,</span><span class="w">
@@ -561,7 +567,12 @@ The header requires a valid app token. See section oauth2 -&gt; Register an app 
 <h2 id="retrieve-units">Retrieve units</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/units</p>
+<p><strong>Request:</strong><br>
+GET https://api.connctd.io/api/v1/units<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> empty<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
@@ -581,7 +592,12 @@ The header requires a valid app token. See section oauth2 -&gt; Register an app 
 <h2 id="retrieve-unit">Retrieve unit</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-</p>
+<p><strong>Request:</strong><br>
+GET https://api.connctd.io/api/v1/units/-unitId-<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> empty<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
@@ -614,7 +630,12 @@ The header requires a valid app token. See section oauth2 -&gt; Register an app 
 <h2 id="delete-unit">Delete unit</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-</p>
+<p><strong>Request:</strong><br>
+DELETE https://api.connctd.io/api/v1/units/-unitId-<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> empty<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
@@ -628,7 +649,12 @@ The header requires a valid app token. See section oauth2 -&gt; Register an app 
 <h2 id="get-unit-references">Get unit references</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/-parents|children-</p>
+<p><strong>Request:</strong><br>
+GET https://api.connctd.io/api/v1/units/-unitId-/-parents|children-<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> empty<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
@@ -647,7 +673,12 @@ The header requires a valid app token. See section oauth2 -&gt; Register an app 
 <h2 id="add-unit-reference">Add unit reference</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/-parents|children- <em>Content-Type:</em> application/json <em>Body:</em> Id of parent/child unit. See example below</p>
+<p><strong>Request:</strong><br>
+POST https://api.connctd.io/api/v1/units/-unitId-/-parents|children-<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> Id of parent/child. See example below<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1376f734-dbfc-486d-b264-f62d3ff88579"</span><span class="w">
@@ -664,7 +695,12 @@ The header requires a valid app token. See section oauth2 -&gt; Register an app 
 <h2 id="remove-unit-reference">Remove unit reference</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/-parents|children- <em>Content-Type:</em> application/json <em>Body:</em> Id of parent/child unit. See example below</p>
+<p><strong>Request:</strong><br>
+DELETE https://api.connctd.io/api/v1/units/-unitId-/-parents|children-<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> Id of parent/child unit. See example below<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1376f734-dbfc-486d-b264-f62d3ff88579"</span><span class="w">
@@ -681,7 +717,12 @@ The header requires a valid app token. See section oauth2 -&gt; Register an app 
 <h2 id="get-subject-references">Get subject references</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/subjects</p>
+<p><strong>Request:</strong><br>
+GET https://api.connctd.io/api/v1/units/-unitId-/subjects<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> empty<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
@@ -704,7 +745,12 @@ Subject references can be used to assign (external) subject ids to a specific un
 <h2 id="add-subject-reference">Add subject reference</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/subjects <em>Content-Type:</em> application/json <em>Body:</em> Id of subject. See example below</p>
+<p><strong>Request:</strong><br>
+POST https://api.connctd.io/api/v1/units/-unitId-/subjects<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> Id of subject. See example below<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"any id your application is working with - e.g. customer id"</span><span class="w">
@@ -721,7 +767,13 @@ Subject references can be used to assign (external) subject ids to a specific un
 <h2 id="remove-subject-reference">Remove subject reference</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/subjects <em>Content-Type:</em> application/json <em>Body:</em> Id of subject. See example below</p>
+<p><strong>Request:</strong><br>
+DELETE https://api.connctd.io/api/v1/units/-unitId-/subjects<br>
+<em>Headers:</em><br>
+&nbsp;Content-Type:application/json<br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> Id of subject. See example below<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123-55664-aab-2456"</span><span class="w">
@@ -738,7 +790,12 @@ Subject references can be used to assign (external) subject ids to a specific un
 <h2 id="get-properties">Get properties</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/properties</p>
+<p><strong>Request:</strong><br>
+GET https://api.connctd.io/api/v1/units/-unitId-/properties<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> empty<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
@@ -758,7 +815,12 @@ Subject references can be used to assign (external) subject ids to a specific un
 <h2 id="get-property">Get property</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-</p>
+<p><strong>Request:</strong><br>
+GET https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> empty<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
@@ -776,7 +838,13 @@ Subject references can be used to assign (external) subject ids to a specific un
 <h2 id="add-property">Add property</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/properties <em>Content-Type:</em> application/json <em>Body:</em> New property. See example below</p>
+<p><strong>Request:</strong><br>
+POST https://api.connctd.io/api/v1/units/-unitId-/properties<br>
+<em>Headers:</em><br>
+&nbsp;Content-Type:application/json<br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> New property. See example below<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MyNewProperty"</span><span class="p">,</span><span class="w">
@@ -794,7 +862,13 @@ Subject references can be used to assign (external) subject ids to a specific un
 <h2 id="update-property">Update property</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> PUT <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/properties <em>Content-Type:</em> application/json <em>Body:</em> New property value. See example below</p>
+<p><strong>Request:</strong><br>
+PUT https://api.connctd.io/api/v1/units/-unitId-/properties<br>
+<em>Headers:</em><br>
+&nbsp;Content-Type:application/json<br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> New property value. See example below<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MyNewProperty"</span><span class="p">,</span><span class="w">
@@ -812,7 +886,12 @@ Subject references can be used to assign (external) subject ids to a specific un
 <h2 id="delete-property">Delete property</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-</p>
+<p><strong>Request:</strong><br>
+DELETE https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> empty<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
@@ -826,7 +905,12 @@ Subject references can be used to assign (external) subject ids to a specific un
 <h2 id="get-thing-references">Get thing references</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> GET <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/things</p>
+<p><strong>Request:</strong><br>
+GET https://api.connctd.io/api/v1/units/-unitId-/things<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> empty<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
 <blockquote>
@@ -845,7 +929,13 @@ Subject references can be used to assign (external) subject ids to a specific un
 <h2 id="add-thing-reference">Add thing reference</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> POST <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/things <em>Content-Type:</em> application/json <em>Body:</em> Id of thing. See example below</p>
+<p><strong>Request:</strong><br>
+POST https://api.connctd.io/api/v1/units/-unitId-/things<br>
+<em>Headers:</em><br>
+&nbsp;Content-Type:application/json<br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> Id of thing. See example below<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"591327fe-5c1a-4dbb-a96b-9bef4de0a273"</span><span class="w">
@@ -862,7 +952,13 @@ Subject references can be used to assign (external) subject ids to a specific un
 <h2 id="remove-thing-reference">Remove thing reference</h2>
 
 <blockquote>
-<p><strong>Request:</strong> <em>Method:</em> DELETE <em>Url:</em> https://api.connctd.io/api/v1/units/-unitId-/things <em>Content-Type:</em> application/json <em>Body:</em> Id of thing. See example below</p>
+<p><strong>Request:</strong><br>
+DELETE https://api.connctd.io/api/v1/units/-unitId-/things<br>
+<em>Headers:</em><br>
+&nbsp;Content-Type:application/json<br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> Id of thing. See example below<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"591327fe-5c1a-4dbb-a96b-9bef4de0a273"</span><span class="w">
@@ -1129,6 +1225,266 @@ success.</aside>
 <p>If the supplied bearer token has the scope <code class="prettyprint">connctd.connector</code> and the Thing with the specified
 id was created by the application belongig to the bearer token, this request will delete the 
 specified Thing.</p>
+
+<p>Required scope: <code class="prettyprint">connctd.connector</code></p>
+
+          <h1 id="connectors">Connectors</h1>
+
+<p>There are two ways on how things can be added to an external subjects thing list: You can either <a href="#register-an-app">register</a> and write your own app and use the <a href="#create-thing">create thing</a> endpoint and/or you can make use of so called connectors.
+Basically a connector can be understood as a piece of code which connects a remote technology and takes care of transforming foreign domain entities into things. Since remote technologies often require different configurations and connectors probably need to run for a couple of users (external subjects) we have split up the concept of a connector into two separate entities:</p>
+
+<ul>
+<li><p><strong>Connector Instance</strong> Can be seen as a preconfiguration for each connector client. As a developer, you can create for each technology exactly one connector instance. This connector instance can have a configuration depending on the requirements of the specific technology. For example if you would like to make use of our OpenWeatherMap connector you need to pass a so called AppKey when creating the connector instance. Otherwise the instance creation will fail. This AppKey can be retrieved when registering at openweathermap.com. As soon as you have created the connector instance you can then create as many connector clients as you wish. The created connector clients will then make use of the previously created connector instance.</p></li>
+<li><p><strong>Connector Client</strong> A connector client is the actual running piece of code which for example polls a remote api and abstracts the results into things. You can not create connector clients for a &ldquo;technology X&rdquo; if there does not exist the corresponding connector instance for &ldquo;technology X&rdquo;. Just as a side note: In contrast to a connector instance which runs only for a specific developer account the creation of a connector client will only succeed if you pass the header field &ldquo;X-External-Subject-Id&rdquo;. This parameter is internally required by the connector client in order to assign the generated things to the appropriate external subject thing list. </p></li>
+</ul>
+
+<h2 id="retrieve-connector-descriptions">Retrieve connector descriptions</h2>
+
+<blockquote>
+<p><strong>Request:</strong><br>
+GET https://api.connctd.io/api/v1/connectors/descriptions<br>
+<em>Headers:</em> none<br>
+<em>Body:</em> empty<br></p>
+
+<p><strong>Response:</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> List of connector descriptions. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"netatmo"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netatmo"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sample_instance_configuration"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"connector_type_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"netatmo"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"configuration"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abc"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"client_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"def"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"origin_callback_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:9999/callback"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sample_client_configuration"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"connector_type_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"netatmo"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint returns a list of all available connectors including their connector type_ids as well as sample client and instance configurations.</p>
+
+<p>Required scope: none</p>
+
+<h2 id="create-connector-instance">Create connector instance</h2>
+
+<blockquote>
+<p><strong>Request:</strong><br>
+POST https://api.connctd.io/api/v1/connectors/instances<br>
+<em>Headers:</em><br>
+&nbsp;Content-Type:application/json<br>
+&nbsp;Authorization:YOUR TOKEN<br>
+<em>Body:</em> see below<br></p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"connector_type_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"netatmo"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"configuration"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"client_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"origin_callback_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://...."</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p><strong>Response:</strong><br>
+<em>Code:</em> 201<br>
+<em>Body:</em> Id of newly created instance. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1d79b399-c3e1-4706-b4c5-f36826430233"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Creates a new connector instance. Please note: the value of the configuration field depends on the connector type (technology). You can only create one instance per connector_type_id. Otherwise 409 (conflict) is returned.  </p>
+
+<p>Required scope: <code class="prettyprint">connctd.connector</code></p>
+
+<h2 id="retrieve-connector-instances">Retrieve connector instances</h2>
+
+<blockquote>
+<p><strong>Request:</strong><br>
+GET https://api.connctd.io/api/v1/connectors/instances<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+<em>Body:</em> empty<br></p>
+
+<p><strong>Response:</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> List of instances. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.connctd.io/api/v1/connectors/instances/1d79b399-c3e1-4706-b4c5-f36826430233"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>Retrieves a list of links to all connector instances.  </p>
+
+<p>Required scope: <code class="prettyprint">connctd.connector</code></p>
+
+<h2 id="retrieve-connector-instance">Retrieve connector instance</h2>
+
+<blockquote>
+<p><strong>Request:</strong><br>
+GET https://api.connctd.io/api/v1/connectors/instances/-instanceId-<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+<em>Body:</em> empty<br></p>
+
+<p><strong>Response:</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> Specific instance. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1d79b399-c3e1-4706-b4c5-f36826430233"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"clients"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.connctd.io/api/v1/connectors/clients/d202e1a7-20a2-4581-9630-551dbe39d888"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"connector"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.connctd.io/api/v1/connectors/descriptions/2"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Fetches a specific instance. The json object holds a reference to the connector description as well as a list of all clients that are using this instance </p>
+
+<p>Required scope: <code class="prettyprint">connctd.connector</code></p>
+
+<h2 id="delete-connector-client">Delete connector client</h2>
+
+<blockquote>
+<p><strong>Request:</strong><br>
+DELETE https://api.connctd.io/api/v1/connectors/instances/-instanceId-<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+<em>Body:</em> empty<br></p>
+
+<p><strong>Response:</strong><br>
+<em>Code:</em> 204<br>
+<em>Body:</em> empty</p>
+</blockquote>
+
+<p>Removes a connector instances. A connector instance can only be removed if all clients that are attached to it are removed. Otherwise a 409 is returend.</p>
+
+<p>Required scope: <code class="prettyprint">connctd.connector</code></p>
+
+<h2 id="create-connector-client">Create connector client</h2>
+
+<blockquote>
+<p><strong>Request:</strong><br>
+POST https://api.connctd.io/api/v1/connectors/clients<br>
+<em>Headers:</em><br>
+&nbsp;Content-Type:application/json<br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> see below<br></p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"connector_type_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"netatmo"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"configuration"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"anyField"</span><span class="p">:</span><span class="s2">"abc"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p><strong>Response:</strong><br>
+<em>Code:</em> 201 OR 303<br>
+<em>Body:</em> Id of newly created client or redirect having location header. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d202e1a7-20a2-4581-9630-551dbe39d888"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Creates a new connector client. Again the configuration of the client depends on the requirements of the connector. The response status code can be either 201 or 303 (redirect) and depends on the connector type. In both cases the connector client was created. If a 303 is returned the browser of the client needs to be redirected to the location which is mentioned within the location-header-field of the response. A 409 is returned if a client for given X-External-Subject-Id &amp; connector_type_id was already created. A 400 is returned if there exists no appropriate connector instance.   </p>
+
+<p>Required scope: <code class="prettyprint">connctd.connector</code></p>
+
+<h2 id="retrieve-connector-clients">Retrieve connector clients</h2>
+
+<blockquote>
+<p><strong>Request:</strong><br>
+GET https://api.connctd.io/api/v1/connectors/clients<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> empty<br></p>
+
+<p><strong>Response:</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> List of clients. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.connctd.io/api/v1/connectors/clients/d202e1a7-20a2-4581-9630-551dbe39d888"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>Retrieves a list of links to all connector clients that belong to given X-External-Subject-Id.  </p>
+
+<p>Required scope: <code class="prettyprint">connctd.connector</code></p>
+
+<h2 id="retrieve-connector-client">Retrieve connector client</h2>
+
+<blockquote>
+<p><strong>Request:</strong><br>
+GET https://api.connctd.io/api/v1/connectors/clients/-clientId-<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> empty<br></p>
+
+<p><strong>Response:</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> Specific client. See example below</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d202e1a7-20a2-4581-9630-551dbe39d888"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"instance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.connctd.io/api/v1/connectors/instances/1d79b399-c3e1-4706-b4c5-f36826430233"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"connector"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.connctd.io/api/v1/connectors/descriptions/2"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"mappings"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"connector_thing_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abc"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"thing_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56ed33d9-bd1a-4650-9264-d996132098de"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STARTED"</span><span class="w"> 
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Fetches a specific client for a given X-External-Subject-Id. The json object holds references to the connector description and corresponding connector instance. Within the mappings field a list of key values pairs is stored. It shows which things were create by the given client and to which id they are mapped internally.</p>
+
+<p>Status might be Starting, Started or Error  </p>
+
+<p>Required scope: <code class="prettyprint">connctd.connector</code></p>
+
+<h2 id="delete-connector-client">Delete connector client</h2>
+
+<blockquote>
+<p><strong>Request:</strong><br>
+DELETE https://api.connctd.io/api/v1/connectors/clients/-clientId-<br>
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;X-External-Subject-Id:SUBJECT_ID<br>
+<em>Body:</em> empty<br></p>
+
+<p><strong>Response:</strong><br>
+<em>Code:</em> 204<br>
+<em>Body:</em> empty</p>
+</blockquote>
+
+<p>Removes a connector client. Removing a connector client will also lead to the removal of the corresponding things that were created by this connector client.</p>
+
+<p>If the removal of the corresponding things fails a 500 is returned and the connector client remains active. Try to remove the client again if that happens.</p>
 
 <p>Required scope: <code class="prettyprint">connctd.connector</code></p>
 
