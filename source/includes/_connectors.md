@@ -185,7 +185,7 @@ Required scope: `connctd.connector`
 
 ```json
 {
-	"id": "d202e1a7-20a2-4581-9630-551dbe39d888"
+	"client_id": "d202e1a7-20a2-4581-9630-551dbe39d888"
 }
 ```
 

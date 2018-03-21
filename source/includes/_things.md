@@ -110,7 +110,7 @@ success.</aside>
 
 Retrieves a list of all things the subject is owner of. Be aware that this list does NOT contain things that are shared via policies with the subject.
 
-Required scope: `connctd.things.read or connctd.core`
+Required scope: `connctd.things.read`
 
 ## Retrieve thing
 
@@ -147,7 +147,7 @@ Required scope: `connctd.things.read or connctd.core`
 
 Retrieves a single thing.
 
-Required scope: `connctd.things.read or connctd.core`
+Required scope: `connctd.things.read`
 
 ## Retrieve thing component
 
@@ -194,7 +194,7 @@ Required scope: `connctd.things.read or connctd.core`
 
 Retrieves the component of a thing.
 
-Required scope: `connctd.things.read or connctd.core`
+Required scope: `connctd.things.read`
 
 ## Retrieve component property
 
@@ -225,7 +225,7 @@ Required scope: `connctd.things.read or connctd.core`
 
 Retrieves the property of a component.
 
-Required scope: `connctd.things.read or connctd.core`
+Required scope: `connctd.things.read`
 
 ## Trigger action request
 

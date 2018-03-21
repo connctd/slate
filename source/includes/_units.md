@@ -71,7 +71,7 @@ The values of the properties **parents**, **children**, **subjects** and **thing
 
 Creates an empty unit. Additional information like parents, children or subjects can be added by subsequent calls.
 
-Required scope: `connctd.units.admin or connctd.core`
+Required scope: `connctd.units.admin`
 
 ## Retrieve units
 
@@ -100,7 +100,7 @@ Required scope: `connctd.units.admin or connctd.core`
 
 Retrieves a list of resource links to units the user belongs to
 
-Required scope: `connctd.units.read or connctd.core`
+Required scope: `connctd.units.read`
 
 ## Retrieve unit
 
@@ -142,7 +142,7 @@ Required scope: `connctd.units.read or connctd.core`
 
 Retrieves a unit by id
 
-Required scope: `connctd.units.read or connctd.core`
+Required scope: `connctd.units.read`
 
 ## Delete unit
 
@@ -161,7 +161,7 @@ Required scope: `connctd.units.read or connctd.core`
 
 Removes a unit by its id.
 
-Required scope: `connctd.units.admin or connctd.core`
+Required scope: `connctd.units.admin`
 
 ## Get unit references
 
@@ -189,7 +189,7 @@ Required scope: `connctd.units.admin or connctd.core`
 
 Retrieves a list of unit references.
 
-Required scope: `connctd.units.read or connctd.core`
+Required scope: `connctd.units.read`
 
 ## Add unit reference
 
@@ -211,7 +211,7 @@ Required scope: `connctd.units.read or connctd.core`
 
 Adds a reference to another unit. The reference also appears within the referenced unit either as parent or child reference.
 
-Required scope: `connctd.units.admin or connctd.core`
+Required scope: `connctd.units.admin`
 
 ## Remove unit reference
  
@@ -233,7 +233,7 @@ Required scope: `connctd.units.admin or connctd.core`
 
 Removes a reference to another unit. The reference also disappears from within the referenced unit.
 
-Required scope: `connctd.units.admin or connctd.core`
+Required scope: `connctd.units.admin`
 
 ## Get subject references
 
@@ -261,7 +261,7 @@ Required scope: `connctd.units.admin or connctd.core`
 
 Retrieves list of subject references
 
-Required scope: `connctd.units.read or connctd.core`
+Required scope: `connctd.units.read`
 
 <aside class="note">
 Subject references can be used to assign (external) subject ids to a specific unit. As soon a one external subject (lets say for example S1) is assigned to the unit of another subject (lets say S2), the result list when retrieving the units of S1 will contain the unit of S2.   
@@ -287,7 +287,7 @@ Subject references can be used to assign (external) subject ids to a specific un
 
 Adds a reference to a subject.
 
-Required scope: `connctd.units.admin or connctd.core`
+Required scope: `connctd.units.admin`
 
 ## Remove subject reference
 
@@ -310,7 +310,7 @@ Required scope: `connctd.units.admin or connctd.core`
 
 Removes a reference to a subject.
 
-Required scope: `connctd.units.admin or connctd.core`
+Required scope: `connctd.units.admin`
 
 ## Get properties
  
@@ -339,7 +339,7 @@ Required scope: `connctd.units.admin or connctd.core`
 
 Retrieves a list of all properties
 
-Required scope: `connctd.units.read or connctd.core`
+Required scope: `connctd.units.read`
 
 ## Get property
 
@@ -366,7 +366,7 @@ Required scope: `connctd.units.read or connctd.core`
 
 Read a specific property
 
-Required scope: `connctd.units.read or connctd.core`
+Required scope: `connctd.units.read`
 
 ## Add property
 
@@ -390,7 +390,7 @@ Required scope: `connctd.units.read or connctd.core`
 
 Adds a new property.
 
-Required scope: `connctd.units.admin or connctd.core`
+Required scope: `connctd.units.admin`
 
 ## Update property
 
@@ -414,7 +414,7 @@ Required scope: `connctd.units.admin or connctd.core`
 
 Updates a property.
 
-Required scope: `connctd.units.admin or connctd.core`
+Required scope: `connctd.units.admin`
 
 ## Delete property
 
@@ -436,7 +436,7 @@ Required scope: `connctd.units.admin or connctd.core`
 
 Removes a property from property set
 
-Required scope: `connctd.units.admin or connctd.core`
+Required scope: `connctd.units.admin`
 
 ## Get thing references
  
@@ -464,7 +464,7 @@ Required scope: `connctd.units.admin or connctd.core`
 
 Retrieves a list of all thing references
 
-Required scope: `connctd.units.read or connctd.core`
+Required scope: `connctd.units.read`
 
 ## Add thing reference
  
@@ -487,7 +487,7 @@ Required scope: `connctd.units.read or connctd.core`
 
 Adds a reference to a things.
 
-Required scope: `connctd.units.admin or connctd.core`
+Required scope: `connctd.units.admin`
 
 ## Remove thing reference
 
@@ -510,5 +510,5 @@ Required scope: `connctd.units.admin or connctd.core`
 
 Removes a reference to a thing.
 
-Required scope: `connctd.units.admin or connctd.core`
+Required scope: `connctd.units.admin`
 

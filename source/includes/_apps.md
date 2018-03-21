@@ -1,17 +1,17 @@
 # Apps
 
-connctd implements the OAuth 2.0 specification. By doing so developers can write and host their own apps that can obtain limited access to resources on behalf of the user. 
-Such an app (in OAuth terms it is called client) could for example list the units or things of an user. These apps do not just consume resources they might also deliver new resources like things. A common use case for connctd apps are apps that mediate between our platform and another, foreign technology. We often name those apps "connector" as they are translating from a remote domain model into our thing concept.
-If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading the [specification](https://tools.ietf.org/html/rfc6749). In case you are uncertain regarding some parameters we also recommend reading the documentation of [hydra](http://docs.hydra13.apiary.io/#reference/oauth2) - the framework we are using under the hood for OAuth 2.0 support.
+Whenever you would like to build your own application which makes use of things or units you first need
+to register that app at our platform. By registering an app you will get a client_id and client_secret which can be
+used (depending on the used oauth2 flow) to retrieve an access token. This token is required when working with our api
+ as it allows our platform to match your requests to your app.
 
 ## Register an app
-
 
 > **Request**<br>
 > POST https://api.connctd.io/api/v1/apps<br>
 > *Headers:*<br>
 > &nbsp;Content-Type:application/json<br>
-> &nbsp;Authorization:YOUR TOKEN<br>
+> &nbsp;Authorization:YOUR DEV TOKEN<br>
 > *Body:* see below<br>
 
 ```json
@@ -58,11 +58,11 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
 
 Registers a new application
 
-**redirect_uris:** Array of redirect uris that are later on used in various flows
+**redirect_uris:** Required if you are planning to use the Authorization Code Grant Flow or Implicit Grant Flow.
 
-**scope:** Space separated list of scopes. The offline scope is necessary if a refresh token should be later on generated. You can see in a list of all available scopes within the *scopes* section
+**scope:** Space separated list of scopes. The offline scope is necessary if a refresh token should be later on generated (for Client Credential Flow not required). You can see in a list of all available scopes within the *scopes* section.
 
-**public:** You have to set this to true if there exists the possibility of client secret disclosure (e.g. Android app might be decompiled). Apps with setting public=true will not be able to register action callback urls since the client_credentials grant type flow is required for that but which is deactivated due to security concerns with public apps.
+**public:** You have to set this to true if there exists the possibility of client secret disclosure (e.g. client secret is stored in Android app - the app might be decompiled). Apps with setting public=true will not be able to use the Client Credentials Flow is required due to security concerns with public apps.
 
 **visible:** If set to true any user can see your app (e.g. in an app store). If set to false only you can see the app.
 
@@ -223,4 +223,3 @@ Required scope: `connctd.core`
 ```
 
 This request stores a system wide callback url for all action requests that are related to this app. This is important whenever an app creates things that contain actions. As soon a user triggers any of these actions by performing an action request the request is forwarded to the given callback url. 
-The header requires a valid app token. See section oauth2 -> Register an app token for more information about gaining app tokens
