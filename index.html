@@ -226,12 +226,17 @@
         <h1 id="introduction">Introduction</h1>
 
 <p>Welcome to the connctd.io API. This REST based API provides functionality to create, manage and update Things and
-other resources in the world of IoT.</p>
+other resources in the world of IoT. If you are unfamiliar with our concepts and how we might help you with YOUR
+IoT project you can try out our <a href="https://tutorials.connctd.io">tutorials</a>.</p>
 
 <h1 id="authentication">Authentication</h1>
 
 <p>To authenticate against our API you need verify your credentials. In return you receive a token identifying you as
-the resource owner (user), granting you a certain amount of permissions.</p>
+the resource owner (user), granting you a certain amount of permissions. Please note: this token does NOT give you the 
+privilege to access or work with resources like things, units or connectors since all of them are related to apps 
+and not to developer accounts. Instead, this token can be used to access resources like apps (e.g. setup/manage your 
+apps). If you would like to know how you can get an app token in order to work with things and units head over to the
+oauth2 section.</p>
 
 <h2 id="login">Login</h2>
 
@@ -260,7 +265,7 @@ POST https://api.connctd.io/api/v1/auth/login<br>
 </span></code></pre>
 <p>The response will either have the status code 200 in case of success or 401 in case the 
 supplied credentials can&rsquo;t be verified. In error cases a default error object is
-returned in the body.</p>
+returned in the body. This flow is the only way to get a token with the scope connctd.core.</p>
 
 <h2 id="logout">Logout</h2>
 
@@ -283,29 +288,91 @@ POST <em>Url:</em> https://api.connctd.io/api/v1/auth/logout<br>
 
           <h1 id="oauth-2-0">OAuth 2.0</h1>
 
-<p>The connctd platform acts as a oauth2 provider implementing all flows described in https://tools.ietf.org/html/rfc6749#section-4 except the &ldquo;Resource Owner Password Credentials Grant&rdquo;. The following two sections mainly focus on the Authorization Code Grant Flow as there already exist hundreds of good oauth2 tutorials which can be read in case you need another flow.</p>
+<p>The connctd platform acts as a oauth2 provider implementing all flows described in
+<a href="https://tools.ietf.org/html/rfc6749#section-4">rfc6749</a> except the &ldquo;Resource Owner Password Credentials Grant&rdquo;. If you
+are planning to develop an app which makes use of e.g. things and units, we highly recommend the
+&ldquo;Clients Credentials Flow&rdquo;. This flow will generate a token which ensures that all things and units your 
+app creates will exclusively belong to your app. If you are planning to develop a more advanced app that needs to
+access things and units that are managed by another app, you need to make use of the
+&ldquo;Authorization Code Grant Flow&rdquo; as the access to foreign app resources requires the permission of the foreign app
+owner.</p>
 
-<h2 id="requesting-authorization">Requesting Authorization</h2>
+<h2 id="client-credentials-flow">Client Credentials Flow</h2>
 
-<blockquote>
-<p><strong>Request</strong><br>
-GET https://api.connctd.io/oauth2/auth?state=abcdefghiklmnop&amp;client_id=1bd2f1a3-e72d-4606-b82b-86d1054f3bd4&amp;redirect_uri=https%3A%2F%2Fabc%2Fauth%2Fcallback&amp;response_type=code&amp;scope=connctd.units.read+connctd.things.read+connctd.connector+offline</p>
-</blockquote>
-<pre class="highlight json tab-json"><code></code></pre>
-<blockquote>
-<p><strong>Response</strong><br>
-<em>Code:</em> 301</p>
-</blockquote>
-<pre class="highlight json tab-json"><code></code></pre>
-<p>This request will redirect the user to the consent screen. You have to replace the example parameter values with the corresponding values of your app. A detailed parameter description can be found <a href="https://tools.ietf.org/html/rfc6749#section-4.1.1">here</a>.</p>
-
-<h2 id="requesting-a-token">Requesting a token</h2>
+<p>Retrieves a token which can be used to manage things, units and connectors. See <a href="https://tools.ietf.org/html/rfc6749#section-4.4">rfc6749</a>
+for request details.</p>
 
 <blockquote>
 <p><strong>Request</strong><br>
 POST https://api.connctd.io/oauth2/token<br>
 <em>Headers:</em><br>
 &nbsp;Content-Type:application/x-www-form-urlencoded<br>
+&nbsp;Authorization:Basic base64_encode(YOUR_CLIENT_ID_id:YOUR_CLIENT_SECRET)<br>
+<em>Body:</em> see below<br></p>
+</blockquote>
+<pre class="highlight shell"><code><span class="nv">grant_type</span><span class="o">=</span>client_credentials&amp;scope<span class="o">=</span>connctd.things.read+connctd.connector
+</code></pre>
+<blockquote>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vha...."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"expires_in"</span><span class="p">:</span><span class="w"> </span><span class="mi">3599</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"connctd.connector connctd.things.read"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"token_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bearer"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="authorization-code-grant-flow-implicit-grant-flow">Authorization Code Grant Flow &amp; Implicit Grant Flow</h2>
+
+<p>As already mentioned in the introduction adding this flow to your app only makes sense if your app would like to access
+ resources of foreign apps. Details of the flow and how to set each parameter can be found <a href="https://tools.ietf.org/html/rfc6749#section-4.1">here</a>.</p>
+
+<blockquote>
+<p><strong>Request</strong><br>
+GET https://api.connctd.io/oauth2/auth?state=abcdefghiklmnop&amp;client_id=1bd2f1a3-e72d-4606-b82b-86d1054f3bd4&amp;redirect_uri=https%3A%2F%2Fabc%2Fauth%2Fcallback&amp;response_type=code&amp;scope=connctd.units.read+connctd.things.read+connctd.connector+offline</p>
+
+<p><strong>Response</strong><br>
+<em>Code:</em> 301</p>
+</blockquote>
+
+<h3 id="redirecting-resource-owner">Redirecting resource owner</h3>
+
+<blockquote>
+<p><strong>Request</strong><br>
+GET https://YOURREDIRECTIONURL/&hellip;?code=qq1YnxN&hellip;.&amp;scope=connctd.things.read%20connctd.connector%20offline&amp;state=abcdefghijklmnoaasa</p>
+
+<p><strong>Request</strong><br>
+GET https://YOURREDIRECTIONURL/&hellip;?https://tutorial.connctd.io/callback?error=invalid_scope&amp;error_description=The+requested+scope+is+invalid%2C+unknown%2C+or+malformed&amp;state=abcdefghijklmnoaasa
+<code class="prettyprint">json
+</code></p>
+</blockquote>
+
+<p>This request needs to be called by the developer of the app to which resources you would like to get access to. The
+request will redirect the developer to connctds consent screen. After he has logged in he is asked weather your app is
+allowed to act with the given permissions (your scopes) AND he needs to select one of his apps from a list which defines
+ o which app resources your app will get access to. This app selection is quite uncommon for this type of flow but it is
+necessary as things and units are not attached to developer accounts but instead to apps (because one
+developer account may have multiple apps).</p>
+
+<p>As soon as the developer accepts, the browser gets redirected to the redirection url (which points to your app backend).
+It also might happen that he rejects or an error occurs. Depending on the case one of the following redirects will take place:</p>
+
+<aside class="notice">
+  In case you would like to use the Implicit Grant Flow just replace the response_type=code with response_type=token in the request on right hand side.
+</aside>
+
+<h3 id="requesting-a-token">Requesting a token</h3>
+
+<p>If the requested scopes were granted the redirect uri gets called containing an auth code. Use that one to perform the
+request on the right hand side</p>
+
+<blockquote>
+<p><strong>Request</strong><br>
+POST https://api.connctd.io/oauth2/token<br>
+<em>Headers:</em><br>
+&nbsp;Content-Type:application/x-www-form-urlencoded<br>
+&nbsp;Authorization:Basic base64_encode(YOUR_CLIENT_ID_id:YOUR_CLIENT_SECRET)<br>
 <em>Body:</em> see below<br></p>
 </blockquote>
 <pre class="highlight shell"><code><span class="nv">grant_type</span><span class="o">=</span>authorization_code&amp;code<span class="o">=</span>-auth code from reply of prev request-&amp;
@@ -321,38 +388,12 @@ POST https://api.connctd.io/oauth2/token<br>
     </span><span class="s2">"scope"</span><span class="p">:</span><span class="s2">"..."</span><span class="p">,</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This request requires the authentication of the app by specifying an Authorization header with value <code class="prettyprint">Basic base64_encode(client_id:client_secret)</code>
-The body will contain a url encoded form with the fields <em>grant_type</em>, <em>code</em>, <em>redirect_uri</em> and <em>client_id</em>  </p>
-
-<h2 id="requesting-an-app-token">Requesting an app token</h2>
-
-<blockquote>
-<p><strong>Request</strong><br>
-POST https://api.connctd.io/oauth2/token<br>
-<em>Headers:</em><br>
-&nbsp;Content-Type:application/x-www-form-urlencoded<br>
-&nbsp;Authorization:Basic &hellip;<br>
-<em>Body:</em> see below</p>
-</blockquote>
-<pre class="highlight shell"><code><span class="nv">grant_type</span><span class="o">=</span>client_credentials&amp;scope<span class="o">=</span>connctd.connector
-</code></pre>
-<blockquote>
-<p><strong>Response</strong><br>
-<em>Code:</em> 200</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"access_token"</span><span class="p">:</span><span class="s2">"..."</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This is the so called client credentials grant flow and allows an app to fetch an acccess token that is NOT user related. This is required for e.g. registering an app callback (see apps)</p>
-
-<p>Authorization header value needs to be of format: base64_encode(client_id:client_secret)</p>
-
           <h1 id="apps">Apps</h1>
 
-<p>connctd implements the OAuth 2.0 specification. By doing so developers can write and host their own apps that can obtain limited access to resources on behalf of the user. 
-Such an app (in OAuth terms it is called client) could for example list the units or things of an user. These apps do not just consume resources they might also deliver new resources like things. A common use case for connctd apps are apps that mediate between our platform and another, foreign technology. We often name those apps &ldquo;connector&rdquo; as they are translating from a remote domain model into our thing concept.
-If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading the <a href="https://tools.ietf.org/html/rfc6749">specification</a>. In case you are uncertain regarding some parameters we also recommend reading the documentation of <a href="http://docs.hydra13.apiary.io/#reference/oauth2">hydra</a> - the framework we are using under the hood for OAuth 2.0 support.</p>
+<p>Whenever you would like to build your own application which makes use of things or units you first need
+to register that app at our platform. By registering an app you will get a client_id and client_secret which can be
+used (depending on the used oauth2 flow) to retrieve an access token. This token is required when working with our api
+ as it allows our platform to match your requests to your app.</p>
 
 <h2 id="register-an-app">Register an app</h2>
 
@@ -361,7 +402,7 @@ If you are unfamiliar with the OAuth 2.0 framework we highly recommend reading t
 POST https://api.connctd.io/api/v1/apps<br>
 <em>Headers:</em><br>
 &nbsp;Content-Type:application/json<br>
-&nbsp;Authorization:YOUR TOKEN<br>
+&nbsp;Authorization:YOUR DEV TOKEN<br>
 <em>Body:</em> see below<br></p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
@@ -405,11 +446,11 @@ POST https://api.connctd.io/api/v1/apps<br>
 </span></code></pre>
 <p>Registers a new application</p>
 
-<p><strong>redirect_uris:</strong> Array of redirect uris that are later on used in various flows</p>
+<p><strong>redirect_uris:</strong> Required if you are planning to use the Authorization Code Grant Flow or Implicit Grant Flow.</p>
 
-<p><strong>scope:</strong> Space separated list of scopes. The offline scope is necessary if a refresh token should be later on generated. You can see in a list of all available scopes within the <em>scopes</em> section</p>
+<p><strong>scope:</strong> Space separated list of scopes. The offline scope is necessary if a refresh token should be later on generated (for Client Credential Flow not required). You can see in a list of all available scopes within the <em>scopes</em> section.</p>
 
-<p><strong>public:</strong> You have to set this to true if there exists the possibility of client secret disclosure (e.g. Android app might be decompiled). Apps with setting public=true will not be able to register action callback urls since the client_credentials grant type flow is required for that but which is deactivated due to security concerns with public apps.</p>
+<p><strong>public:</strong> You have to set this to true if there exists the possibility of client secret disclosure (e.g. client secret is stored in Android app - the app might be decompiled). Apps with setting public=true will not be able to use the Client Credentials Flow is required due to security concerns with public apps.</p>
 
 <p><strong>visible:</strong> If set to true any user can see your app (e.g. in an app store). If set to false only you can see the app.</p>
 
@@ -560,8 +601,7 @@ POST https://api.connctd.io/api/v1/actions/callback/register<br>
 <em>Code:</em> 200</p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
-<p>This request stores a system wide callback url for all action requests that are related to this app. This is important whenever an app creates things that contain actions. As soon a user triggers any of these actions by performing an action request the request is forwarded to the given callback url. 
-The header requires a valid app token. See section oauth2 -&gt; Register an app token for more information about gaining app tokens</p>
+<p>This request stores a system wide callback url for all action requests that are related to this app. This is important whenever an app creates things that contain actions. As soon a user triggers any of these actions by performing an action request the request is forwarded to the given callback url. </p>
 
           <h1 id="units">Units</h1>
 
@@ -631,7 +671,7 @@ POST https://api.connctd.io/api/v1/units<br>
 </span></code></pre>
 <p>Creates an empty unit. Additional information like parents, children or subjects can be added by subsequent calls.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
 
 <h2 id="retrieve-units">Retrieve units</h2>
 
@@ -658,7 +698,7 @@ GET https://api.connctd.io/api/v1/units<br>
 </span></code></pre>
 <p>Retrieves a list of resource links to units the user belongs to</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.read or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
 
 <h2 id="retrieve-unit">Retrieve unit</h2>
 
@@ -698,7 +738,7 @@ GET https://api.connctd.io/api/v1/units/-unitId-<br>
 </span></code></pre>
 <p>Retrieves a unit by id</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.read or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
 
 <h2 id="delete-unit">Delete unit</h2>
 
@@ -718,7 +758,7 @@ DELETE https://api.connctd.io/api/v1/units/-unitId-<br>
 
 <p>Removes a unit by its id.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
 
 <h2 id="get-unit-references">Get unit references</h2>
 
@@ -744,7 +784,7 @@ GET https://api.connctd.io/api/v1/units/-unitId-/-parents|children-<br>
 </span></code></pre>
 <p>Retrieves a list of unit references.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.read or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
 
 <h2 id="add-unit-reference">Add unit reference</h2>
 
@@ -767,7 +807,7 @@ POST https://api.connctd.io/api/v1/units/-unitId-/-parents|children-<br>
 
 <p>Adds a reference to another unit. The reference also appears within the referenced unit either as parent or child reference.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
 
 <h2 id="remove-unit-reference">Remove unit reference</h2>
 
@@ -790,7 +830,7 @@ DELETE https://api.connctd.io/api/v1/units/-unitId-/-parents|children-<br>
 
 <p>Removes a reference to another unit. The reference also disappears from within the referenced unit.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
 
 <h2 id="get-subject-references">Get subject references</h2>
 
@@ -816,7 +856,7 @@ GET https://api.connctd.io/api/v1/units/-unitId-/subjects<br>
 </span></code></pre>
 <p>Retrieves list of subject references</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.read or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
 
 <aside class="note">
 Subject references can be used to assign (external) subject ids to a specific unit. As soon a one external subject (lets say for example S1) is assigned to the unit of another subject (lets say S2), the result list when retrieving the units of S1 will contain the unit of S2.   
@@ -843,7 +883,7 @@ POST https://api.connctd.io/api/v1/units/-unitId-/subjects<br>
 
 <p>Adds a reference to a subject.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
 
 <h2 id="remove-subject-reference">Remove subject reference</h2>
 
@@ -867,7 +907,7 @@ DELETE https://api.connctd.io/api/v1/units/-unitId-/subjects<br>
 
 <p>Removes a reference to a subject.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
 
 <h2 id="get-properties">Get properties</h2>
 
@@ -894,7 +934,7 @@ GET https://api.connctd.io/api/v1/units/-unitId-/properties<br>
 </span></code></pre>
 <p>Retrieves a list of all properties</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.read or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
 
 <h2 id="get-property">Get property</h2>
 
@@ -919,7 +959,7 @@ GET https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-<br>
 </span></code></pre>
 <p>Read a specific property</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.read or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
 
 <h2 id="add-property">Add property</h2>
 
@@ -944,7 +984,7 @@ POST https://api.connctd.io/api/v1/units/-unitId-/properties<br>
 
 <p>Adds a new property.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
 
 <h2 id="update-property">Update property</h2>
 
@@ -969,7 +1009,7 @@ PUT https://api.connctd.io/api/v1/units/-unitId-/properties<br>
 
 <p>Updates a property.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
 
 <h2 id="delete-property">Delete property</h2>
 
@@ -989,7 +1029,7 @@ DELETE https://api.connctd.io/api/v1/units/-unitId-/properties/-propertyName-<br
 <pre class="highlight json tab-json"><code></code></pre>
 <p>Removes a property from property set</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
 
 <h2 id="get-thing-references">Get thing references</h2>
 
@@ -1015,7 +1055,7 @@ GET https://api.connctd.io/api/v1/units/-unitId-/things<br>
 </span></code></pre>
 <p>Retrieves a list of all thing references</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.read or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.read</code></p>
 
 <h2 id="add-thing-reference">Add thing reference</h2>
 
@@ -1039,7 +1079,7 @@ POST https://api.connctd.io/api/v1/units/-unitId-/things<br>
 
 <p>Adds a reference to a things.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
 
 <h2 id="remove-thing-reference">Remove thing reference</h2>
 
@@ -1063,7 +1103,7 @@ DELETE https://api.connctd.io/api/v1/units/-unitId-/things<br>
 
 <p>Removes a reference to a thing.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.units.admin or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.units.admin</code></p>
 
           <h1 id="things">Things</h1>
 
@@ -1174,7 +1214,7 @@ GET https://api.connctd.io/api/v1/things<br>
 </span></code></pre>
 <p>Retrieves a list of all things the subject is owner of. Be aware that this list does NOT contain things that are shared via policies with the subject.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.things.read or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.things.read</code></p>
 
 <h2 id="retrieve-thing">Retrieve thing</h2>
 
@@ -1209,7 +1249,7 @@ GET https://api.connctd.io/api/v1/things/-thingid-<br>
 </span></code></pre>
 <p>Retrieves a single thing.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.things.read or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.things.read</code></p>
 
 <h2 id="retrieve-thing-component">Retrieve thing component</h2>
 
@@ -1254,7 +1294,7 @@ GET https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-<br>
 </span></code></pre>
 <p>Retrieves the component of a thing.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.things.read or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.things.read</code></p>
 
 <h2 id="retrieve-component-property">Retrieve component property</h2>
 
@@ -1283,7 +1323,7 @@ GET https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-/prop
 </span></code></pre>
 <p>Retrieves the property of a component.</p>
 
-<p>Required scope: <code class="prettyprint">connctd.things.read or connctd.core</code></p>
+<p>Required scope: <code class="prettyprint">connctd.things.read</code></p>
 
 <h2 id="trigger-action-request">Trigger action request</h2>
 
@@ -1567,7 +1607,7 @@ POST https://api.connctd.io/api/v1/connectors/clients<br>
 <em>Body:</em> Id of newly created client or redirect having location header. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d202e1a7-20a2-4581-9630-551dbe39d888"</span><span class="w">
+    </span><span class="s2">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d202e1a7-20a2-4581-9630-551dbe39d888"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Creates a new connector client. Again the configuration of the client depends on the requirements of the connector. The response status code can be either 201 or 303 (redirect) and depends on the connector type. In both cases the connector client was created. If a 303 is returned the browser of the client needs to be redirected to the location which is mentioned within the location-header-field of the response. A 409 is returned if a client for given X-External-Subject-Id &amp; connector_type_id was already created. A 400 is returned if there exists no appropriate connector instance.   </p>
@@ -1694,7 +1734,7 @@ DELETE https://api.connctd.io/api/v1/connectors/clients/-clientId-<br>
 </tr>
 <tr>
 <td>connctd.core</td>
-<td>Can&rsquo;t be requested by oauth 2 apps. Automatically assigend to user token retrieved via /api/v1/auth/login. Combines scopes connctd.policies.read, connctd.policies.admin, connctd.units.admin, connctd.units.read and connctd.things.read</td>
+<td>Can&rsquo;t be requested by oauth 2 apps. Automatically assigned to user token retrieved via /api/v1/auth/login.</td>
 </tr>
 </tbody></table>
 
