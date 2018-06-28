@@ -391,197 +391,9 @@ POST https://api.connctd.io/oauth2/token<br>
 </span></code></pre>
           <h1 id="apps">Apps</h1>
 
-<p>Whenever you would like to build your own application which makes use of things or units you first need
+<p>Whenever you would like to build your own application which makes use of things, units or connectors you first need
 to register that app at our platform. By registering an app you will get a client_id and client_secret which can be
-used (depending on the used oauth2 flow) to retrieve an access token. This token is required when working with our api
- as it allows our platform to match your requests to your app.</p>
-
-<h2 id="register-an-app">Register an app</h2>
-
-<blockquote>
-<p><strong>Request</strong><br>
-POST https://api.connctd.io/api/v1/apps<br>
-<em>Headers:</em><br>
-&nbsp;Content-Type:application/json<br>
-&nbsp;Authorization:YOUR DEV TOKEN<br>
-<em>Body:</em> see below<br></p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"Name of application"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"description"</span><span class="p">:</span><span class="s2">"Any description"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"homepage"</span><span class="p">:</span><span class="s2">"https://abc.com"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"redirecturis"</span><span class="p">:[</span><span class="s2">"https://abc.com/auth/callback"</span><span class="p">],</span><span class="w">
-  </span><span class="s2">"policyuri"</span><span class="p">:</span><span class="s2">"https://abc.com/policy"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"tosuri"</span><span class="p">:</span><span class="s2">"https://abc.com/tos"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"logouri"</span><span class="p">:</span><span class="s2">"https://abc.com/logo.png"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"scopes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"connctd.units.read"</span><span class="p">,</span><span class="s2">"connctd.units.admin"</span><span class="p">,</span><span class="s2">"connctd.connector"</span><span class="p">,</span><span class="s2">"connctd.things.read"</span><span class="p">,</span><span class="s2">"offline"</span><span class="p">],</span><span class="w">
-  </span><span class="s2">"public"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"visible"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"tags"</span><span class="p">:[{</span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"Smart Home"</span><span class="p">}],</span><span class="w">
-  </span><span class="s2">"contacts"</span><span class="p">:[</span><span class="s2">"your.mail@mail.com"</span><span class="p">],</span><span class="w">
-  </span><span class="s2">"responsetypes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"code"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"token"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"id_token"</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"granttypes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="s2">"authorization_code"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"implicit"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"refresh_token"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"password"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"client_credentials"</span><span class="w">
-  </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre>
-<blockquote>
-<p><strong>Response</strong><br>
-<em>Code:</em> 201<br>
-<em>Body:</em> Newly created application. See example below. </p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f62794f6-659d-439a-b19b-45e6cf705cef"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f62794f6-659d-439a-b19b-45e6cf705cef"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"client_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NWx.W-B&gt;G/!u"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>Registers a new application</p>
-
-<p><strong>redirect_uris:</strong> Required if you are planning to use the Authorization Code Grant Flow or Implicit Grant Flow.</p>
-
-<p><strong>scope:</strong> Space separated list of scopes. The offline scope is necessary if a refresh token should be later on generated (for Client Credential Flow not required). You can see in a list of all available scopes within the <em>scopes</em> section.</p>
-
-<p><strong>public:</strong> You have to set this to true if there exists the possibility of client secret disclosure (e.g. client secret is stored in Android app - the app might be decompiled). Apps with setting public=true will not be able to use the Client Credentials Flow is required due to security concerns with public apps.</p>
-
-<p><strong>visible:</strong> If set to true any user can see your app (e.g. in an app store). If set to false only you can see the app.</p>
-
-<p><strong>tags:</strong> Used to search for apps with specific meanings (e.g. Smart Home, Netatmo, Assisted living)</p>
-
-<p>As a response you will get back a client_id, id and a client_secret. The client_secret needs to be stored as it can&rsquo;t be retrieved again. Right now the id of the created client (used for managing clients) is equal to the oauth2 client_id (required for OAuth2 flow).</p>
-
-<p>Required scope: <code class="prettyprint">connctd.core</code></p>
-
-<h2 id="retrieve-apps">Retrieve apps</h2>
-
-<blockquote>
-<p><strong>Request</strong><br>
-GET https://api.connctd.io/api/v1/apps<br>
-<em>Headers:</em><br>
-&nbsp;Authorization:YOUR TOKEN<br>
-<em>Body:</em> empty<br></p>
-</blockquote>
-<pre class="highlight json tab-json"><code></code></pre>
-<blockquote>
-<p><strong>Response</strong><br>
-<em>Code:</em> 200<br>
-<em>Body:</em> List of apps. See example below</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f62794f6-659d-439a-b19b-45e6cf705cef"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"Name of application"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"description"</span><span class="p">:</span><span class="s2">"Any description"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"public"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"added"</span><span class="p">:</span><span class="w"> </span><span class="mi">1497866109</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-          </span><span class="p">{</span><span class="w">
-              </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Smart Home"</span><span class="w">
-          </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
-      </span><span class="err">...</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="err">...</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-<p>Retrieves a list of all apps </p>
-
-<p>Required scope: <code class="prettyprint">connctd.core</code></p>
-
-<h2 id="retrieve-an-app">Retrieve an app</h2>
-
-<blockquote>
-<p><strong>Request</strong><br>
-GET https://api.connctd.io/api/v1/apps/f62794f6-659d-439a-b19b-45e6cf705cef<br>
-<em>Headers:</em><br>
-&nbsp;Authorization:YOUR TOKEN<br>
-<em>Body:</em> empty<br></p>
-</blockquote>
-<pre class="highlight json tab-json"><code></code></pre>
-<blockquote>
-<p><strong>Response</strong><br>
-<em>Code:</em> 200<br>
-<em>Body:</em> Single app description. See example below</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f62794f6-659d-439a-b19b-45e6cf705cef"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"Name of application"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"description"</span><span class="p">:</span><span class="s2">"Any description"</span><span class="p">,</span><span class="w">
-  </span><span class="err">...</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>Retrieves a specific app</p>
-
-<p>Required scope: <code class="prettyprint">connctd.core</code></p>
-
-<h2 id="add-tag">Add tag</h2>
-
-<blockquote>
-<p><strong>Request</strong><br>
-POST https://api.connctd.io/api/v1/apps/f62794f6-659d-439a-b19b-45e6cf705cef/tags<br>
-<em>Headers:</em><br>
-&nbsp;Content-Type:application/json<br>
-&nbsp;Authorization:YOUR TOKEN<br>
-<em>Body:</em> see below<br></p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"My new tag"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<blockquote>
-<p><strong>Response</strong><br>
-<em>Code:</em> 201</p>
-</blockquote>
-
-<p>Adds a new tag to the tag list of an app</p>
-
-<p>Required scope: <code class="prettyprint">connctd.core</code></p>
-
-<h2 id="delete-a-tag">Delete a tag</h2>
-
-<blockquote>
-<p><strong>Request</strong><br>
-DELETE https://api.connctd.io/api/v1/apps/1bd2f1a3-e72d-4606-b82b-86d1054f3bd4/tags/TAGNAME<br>
-<em>Headers:</em><br>
-&nbsp;Authorization:YOUR TOKEN<br>
-<em>Body:</em> empty<br></p>
-</blockquote>
-<pre class="highlight json tab-json"><code></code></pre>
-<blockquote>
-<p><strong>Response</strong><br>
-<em>Code:</em> 204</p>
-</blockquote>
-<pre class="highlight json tab-json"><code></code></pre>
-<p>Removes a tag</p>
-
-<h2 id="delete-an-app">Delete an app</h2>
-
-<blockquote>
-<p><strong>Request</strong><br>
-DELETE https://api.connctd.io/api/v1/apps/1bd2f1a3-e72d-4606-b82b-86d1054f3bd4<br>
-<em>Headers:</em><br>
-&nbsp;Authorization:YOUR TOKEN<br>
-<em>Body:</em> empty<br></p>
-</blockquote>
-<pre class="highlight json tab-json"><code></code></pre>
-<blockquote>
-<p><strong>Response</strong><br>
-<em>Code:</em> 204</p>
-</blockquote>
-<pre class="highlight json tab-json"><code></code></pre>
-<p>Removes an app by client_id</p>
-
-<p>Required scope: <code class="prettyprint">connctd.core</code></p>
+used (depending on the used oauth2 flow) to retrieve an access token. This token is required when working with our api as it allows our platform to match your requests to your app. Head over to our developer center in order to create your app.</p>
 
 <h2 id="register-a-callback-url">Register a callback url</h2>
 
@@ -602,7 +414,7 @@ POST https://api.connctd.io/api/v1/actions/callback/register<br>
 <em>Code:</em> 200</p>
 </blockquote>
 <pre class="highlight json tab-json"><code></code></pre>
-<p>This request stores a system wide callback url for all action requests that are related to this app. This is important whenever an app creates things that contain actions. As soon a user triggers any of these actions by performing an action request the request is forwarded to the given callback url. </p>
+<p>This request stores a system wide callback url for all action requests that are related to this app. This is important whenever an app creates things that contains actions. As soon as a user triggers any of these actions by performing an action request the request is forwarded to the given callback url. Please note: if you are using our connector service you have to register your app specific connector callback url with this request. <a href="#get-connector-service-callback-url">Here</a> you can read how to get one.</p>
 
           <h1 id="units">Units</h1>
 
@@ -1702,6 +1514,27 @@ DELETE https://api.connctd.io/api/v1/connectors/clients/-clientId-<br>
 <p>If the removal of the corresponding things fails a 500 is returned and the connector client remains active. Try to remove the client again if that happens.</p>
 
 <p>Required scope: <code class="prettyprint">connctd.connector</code></p>
+
+<h2 id="get-connector-service-callback-url">Get connector service callback url</h2>
+
+<blockquote>
+<p><strong>Request</strong><br>
+GET https://api.connctd.io/api/v1/connectors/callbackurl
+<em>Headers:</em><br>
+&nbsp;Authorization:YOUR TOKEN<br>
+<em>Body:</em> empty<br></p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<blockquote>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200<br>
+<em>Body:</em> Callback url</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.connctd.io/api/v1/connectors/actions/1eb8b9f..."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Connector clients might create things with actions. If you are trying to trigger such an action it will fail unless you have provided a callback url to our backend. The callback url tells our backend to which endpoint it has to route the action request since only the thing creating service or app knows how to handle the action request. Since the connector service has created the thing you have to register the callback url you get from the request shown on the right hand side. <a href="#register-a-callback-url">Here</a> you can read how to register the callback url.</p>
 
           <h1 id="scopes">Scopes</h1>
 
