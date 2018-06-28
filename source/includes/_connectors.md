@@ -284,3 +284,29 @@ Removes a connector client. Removing a connector client will also lead to the re
 If the removal of the corresponding things fails a 500 is returned and the connector client remains active. Try to remove the client again if that happens.
 
 Required scope: `connctd.connector`
+
+## Get connector service callback url
+
+> **Request**<br>
+> GET https://api.connctd.io/api/v1/connectors/callbackurl
+> *Headers:*<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
+> *Body:* empty<br>
+
+
+```json
+```
+
+> **Response**<br>
+> *Code:* 200<br>
+> *Body:* Callback url
+
+```json
+{
+    "href": "https://api.connctd.io/api/v1/connectors/actions/1eb8b9f..."
+}
+```
+
+Connector clients might create things with actions. If you are trying to trigger such an action it will fail unless you have provided a callback url to our backend. The callback url tells our backend to which endpoint it has to route the action request since only the thing creating service or app knows how to handle the action request. Since the connector service has created the thing you have to register the callback url you get from the request shown on the right hand side. [Here](#register-a-callback-url) you can read how to register the callback url.
+
+
