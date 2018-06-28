@@ -8,10 +8,10 @@ toc_footers:
 
 includes:
   - oauth2
-  - apps
   - units
   - things
   - connectors
+  - apps
   - scopes
   - errors
 
