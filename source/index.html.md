@@ -22,4 +22,4 @@ search: true
 
 Welcome to the connctd.io API. This REST based API provides functionality to create, manage and update Things and
 other resources in the world of IoT. If you are unfamiliar with our concepts and how we might help you with YOUR
-IoT project you can try out our [tutorials](https://tutorials.connctd.io).
+IoT project you can try out our [tutorial](https://tutorial.connctd.io).
