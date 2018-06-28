@@ -230,63 +230,6 @@
 other resources in the world of IoT. If you are unfamiliar with our concepts and how we might help you with YOUR
 IoT project you can try out our <a href="https://tutorials.connctd.io">tutorials</a>.</p>
 
-<h1 id="authentication">Authentication</h1>
-
-<p>To authenticate against our API you need verify your credentials. In return you receive a token identifying you as
-the resource owner (user), granting you a certain amount of permissions. Please note: this token does NOT give you the 
-privilege to access or work with resources like things, units or connectors since all of them are related to apps 
-and not to developer accounts. Instead, this token can be used to access resources like apps (e.g. setup/manage your 
-apps). If you would like to know how you can get an app token in order to work with things and units head over to the
-oauth2 section.</p>
-
-<h2 id="login">Login</h2>
-
-<blockquote>
-<p><strong>Request</strong><br>
-POST https://api.connctd.io/api/v1/auth/login<br>
-<em>Headers:</em><br>
-&nbsp;Content-Type:application/json<br>
-<em>Body:</em> see below<br></p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"email"</span><span class="p">:</span><span class="s2">"yourmail"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"password"</span><span class="p">:</span><span class="s2">"yourpassword"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<blockquote>
-<p><strong>Response</strong><br>
-<em>Code:</em> 200<br>
-<em>Body:</em> Token und further information. See example below</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NpZCI6I....."</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"546"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"user_uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4bbb4e40-99ea-43c6-9447-a4c67f563e1c"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>The response will either have the status code 200 in case of success or 401 in case the 
-supplied credentials can&rsquo;t be verified. In error cases a default error object is
-returned in the body. This flow is the only way to get a token with the scope connctd.core.</p>
-
-<h2 id="logout">Logout</h2>
-
-<blockquote>
-<p><strong>Request</strong><br>
-POST <em>Url:</em> https://api.connctd.io/api/v1/auth/logout<br>
-<em>Headers:</em><br>
-&nbsp;Content-Type:application/json<br>
-&nbsp;Authorization:YOUR TOKEN<br>
-<em>Body:</em> empty<br></p>
-</blockquote>
-<pre class="highlight json tab-json"><code></code></pre>
-<blockquote>
-<p><strong>Response</strong><br>
-<em>Code:</em> 200<br>
-<em>Body:</em> Empty</p>
-</blockquote>
-
-<p>Invalidates the access token. You have to specify your access token within <em>Authorization</em> header field.</p>
-
           <h1 id="oauth-2-0">OAuth 2.0</h1>
 
 <p>The connctd platform acts as a oauth2 provider implementing all flows described in
