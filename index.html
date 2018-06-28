@@ -228,7 +228,7 @@
 
 <p>Welcome to the connctd.io API. This REST based API provides functionality to create, manage and update Things and
 other resources in the world of IoT. If you are unfamiliar with our concepts and how we might help you with YOUR
-IoT project you can try out our <a href="https://tutorials.connctd.io">tutorials</a>.</p>
+IoT project you can try out our <a href="https://tutorial.connctd.io">tutorial</a>.</p>
 
           <h1 id="oauth-2-0">OAuth 2.0</h1>
 
@@ -332,33 +332,6 @@ POST https://api.connctd.io/oauth2/token<br>
     </span><span class="s2">"scope"</span><span class="p">:</span><span class="s2">"..."</span><span class="p">,</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-          <h1 id="apps">Apps</h1>
-
-<p>Whenever you would like to build your own application which makes use of things, units or connectors you first need
-to register that app at our platform. By registering an app you will get a client_id and client_secret which can be
-used (depending on the used oauth2 flow) to retrieve an access token. This token is required when working with our api as it allows our platform to match your requests to your app. Head over to our developer center in order to create your app.</p>
-
-<h2 id="register-a-callback-url">Register a callback url</h2>
-
-<blockquote>
-<p><strong>Request</strong><br>
-POST https://api.connctd.io/api/v1/actions/callback/register<br>
-<em>Headers:</em><br>
-&nbsp;Content-Type:application/json<br>
-&nbsp;Authorization:APP TOKEN<br>
-<em>Body:</em> see below<br> </p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"CallbackUrl"</span><span class="p">:</span><span class="s2">"https://remote-service-url"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<blockquote>
-<p><strong>Response</strong><br>
-<em>Code:</em> 200</p>
-</blockquote>
-<pre class="highlight json tab-json"><code></code></pre>
-<p>This request stores a system wide callback url for all action requests that are related to this app. This is important whenever an app creates things that contains actions. As soon as a user triggers any of these actions by performing an action request the request is forwarded to the given callback url. Please note: if you are using our connector service you have to register your app specific connector callback url with this request. <a href="#get-connector-service-callback-url">Here</a> you can read how to get one.</p>
-
           <h1 id="units">Units</h1>
 
 <p>A unit is a primitive container that gives developers the possibility to group things and to put them into a context. Since a unit can reference other units (children and parents) even complex structures of the real world can be modeled like for example a city with it&rsquo;s streets and buildings.</p>
@@ -1478,6 +1451,33 @@ GET https://api.connctd.io/api/v1/connectors/callbackurl
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Connector clients might create things with actions. If you are trying to trigger such an action it will fail unless you have provided a callback url to our backend. The callback url tells our backend to which endpoint it has to route the action request since only the thing creating service or app knows how to handle the action request. Since the connector service has created the thing you have to register the callback url you get from the request shown on the right hand side. <a href="#register-a-callback-url">Here</a> you can read how to register the callback url.</p>
+
+          <h1 id="apps">Apps</h1>
+
+<p>Whenever you would like to build your own application which makes use of things, units or connectors you first need
+to register that app at our platform. By registering an app you will get a client_id and client_secret which can be
+used (depending on the used oauth2 flow) to retrieve an access token. This token is required when working with our api as it allows our platform to match your requests to your app. Head over to our developer center in order to create your app.</p>
+
+<h2 id="register-a-callback-url">Register a callback url</h2>
+
+<blockquote>
+<p><strong>Request</strong><br>
+POST https://api.connctd.io/api/v1/actions/callback/register<br>
+<em>Headers:</em><br>
+&nbsp;Content-Type:application/json<br>
+&nbsp;Authorization:APP TOKEN<br>
+<em>Body:</em> see below<br> </p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"CallbackUrl"</span><span class="p">:</span><span class="s2">"https://remote-service-url"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p><strong>Response</strong><br>
+<em>Code:</em> 200</p>
+</blockquote>
+<pre class="highlight json tab-json"><code></code></pre>
+<p>This request stores a system wide callback url for all action requests that are related to this app. This is important whenever an app creates things that contains actions. As soon as a user triggers any of these actions by performing an action request the request is forwarded to the given callback url. Please note: if you are using our connector service you have to register your app specific connector callback url with this request. <a href="#get-connector-service-callback-url">Here</a> you can read how to get one.</p>
 
           <h1 id="scopes">Scopes</h1>
 
