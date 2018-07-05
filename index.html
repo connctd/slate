@@ -274,7 +274,10 @@ POST https://api.connctd.io/oauth2/token<br>
 
 <blockquote>
 <p><strong>Request</strong><br>
-GET https://api.connctd.io/oauth2/auth?state=abcdefghiklmnop&amp;client_id=1bd2f1a3-e72d-4606-b82b-86d1054f3bd4&amp;redirect_uri=https%3A%2F%2Fabc%2Fauth%2Fcallback&amp;response_type=code&amp;scope=connctd.units.read+connctd.things.read+connctd.connector+offline</p>
+GET https://api.connctd.io/oauth2/auth?state=abcdefghiklmnop
+&amp;client_id=1bd2f1a3-e72d-4606-b82b-86d1054f3bd4
+&amp;redirect_uri=https%3A%2F%2Fabc%2Fauth%2Fcallback
+&amp;response_type=code&amp;scope=connctd.units.read+connctd.things.read+connctd.connector+offline</p>
 
 <p><strong>Response</strong><br>
 <em>Code:</em> 301</p>
@@ -284,10 +287,14 @@ GET https://api.connctd.io/oauth2/auth?state=abcdefghiklmnop&amp;client_id=1bd2f
 
 <blockquote>
 <p><strong>Request</strong><br>
-GET https://YOURREDIRECTIONURL/&hellip;?code=qq1YnxN&hellip;.&amp;scope=connctd.things.read%20connctd.connector%20offline&amp;state=abcdefghijklmnoaasa</p>
+GET https://YOURREDIRECTIONURL/&hellip;?code=qq1YnxN&hellip;.
+&amp;scope=connctd.things.read%20connctd.connector%20offline
+&amp;state=abcdefghijklmnoaasa</p>
 
 <p><strong>Request</strong><br>
-GET https://YOURREDIRECTIONURL/&hellip;?https://tutorial.connctd.io/callback?error=invalid_scope&amp;error_description=The+requested+scope+is+invalid%2C+unknown%2C+or+malformed&amp;state=abcdefghijklmnoaasa
+GET https://YOURREDIRECTIONURL/&hellip;?https://tutorial.connctd.io/callback?error=invalid_scope
+&amp;error_description=The+requested+scope+is+invalid%2C+unknown%2C+or+malformed
+&amp;state=abcdefghijklmnoaasa
 <code class="prettyprint">json
 </code></p>
 </blockquote>
