@@ -141,7 +141,7 @@ Fetches a specific instance. The json object holds a reference to the connector 
 
 Required scope: `connctd.connector`
 
-## Delete connector client
+## Delete connector instance
 
 > **Request**<br>
 > DELETE https://api.connctd.io/api/v1/connectors/instances/-instanceId-<br>
@@ -156,7 +156,7 @@ Required scope: `connctd.connector`
 > *Code:* 204<br>
 > *Body:* empty
 
-Removes a connector instances. A connector instance can only be removed if all clients that are attached to it are removed. Otherwise a 409 is returend.
+Removes a connector instance. A connector instance can only be removed if all clients that are attached to it are removed. Otherwise a 409 is returend.
 
 Required scope: `connctd.connector`
 
