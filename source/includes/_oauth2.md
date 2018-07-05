@@ -43,7 +43,10 @@ As already mentioned in the introduction adding this flow to your app only makes
  resources of foreign apps. Details of the flow and how to set each parameter can be found [here](https://tools.ietf.org/html/rfc6749#section-4.1).
 
 > **Request**<br>
-> GET https://api.connctd.io/oauth2/auth?state=abcdefghiklmnop&client_id=1bd2f1a3-e72d-4606-b82b-86d1054f3bd4&redirect_uri=https%3A%2F%2Fabc%2Fauth%2Fcallback&response_type=code&scope=connctd.units.read+connctd.things.read+connctd.connector+offline
+> GET https://api.connctd.io/oauth2/auth?state=abcdefghiklmnop
+> &client_id=1bd2f1a3-e72d-4606-b82b-86d1054f3bd4
+> &redirect_uri=https%3A%2F%2Fabc%2Fauth%2Fcallback
+> &response_type=code&scope=connctd.units.read+connctd.things.read+connctd.connector+offline
 
 > **Response**<br>
 > *Code:* 301
@@ -51,10 +54,14 @@ As already mentioned in the introduction adding this flow to your app only makes
 ### Redirecting resource owner
 
 > **Request**<br>
-> GET https://YOURREDIRECTIONURL/...?code=qq1YnxN....&scope=connctd.things.read%20connctd.connector%20offline&state=abcdefghijklmnoaasa
+> GET https://YOURREDIRECTIONURL/...?code=qq1YnxN....
+> &scope=connctd.things.read%20connctd.connector%20offline
+> &state=abcdefghijklmnoaasa
 
 > **Request**<br>
-> GET https://YOURREDIRECTIONURL/...?https://tutorial.connctd.io/callback?error=invalid_scope&error_description=The+requested+scope+is+invalid%2C+unknown%2C+or+malformed&state=abcdefghijklmnoaasa
+> GET https://YOURREDIRECTIONURL/...?https://tutorial.connctd.io/callback?error=invalid_scope
+> &error_description=The+requested+scope+is+invalid%2C+unknown%2C+or+malformed
+> &state=abcdefghijklmnoaasa
 ```json
 ```
 
