@@ -8,9 +8,16 @@ jobs:
       - checkout:
           path: workspace/repository
       - run:
+          name: Setup environment
+            git config --global user.email "till.klocke@connctd.com" && git config --global user.name "Till Klocke"
+      - run:
+          name: Install dependencies
+          command: |
+            cd ~/tmp/workspace/repository && bundle install
+      - run:
           name: Deploy
           command: |
-            cd ~/tmp/workspace/repository && bundle install && ./deploy.sh
+            cd ~/tmp/workspace/repository && ./deploy.sh
 
 workflows:
   version: 2
@@ -18,5 +25,5 @@ workflows:
     jobs:
       - build-release:
           filters:
-            tags:
-              only: /.*/
+            branches:
+              only: master

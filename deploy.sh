@@ -20,7 +20,6 @@ Options:
 bundle exec middleman build --clean
 
 echo "docs.connctd.io" > build/CNAME
-cp circle.yml build/circle.yml
 
 parse_args() {
   # Set args from a local environment file.
