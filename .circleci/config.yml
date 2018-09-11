@@ -1,7 +1,8 @@
 version: 2
 jobs:
   build-release:
-    machine: true
+    docker:
+      - image: circleci/ruby:2.6-rc
     working_directory: ~/tmp
     steps:
       - checkout:
