@@ -9,6 +9,7 @@ jobs:
           path: workspace/repository
       - run:
           name: Setup environment
+          command: |
             git config --global user.email "till.klocke@connctd.com" && git config --global user.name "Till Klocke"
       - run:
           name: Install dependencies
