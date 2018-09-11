@@ -1,6 +1,7 @@
 version: 2
 jobs:
   build-release:
+    machine: true
     working_directory: ~/tmp
     steps:
       - checkout:
