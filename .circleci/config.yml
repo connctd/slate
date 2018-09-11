@@ -2,7 +2,7 @@ version: 2
 jobs:
   build-release:
     docker:
-      - image: circleci/ruby:2.6-rc
+      - image: circleci/ruby:2.6-rc-node
     working_directory: ~/tmp
     steps:
       - checkout:
@@ -10,7 +10,7 @@ jobs:
       - run:
           name: Deploy
           command: |
-            cd ~/tmp/workspace/repository && ./deploy.sh
+            cd ~/tmp/workspace/repository && bundle install && ./deploy.sh
 
 workflows:
   version: 2
