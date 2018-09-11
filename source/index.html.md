@@ -3,8 +3,9 @@ title: API Reference
 
 toc_footers:
   - <a href='https://api.connctd.io/register'>Sign Up for a Developer Key</a>
-  - <a href='https://connctd.com/imprint'>Imprint</a>
-  - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
+  - <a href='https://connctd.com/privacy'>Imprint</a>
+  - <a href='https://connctd.com/diclaimer'>Disclaimer</a>
+  - <a href='https://connctd.com/pricelist'>Pricelist</a>
 
 includes:
   - oauth2
