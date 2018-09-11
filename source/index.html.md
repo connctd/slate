@@ -6,6 +6,7 @@ toc_footers:
   - <a href='https://connctd.com/privacy'>Imprint</a>
   - <a href='https://connctd.com/diclaimer'>Disclaimer</a>
   - <a href='https://connctd.com/pricelist'>Pricelist</a>
+  - <a href='https://connctd.com'>connctd Website</a>
 
 includes:
   - oauth2
