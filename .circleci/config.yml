@@ -9,8 +9,7 @@ jobs:
       - run:
           name: Deploy
           command: |
-            - cd ~/tmp/workspace/repository
-            - ./deploy.sh
+            cd ~/tmp/workspace/repository && ./deploy.sh
 
 workflows:
   version: 2
