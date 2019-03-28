@@ -880,6 +880,10 @@ POST https://api.connctd.io/api/v1/things<br>
   </span><span class="s2">"manufacturer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;human readbale manufacturer name&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"displaytype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;hint for display purposes&gt;"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"maincomponentid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;id of the main component&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"attributes"</span><span class="p">:[{</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"&lt;attribute name&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"value"</span><span class="p">:</span><span class="s2">"&lt;attribute value&gt;"</span><span class="w">
+  </span><span class="p">}],</span><span class="w">
   </span><span class="s2">"components"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;thing unique id of component&gt;"</span><span class="p">,</span><span class="w">
@@ -892,7 +896,10 @@ POST https://api.connctd.io/api/v1/things<br>
           </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;string representation of the value&gt;"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;short name of unit of measurement&gt;"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;data type of value (NUMBER,STRING,BOOLEAN)&gt;"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"propertyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;string defining meaning of property like e.g. HUMIDITY&gt;"</span><span class="w">
+          </span><span class="s2">"propertyType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;string defining meaning of property like e.g. HUMIDITY&gt;"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"affectedBy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"&lt;url to action modifying this property&gt;"</span><span class="w">
+          </span><span class="p">]</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">],</span><span class="w">
       </span><span class="s2">"actions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
