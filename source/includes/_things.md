@@ -33,6 +33,10 @@ Available scopes for Things:
   "manufacturer": "<human readbale manufacturer name>",
   "displaytype": "<hint for display purposes>",
   "maincomponentid": "<id of the main component>",
+  "attributes":[{
+    "name":"<attribute name>",
+    "value":"<attribute value>"
+  }],
   "components": [
     {
       "id": "<thing unique id of component>",
@@ -45,7 +49,10 @@ Available scopes for Things:
           "value": "<string representation of the value>",
           "unit": "<short name of unit of measurement>",
           "type": "<data type of value (NUMBER,STRING,BOOLEAN)>",
-          "propertyType": "<string defining meaning of property like e.g. HUMIDITY>"
+          "propertyType": "<string defining meaning of property like e.g. HUMIDITY>",
+          "affectedBy": [
+            "href":"<url to action modifying this property>"
+          ]
         }
       ],
       "actions": [
