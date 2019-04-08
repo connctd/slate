@@ -12,6 +12,7 @@ Basically a connector can be understood as a piece of code which connects a remo
 > **Request**<br>
 > GET https://api.connctd.io/api/v1/connectors/descriptions<br>
 > *Headers:* none<br>
+> &nbsp;Authorization:YOUR TOKEN<br>
 > *Body:* empty<br>
 
 ```json
