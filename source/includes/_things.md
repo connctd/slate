@@ -84,7 +84,8 @@ Available scopes for Things:
 
 To add a Thing you need to acquire a token with the scope `connctd.connector` through the OAuth2
 process. After this you are able to create Things with the following request.
-**Please note**: componentIDs and propertyIDs can only consist of letters, numbers, "-", "_" and should have a maximum size of 200 characters.
+
+**Please note**: componentIDs and propertyIDs can only consist of letters, numbers, "-", "_" and should have a maximum length of 200 characters.
 
 Required scope: `connctd.connector`
 
