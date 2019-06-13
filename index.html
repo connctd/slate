@@ -892,7 +892,8 @@ POST https://api.connctd.io/api/v1/things<br>
       </span><span class="s2">"capabilities"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"&lt;one ore more capabaliies&gt;"</span><span class="p">],</span><span class="w">
       </span><span class="s2">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;component unique name of property&gt;"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;component unique id of property&gt;"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;name of property&gt;"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;string representation of the value&gt;"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;short name of unit of measurement&gt;"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;data type of value (NUMBER,STRING,BOOLEAN)&gt;"</span><span class="p">,</span><span class="w">
@@ -927,7 +928,8 @@ POST https://api.connctd.io/api/v1/things<br>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>To add a Thing you need to acquire a token with the scope <code class="prettyprint">connctd.connector</code> through the OAuth2
-process. After this you are able to create Things with the following request</p>
+process. After this you are able to create Things with the following request.
+<strong>Please note</strong>: componentIDs and propertyIDs can only consist of letters, numbers, &ldquo;-&rdquo;, &ldquo;_&rdquo; and should have a maximum size of 200 characters.</p>
 
 <p>Required scope: <code class="prettyprint">connctd.connector</code></p>
 
@@ -1058,6 +1060,7 @@ GET https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-/prop
 <em>Body:</em> Component property. See example below</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ONOFF"</span><span class="p">,</span><span class="w">
@@ -1129,7 +1132,7 @@ PATCH <em>Url:</em> https://api.connctd.io/api/v1/things/-thingid-<br>
 
 <blockquote>
 <p><strong>Request</strong><br>
-PUT https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-/properties/-propertyname-<br>
+PUT https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-/properties/-propertyid-<br>
 <em>Headers:</em><br>
 &nbsp;Content-Type:application/json<br>
 &nbsp;Authorization:YOUR TOKEN<br>
