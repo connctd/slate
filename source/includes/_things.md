@@ -45,7 +45,8 @@ Available scopes for Things:
       "capabilities": ["<one ore more capabaliies>"],
       "properties": [
         {
-          "name": "<component unique name of property>",
+          "id": "<component unique id of property>",
+          "name": "<name of property>",
           "value": "<string representation of the value>",
           "unit": "<short name of unit of measurement>",
           "type": "<data type of value (NUMBER,STRING,BOOLEAN)>",
@@ -82,7 +83,8 @@ Available scopes for Things:
 ```
 
 To add a Thing you need to acquire a token with the scope `connctd.connector` through the OAuth2
-process. After this you are able to create Things with the following request
+process. After this you are able to create Things with the following request.
+**Please note**: componentIDs and propertyIDs can only consist of letters, numbers, "-", "_" and should have a maximum size of 200 characters.
 
 Required scope: `connctd.connector`
 
@@ -221,6 +223,7 @@ Required scope: `connctd.things.read`
 
 ```json
 {
+    "id": "on",
     "name": "on",
     "value": "false",
     "unit": "ONOFF",
@@ -293,7 +296,7 @@ Required scope: `connctd.connector`
 ## Update thing property
 
 > **Request**<br>
-> PUT https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-/properties/-propertyname-<br>
+> PUT https://api.connctd.io/api/v1/things/-thingid-/components/-componentid-/properties/-propertyid-<br>
 > *Headers:*<br>
 > &nbsp;Content-Type:application/json<br>
 > &nbsp;Authorization:YOUR TOKEN<br>
