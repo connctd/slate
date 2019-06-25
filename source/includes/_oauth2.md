@@ -22,7 +22,7 @@ for request details.
 > *Body:* see below<br>
 
 ```bash
-grant_type=client_credentials&scope=connctd.things.read+connctd.connector
+grant_type=client_credentials&scope=connctd.connector+connctd.units.admin+connctd.things.read+connctd.units.read+connctd.things.action
 ```
 
 > **Response**<br>
@@ -32,7 +32,7 @@ grant_type=client_credentials&scope=connctd.things.read+connctd.connector
 {
     "access_token": "vha....",
     "expires_in": 3599,
-    "scope": "connctd.connector connctd.things.read",
+    "scope": "connctd.connector connctd.units.admin connctd.things.read connctd.units.read connctd.things.action",
     "token_type": "bearer"
 }
 ```
