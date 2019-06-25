@@ -256,7 +256,7 @@ POST https://api.connctd.io/oauth2/token<br>
 &nbsp;Authorization:Basic base64_encode(YOUR_CLIENT_ID_id:YOUR_CLIENT_SECRET)<br>
 <em>Body:</em> see below<br></p>
 </blockquote>
-<pre class="highlight shell"><code><span class="nv">grant_type</span><span class="o">=</span>client_credentials&amp;scope<span class="o">=</span>connctd.things.read+connctd.connector
+<pre class="highlight shell"><code><span class="nv">grant_type</span><span class="o">=</span>client_credentials&amp;scope<span class="o">=</span>connctd.connector+connctd.units.admin+connctd.things.read+connctd.units.read+connctd.things.action
 </code></pre>
 <blockquote>
 <p><strong>Response</strong><br>
@@ -265,7 +265,7 @@ POST https://api.connctd.io/oauth2/token<br>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vha...."</span><span class="p">,</span><span class="w">
     </span><span class="s2">"expires_in"</span><span class="p">:</span><span class="w"> </span><span class="mi">3599</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"connctd.connector connctd.things.read"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"connctd.connector connctd.units.admin connctd.things.read connctd.units.read connctd.things.action"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"token_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bearer"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
